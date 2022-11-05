@@ -27,17 +27,17 @@ paint:
   line-width:
     - interpolate
     - - exponential
-      - 1.2
+      - 1.35
     - - zoom
     - 12
     - - match
-      - ["get", "waterway"]
+      - ["get", "highway"]
       - motorway
-      - 3
+      - 2
       - trunk
-      - 2
+      - 1.5
       - primary
-      - 2
+      - 1.5
       - secondary
       - 1
       - tertiary
@@ -51,7 +51,7 @@ paint:
       - 1
     - 20
     - - match
-      - ["get", "waterway"]
+      - ["get", "highway"]
       - motorway
       - 25
       - trunk
