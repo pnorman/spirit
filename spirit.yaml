@@ -1,0 +1,16 @@
+name: Spirit
+version: 8
+sources:
+  spirit:
+    type: vector
+    url: http://127.0.0.1:8000/tilejson.json
+layers:
+  - !!inc/file style/background.yaml
+  - !!inc/file style/building-fill.yaml
+  - !!inc/file style/building-outline.yaml
+  - !!inc/file style/water.yaml
+  - !!inc/file style/water-lines.yaml
+  - !!inc/file style/roads-casing.yaml
+  - !!inc/file style/roads-fill.yaml
+  - !!inc/file style/water-line-text.yaml
+glyphs: https://go-spatial.github.io/carto-assets/fonts/{fontstack}/{range}.pbf

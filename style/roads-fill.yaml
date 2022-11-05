@@ -1,0 +1,82 @@
+id: roads-fill
+source: spirit
+source-layer: roads
+type: line
+paint:
+  line-color:
+    - match
+    - - get
+      - highway
+    - motorway
+    - '#e52838' # lch(50,80,30)
+    - trunk
+    - '#ec822c' # lch(65,70,60)
+    - primary
+    - '#ec822c' # lch(65,70,60)
+    - secondary
+    - '#f7bd55' # lch(80,60,80)
+    - tertiary
+    - '#f7bd55' # lch(80,60,80)
+    - unclassified
+    - '#e0e3de' # lch(90,3,130)
+    - residential
+    - '#e0e3de' # lch(90,3,130)
+    - living_street
+    - '#e0e3de' # lch(90,3,130)
+    - rgba(0,0,0,0)
+  line-width:
+    - interpolate
+    - - exponential
+      - 1.2
+    - - zoom
+    - 12
+    - - match
+      - ["get", "waterway"]
+      - motorway
+      - 3
+      - trunk
+      - 2
+      - primary
+      - 2
+      - secondary
+      - 1
+      - tertiary
+      - 1
+      - unclassified
+      - 1
+      - residential
+      - 1
+      - living_street
+      - 1
+      - 1
+    - 20
+    - - match
+      - ["get", "waterway"]
+      - motorway
+      - 25
+      - trunk
+      - 20
+      - primary
+      - 20
+      - secondary
+      - 15
+      - tertiary
+      - 15
+      - unclassified
+      - 10
+      - residential
+      - 10
+      - living_street
+      - 10
+      - 10
+
+layout:
+  line-cap: round
+  line-sort-key:
+    - +
+    - - get
+      - z_order
+    - - '*'
+      - - get
+        - layer
+      - 1000

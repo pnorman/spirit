@@ -1,0 +1,7 @@
+id: building-outline
+source: spirit
+source-layer: buildings
+type: line
+paint:
+  line-color: '#EEE7BA'
+  line-width: 1

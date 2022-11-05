@@ -1,0 +1,86 @@
+id: water-line-text
+source: spirit
+source-layer: water-lines
+type: symbol
+paint:
+  text-color: '#0868AD'
+  text-halo-color: '#EFF2FB'
+  text-halo-width: 1.5
+  text-halo-blur: 1
+minzoom: 12
+layout:
+  text-font:
+    - Open Sans Regular
+    - Arial Unicode MS Regular
+  text-field: '{name}'
+  symbol-placement: line
+  text-size:
+    - interpolate
+    - - exponential
+      - 1.35
+    - - zoom
+    - 12
+    - - match
+      - - get
+        - waterway
+      - river
+      - 10
+      - canal
+      - 10
+      - 0
+    - 15
+    - - match
+      - - get
+        - waterway
+      - river
+      - 14
+      - canal
+      - 14
+      - stream
+      - 10
+      - 0
+    - 18
+    - - match
+      - - get
+        - waterway
+      - river
+      - 18
+      - canal
+      - 18
+      - stream
+      - 14
+      - 0
+  symbol-spacing: 400
+  text-letter-spacing: 0.2
+filter:
+  - step
+  - - zoom
+  - - any
+    - - '=='
+      - - get
+        - waterway
+      - river
+  - 14
+  - - any
+    - - '=='
+      - - get
+        - waterway
+      - river
+    - - '=='
+      - - get
+        - waterway
+      - canal
+  - 15
+  - - any
+    - - '=='
+      - - get
+        - waterway
+      - river
+    - - '=='
+      - - get
+        - waterway
+      - canal
+    - - '=='
+      - - get
+        - waterway
+      - stream

@@ -1,0 +1,61 @@
+metadata:
+    name: Street Spirit
+    attribution: © OpenStreetMap contributors
+    version: 0.0.1
+    center: [0, 0, 4]
+vector_layers:
+    buildings:
+        description: Building polygons
+        sql:
+          - minzoom: 13
+            maxzoom: 14
+            extent: 1024
+            buffer: 2
+            file: sql/buildings.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 4096
+            buffer: 8
+            file: sql/buildings.sql.jinja2
+    water:
+        description: Ocean and water polygons
+        sql:
+          - minzoom: 8
+            maxzoom: 14
+            extent: 1024
+            file: sql/water.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 4096
+            file: sql/water.sql.jinja2
+    water-lines:
+        description: Water linestrings
+        fields:
+            waterway: Type of waterway
+            name: Name of waterway
+        sql:
+          - minzoom: 8
+            maxzoom: 14
+            extent: 1024
+            buffer: 2
+            file: sql/water-lines.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 4096
+            buffer: 8
+            file: sql/water-lines.sql.jinja2
+    roads:
+        description: Roads
+        fields:
+            highway: Type of highway
+        sql:
+          - minzoom: 12
+            maxzoom: 14
+            extent: 1024
+            buffer: 4
+            file: sql/roads-high.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 4096
+            buffer: 16
+            file: sql/roads-high.sql.jinja2

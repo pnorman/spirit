@@ -1,0 +1,87 @@
+WITH all_roads AS (
+SELECT
+    CASE WHEN oneway = '-1' THEN ST_Reverse(way) ELSE way END AS way,
+    osm_id,
+    name,
+    ref,
+    CASE -- normalize highway values, and also filter out any odd highway tags from railways
+      WHEN highway IN ('motorway', 'motorway_link') THEN 'motorway'
+      WHEN highway IN ('trunk', 'trunk_link') THEN 'trunk'
+      WHEN highway IN ('primary', 'primary_link') THEN 'primary'
+      WHEN highway IN ('secondary', 'secondary_link') THEN 'secondary'
+      WHEN highway IN ('tertiary', 'tertiary_link') THEN 'tertiary'
+      WHEN highway IN ('unclassified', 'residential', 'living_street', 'bridleway', 'footway', 'cycleway', 'path') THEN highway
+      END as highway,
+    CASE WHEN highway IN ('motorway_link', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link') THEN true END AS link,
+    CASE
+      WHEN oneway = '-1' THEN 'yes'
+      WHEN oneway = 'no' THEN NULL
+      ELSE oneway END AS oneway,
+    tunnel,
+    bridge,
+    layer,
+    (SELECT ref FROM planet_osm_route 
+      WHERE route = 'road' AND planet_osm_line.osm_id = planet_osm_route.member_id
+      ORDER BY cardinality(string_to_array(network, ':')) ASC, char_length(network) ASC, network, planet_osm_route.osm_id
+      LIMIT 1) AS route_ref,
+    z_order
+  FROM planet_osm_line
+  WHERE way && {{bbox}}
+    AND highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link',
+                    'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'unclassified', 'residential', 'raceway',
+                    'living_street', 'secondary', 'secondary_link', 'tertiary', 'bridleway', 'footway', 'cycleway', 'path')
+), reffed_roads AS (
+SELECT
+    ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    name,
+    highway,
+    link,
+    COALESCE(route_ref, ref) AS ref,
+    oneway,
+    tunnel,
+    bridge,
+    layer,
+    z_order
+  FROM all_roads
+), oneway_roads AS (
+SELECT
+    way, -- linemerge with geos 3.11+
+    name,
+    highway,
+    link,
+    ref,
+    oneway,
+    tunnel,
+    bridge,
+    layer,
+    z_order
+  FROM reffed_roads
+  WHERE oneway = 'yes'
+), other_roads AS (
+SELECT
+    ST_LineMerge(ST_Collect(way)) AS way,
+    name,
+    highway,
+    link,
+    ref,
+    oneway,
+    tunnel,
+    bridge,
+    layer,
+    z_order
+  FROM reffed_roads
+  WHERE oneway IS DISTINCT FROM 'yes'
+  GROUP BY name, highway, link, ref, oneway, tunnel, bridge, layer, z_order
+), grouped_roads AS (
+SELECT
+    way, name, highway, link, ref, oneway, tunnel, bridge, layer, z_order
+  FROM oneway_roads
+UNION ALL
+SELECT
+    (ST_Dump(way)).geom AS way, name, highway, link, ref, oneway, tunnel, bridge, layer, z_order
+  FROM other_roads
+)
+SELECT
+    way, name, highway, link, ref, oneway, tunnel, bridge, layer, z_order
+FROM grouped_roads
+ORDER BY z_order

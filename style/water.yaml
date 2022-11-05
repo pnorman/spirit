@@ -1,0 +1,6 @@
+id: water
+source: spirit
+source-layer: water
+type: fill
+paint:
+  fill-color: '#BDD7E7'

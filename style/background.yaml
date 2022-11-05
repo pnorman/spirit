@@ -1,0 +1,6 @@
+id: background
+type: background
+layout:
+  visibility: visible
+paint:
+  background-color: '#eff2ec'

@@ -1,0 +1,50 @@
+id: water-lines
+source: spirit
+source-layer: water-lines
+type: line
+paint:
+  line-color: '#BDD7E7'
+  line-width:
+    - interpolate
+    - - exponential
+      - 1.35
+    - - zoom
+    - 8
+    - - match
+      - - get
+        - waterway
+      - river
+      - 0.2
+      - canal
+      - 0.2
+      - 0
+    - 14
+    - - match
+      - - get
+        - waterway
+      - river
+      - 2
+      - canal
+      - 2
+      - stream
+      - 0.8
+      - drain
+      - 0.1
+      - ditch
+      - 0.1
+      - 0
+    - 20
+    - - match
+      - - get
+        - waterway
+      - river
+      - 10
+      - canal
+      - 10
+      - stream
+      - 6
+      - drain
+      - 3
+      - ditch
+      - 3
+      - 0

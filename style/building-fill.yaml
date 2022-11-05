@@ -1,0 +1,9 @@
+id: building-fill
+source: spirit
+source-layer: buildings
+layout:
+  visibility: visible
+minzoom: 13
+type: fill
+paint:
+  fill-color: '#EDEBDD'

@@ -1,0 +1,85 @@
+id: roads-casing
+source: spirit
+source-layer: roads
+type: line
+paint:
+  line-color:
+    - match
+    - - get
+      - highway
+    - motorway
+    - '#b40017' # lch(35,80,30)
+    - trunk
+    - '#bd5c00' # lch(50,70,60)
+    - primary
+    - '#bd5c00' # lch(50,70,60)
+    - secondary
+    - '#c9952c' # lch(65,60,80)
+    - tertiary
+    - '#c9952c' # lch(65,60,80)
+    - unclassified
+    - '#b7bab4' # lch(75,3,130)
+    - residential
+    - '#b7bab4' # lch(75,3,130)
+    - living_street
+    - '#b7bab4' # lch(75,3,130)
+    - rgba(0,0,0,0)
+  line-width:
+    - interpolate
+    - - exponential
+      - 1.2
+    - - zoom
+    - 12
+    - - match
+      - ["get", "waterway"]
+      - motorway
+      - 5
+      - trunk
+      - 4
+      - primary
+      - 4
+      - secondary
+      - 3
+      - tertiary
+      - 3
+      - unclassified
+      - 2
+      - residential
+      - 2
+      - living_street
+      - 2
+      - 2
+    - 20
+    - - match
+      - ["get", "waterway"]
+      - motorway
+      - 40
+      - trunk
+      - 30
+      - primary
+      - 30
+      - secondary
+      - 25
+      - tertiary
+      - 25
+      - unclassified
+      - 20
+      - residential
+      - 20
+      - living_street
+      - 20
+      - 20
+layout:
+  line-cap: round
+  line-sort-key:
+    - +
+    - - get
+      - z_order
+    - - '*'
+      - - get
+        - layer
+      - 1000
+
+
+# lch(35,75,35)
+# 

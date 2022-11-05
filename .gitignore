@@ -1,0 +1,4 @@
+node_modules/
+*.xml
+*.osm.pbf
+spirit.json
