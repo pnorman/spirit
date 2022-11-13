@@ -32,7 +32,7 @@ SELECT
                     'living_street', 'secondary', 'secondary_link', 'tertiary', 'bridleway', 'footway', 'cycleway', 'path')
 ), reffed_roads AS (
 SELECT
-    ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    way,
     name,
     highway,
     link,
@@ -82,6 +82,7 @@ SELECT
   FROM other_roads
 )
 SELECT
-    way, name, highway, link, ref, oneway, tunnel, bridge, layer, z_order
+    ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    name, highway, link, ref, oneway, tunnel, bridge, layer, z_order
 FROM grouped_roads
 ORDER BY z_order
