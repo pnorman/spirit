@@ -3,5 +3,5 @@ source: spirit
 source-layer: buildings
 type: line
 paint:
-  line-color: '#EEE7BA'
+  line-color: '#c1b994' # lch(75,20,100)
   line-width: 1
