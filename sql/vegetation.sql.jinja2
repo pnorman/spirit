@@ -1,0 +1,24 @@
+SELECT
+    ST_AsMVTGeom(ST_Collect(way), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    CASE
+    WHEN "natural" IN ('wood', 'heath', 'scrub', 'wetland') THEN "natural"
+    WHEN "natural" = 'grassland' OR landuse IN ('meadow', 'grass') THEN 'grass'
+    WHEN "natural" = 'mud' THEN 'wetland'
+    WHEN landuse = 'forest' THEN 'wood'
+    END AS vegetation,
+    CASE
+      WHEN "natural" = 'mud' THEN 'mud'
+      WHEN "natural" = 'wetland' THEN 
+        CASE tags->'wetland'
+          WHEN 'bog' THEN 'bog'
+          WHEN 'swamp' THEN 'swamp'
+          WHEN 'marsh' THEN 'marsh'
+          ELSE tags->'wetland'
+        END
+      END
+    AS wetland
+  FROM planet_osm_polygon
+  WHERE way && {{bbox}}
+    AND ("natural" IN ('wood', 'heath', 'grassland', 'scrub', 'wetland', 'mud')
+      OR landuse IN ('forest', 'meadow', 'grass'))
+  GROUP BY "natural", tags->'wetland', landuse

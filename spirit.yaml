@@ -4,10 +4,13 @@ sources:
   spirit:
     type: vector
     url: http://127.0.0.1:8000/tilejson.json
+sprite: http://127.0.0.1:8081/sprites
 layers:
   - !!inc/file style/background.yaml
   - !!inc/file style/building-fill.yaml
   - !!inc/file style/building-outline.yaml
+  - !!inc/file style/vegetation.yaml
+  - !!inc/file style/vegetation-pattern.yaml
   - !!inc/file style/water.yaml
   - !!inc/file style/water-lines.yaml
   - !!inc/file style/roads-casing.yaml

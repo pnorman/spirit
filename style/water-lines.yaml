@@ -3,7 +3,7 @@ source: spirit
 source-layer: water-lines
 type: line
 paint:
-  line-color: '#BDD7E7'
+  line-color: '#71c3e8' #lch(75,30,240)
   line-width:
     - interpolate
     - - exponential

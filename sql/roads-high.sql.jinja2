@@ -21,11 +21,11 @@ SELECT
     bridge,
     layer,
     (SELECT ref FROM planet_osm_route 
-      WHERE route = 'road' AND planet_osm_line.osm_id = planet_osm_route.member_id
+      WHERE route = 'road' AND planet_osm_transport_line.osm_id = planet_osm_route.member_id
       ORDER BY cardinality(string_to_array(network, ':')) ASC, char_length(network) ASC, network, planet_osm_route.osm_id
       LIMIT 1) AS route_ref,
     z_order
-  FROM planet_osm_line
+  FROM planet_osm_transport_line
   WHERE way && {{bbox}}
     AND highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link',
                     'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'unclassified', 'residential', 'raceway',

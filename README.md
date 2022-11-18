@@ -9,6 +9,7 @@
 - PostGIS 3.3+
 - Tilekiln 0.1.0 or later
 - [charites](https://github.com/unvt/charites)
+- [@basemaps/sprites](https://www.npmjs.com/package/@basemaps/sprites)
 
 ### Loading Data
 
@@ -26,7 +27,7 @@ venv/bin/pip install tilekiln
 Install charites with
 
 ```sh
-npm install @unvt/charites
+npm install @unvt/charites @basemaps/sprites
 ```
 
 
@@ -36,6 +37,14 @@ Once tilekiln is installed, run it in development mode with
 
 ```sh
 ~/osm/tilekiln/venv/bin/tilekiln dev config.yaml -d flex
+```
+
+### Serving sprites
+
+In another terminal window, run
+
+```sh
+node_modules/.bin/basemaps-sprites sprites && python3 serve.py
 ```
 
 ### Viewing the style

@@ -1,0 +1,9 @@
+# The pattern selection for this layer has to align with 
+
+id: vegetation-pattern
+source: spirit
+source-layer: vegetation
+type: fill
+filter: ["==", ["get", "vegetation"], "wetland"]
+paint:
+    fill-pattern: wetland

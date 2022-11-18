@@ -59,3 +59,19 @@ vector_layers:
             extent: 4096
             buffer: 16
             file: sql/roads-high.sql.jinja2
+    vegetation:
+        description: vegetation areas
+        fields:
+            vegetation: Type of vegetation. One of wood, heath, scrub, wetland, or grass
+            wetland: Wetland tag, if the object is a wetland
+        sql:
+          - minzoom: 10
+            maxzoom: 14
+            extent: 1024
+            buffer: 4
+            file: sql/vegetation.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 4096
+            buffer: 16
+            file: sql/vegetation.sql.jinja2
