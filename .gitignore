@@ -2,3 +2,7 @@ node_modules/
 *.xml
 *.osm.pbf
 spirit.json
+sprites.png
+sprites.json
+sprites@2x.png
+sprites@2x.json
