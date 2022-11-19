@@ -2,6 +2,27 @@ id: transport-casing
 source: spirit
 source-layer: transport
 type: line
+filter:
+  - any
+  - - all # Allow certain classifications to appear when they are included in the source
+    - - in
+      - [get, highway]
+      - - literal
+        - - motorway
+          - trunk
+          - primary
+          - secondary
+          - tertiary
+          - unclassified
+          - residential
+          - living_street
+  - - all
+    - [==, [get, highway], service]
+    - [==, [get, minor], null]
+    - [">=", [zoom], 15]
+  - - all
+    - [==, [get, highway], service]
+    - [">=", [zoom], 16]
 paint:
   line-color:
     - match
@@ -22,7 +43,9 @@ paint:
     - '#b7bab4' # lch(75,3,130)
     - living_street
     - '#b7bab4' # lch(75,3,130)
-    - rgba(0,0,0,0)
+    - service
+    - '#b7bab4' # lch(75,3,130)
+    - green
   line-width:
     - interpolate
     - - exponential
@@ -47,6 +70,12 @@ paint:
       - 1.5
       - living_street
       - 1.5
+      - service
+      - - match
+        - [to-string, [get, minor]]
+        - "true"
+        - 0.5
+        - 1
       - 1.5
     - 20
     - - match
@@ -67,6 +96,12 @@ paint:
       - 20
       - living_street
       - 20
+      - service
+      - - match
+        - [to-string, [get, minor]]
+        - "true"
+        - 10
+        - 14
       - 20
 layout:
   line-cap: round

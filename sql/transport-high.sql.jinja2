@@ -10,9 +10,10 @@ SELECT
       WHEN highway IN ('primary', 'primary_link') THEN 'primary'
       WHEN highway IN ('secondary', 'secondary_link') THEN 'secondary'
       WHEN highway IN ('tertiary', 'tertiary_link') THEN 'tertiary'
-      WHEN highway IN ('unclassified', 'residential', 'living_street', 'bridleway', 'footway', 'cycleway', 'path') THEN highway
+      WHEN highway IN ('unclassified', 'residential', 'living_street', 'service', 'bridleway', 'footway', 'cycleway', 'path') THEN highway
       END as highway,
     CASE WHEN highway IN ('motorway_link', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link') THEN true END AS link,
+    service IN ('parking_aisle', 'drive-through', 'driveway') AS minor,
     CASE
       WHEN oneway = '-1' THEN 'yes'
       WHEN oneway = 'no' THEN NULL
@@ -28,14 +29,15 @@ SELECT
   FROM planet_osm_transport_line
   WHERE way && {{bbox}}
     AND highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link',
-                    'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'unclassified', 'residential', 'raceway',
-                    'living_street', 'secondary', 'secondary_link', 'tertiary', 'bridleway', 'footway', 'cycleway', 'path')
+                    'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'unclassified', 'residential',
+                    'living_street', 'service', 'bridleway', 'footway', 'cycleway', 'path')
 ), reffed_roads AS (
 SELECT
     way,
     name,
     highway,
     link,
+    minor,
     COALESCE(route_ref, ref) AS ref,
     oneway,
     tunnel,
@@ -49,6 +51,7 @@ SELECT
     name,
     highway,
     link,
+    minor,
     ref,
     oneway,
     tunnel,
@@ -63,6 +66,7 @@ SELECT
     name,
     highway,
     link,
+    minor,
     ref,
     oneway,
     tunnel,
@@ -71,18 +75,18 @@ SELECT
     z_order
   FROM reffed_roads
   WHERE oneway IS DISTINCT FROM 'yes'
-  GROUP BY name, highway, link, ref, oneway, tunnel, bridge, layer, z_order
+  GROUP BY name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
 ), grouped_roads AS (
 SELECT
-    way, name, highway, link, ref, oneway, tunnel, bridge, layer, z_order
+    way, name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
   FROM oneway_roads
 UNION ALL
 SELECT
-    (ST_Dump(way)).geom AS way, name, highway, link, ref, oneway, tunnel, bridge, layer, z_order
+    (ST_Dump(way)).geom AS way, name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
   FROM other_roads
 )
 SELECT
     ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    name, highway, link, ref, oneway, tunnel, bridge, layer, z_order
+    name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
 FROM grouped_roads
 ORDER BY z_order

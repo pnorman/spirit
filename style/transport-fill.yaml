@@ -2,6 +2,30 @@ id: transport-fill
 source: spirit
 source-layer: transport
 type: line
+# This messy filter could be done with a [step, [zoom], ..., N, ...] but this
+# would require re-stating the conditions for all lower zoom for each step.
+# Instead, it requires one of the any branches is met, and each branch involves a zoom level conditional
+filter:
+  - any
+  - - all # Allow certain classifications to appear when they are included in the source
+    - - in
+      - [get, highway]
+      - - literal
+        - - motorway
+          - trunk
+          - primary
+          - secondary
+          - tertiary
+          - unclassified
+          - residential
+          - living_street
+  - - all
+    - [==, [get, highway], service]
+    - [==, [get, minor], null]
+    - [">=", [zoom], 15]
+  - - all
+    - [==, [get, highway], service]
+    - [">=", [zoom], 16]
 paint:
   line-color:
     - match
@@ -22,7 +46,9 @@ paint:
     - '#e0e3de' # lch(90,3,130)
     - living_street
     - '#e0e3de' # lch(90,3,130)
-    - rgba(0,0,0,0)
+    - service
+    - '#e0e3de' # lch(90,3,130)
+    - red
   line-width:
     - interpolate
     - - exponential
@@ -47,6 +73,12 @@ paint:
       - 1
       - living_street
       - 1
+      - service
+      - - match
+        - [to-string, [get, minor]]
+        - "true"
+        - 0.2
+        - 0.5
       - 1
     - 20
     - - match
@@ -67,6 +99,12 @@ paint:
       - 10
       - living_street
       - 10
+      - service
+      - - match
+        - [to-string, [get, minor]]
+        - "true"
+        - 3
+        - 6
       - 10
 
 layout:
