@@ -11,8 +11,7 @@ paint:
     - - zoom
     - 8
     - - match
-      - - get
-        - waterway
+      - [get, waterway]
       - river
       - 0.2
       - canal
@@ -20,8 +19,7 @@ paint:
       - 0
     - 14
     - - match
-      - - get
-        - waterway
+      - [get, waterway]
       - river
       - 2
       - canal
@@ -35,8 +33,7 @@ paint:
       - 0
     - 20
     - - match
-      - - get
-        - waterway
+      - [get, waterway]
       - river
       - 10
       - canal

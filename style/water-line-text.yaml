@@ -57,30 +57,24 @@ filter:
   - - zoom
   - - any
     - - '=='
-      - - get
-        - waterway
+      - [get, waterway]
       - river
   - 14
   - - any
     - - '=='
-      - - get
-        - waterway
+      - [get, waterway]
       - river
     - - '=='
-      - - get
-        - waterway
+      - [get, waterway]
       - canal
   - 15
   - - any
     - - '=='
-      - - get
-        - waterway
+      - [get, waterway]
       - river
     - - '=='
-      - - get
-        - waterway
+      - [get, waterway]
       - canal
     - - '=='
-      - - get
-        - waterway
+      - [get, waterway]
       - stream

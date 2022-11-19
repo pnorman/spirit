@@ -5,8 +5,7 @@ type: symbol
 layout:
   icon-image: 
     - match
-    - - get
-      - mode
+    - [get, mode]
     - bus
     - - case
       - - get

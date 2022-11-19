@@ -5,8 +5,7 @@ type: line
 paint:
   line-color:
     - match
-    - - get
-      - highway
+    - [get, highway]
     - motorway
     - '#e52838' # lch(50,80,30)
     - trunk
@@ -31,7 +30,7 @@ paint:
     - - zoom
     - 12
     - - match
-      - ["get", "highway"]
+      - [get, highway]
       - motorway
       - 2
       - trunk
@@ -51,7 +50,7 @@ paint:
       - 1
     - 20
     - - match
-      - ["get", "highway"]
+      - [get, highway]
       - motorway
       - 25
       - trunk
@@ -74,9 +73,7 @@ layout:
   line-cap: round
   line-sort-key:
     - +
-    - - get
-      - z_order
+    - [get, z_order]
     - - '*'
-      - - get
-        - layer
+      - [get, layer]
       - 1000

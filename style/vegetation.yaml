@@ -5,8 +5,7 @@ type: fill
 paint:
     fill-color: 
       - match
-      - - get
-        - vegetation
+      - [get, vegetation]
       - wood
       - '#56b155' # lch(65,60,140)
       - heath
