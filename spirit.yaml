@@ -13,8 +13,8 @@ layers:
   - !!inc/file style/vegetation-pattern.yaml
   - !!inc/file style/water.yaml
   - !!inc/file style/water-lines.yaml
-  - !!inc/file style/roads-casing.yaml
-  - !!inc/file style/roads-fill.yaml
+  - !!inc/file style/transport-casing.yaml
+  - !!inc/file style/transport-fill.yaml
   - !!inc/file style/transit-points.yaml
   - !!inc/file style/water-line-text.yaml
 glyphs: https://go-spatial.github.io/carto-assets/fonts/{fontstack}/{range}.pbf

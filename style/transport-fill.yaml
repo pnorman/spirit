@@ -1,6 +1,6 @@
-id: roads-fill
+id: transport-fill
 source: spirit
-source-layer: roads
+source-layer: transport
 type: line
 paint:
   line-color:

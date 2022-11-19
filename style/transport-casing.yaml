@@ -1,6 +1,6 @@
-id: roads-casing
+id: transport-casing
 source: spirit
-source-layer: roads
+source-layer: transport
 type: line
 paint:
   line-color:
