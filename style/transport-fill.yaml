@@ -22,10 +22,10 @@ filter:
   - - all
     - [==, [get, highway], service]
     - [==, [get, minor], null]
-    - [">=", [zoom], 15]
+    - [">=", [zoom], 14]
   - - all
     - [==, [get, highway], service]
-    - [">=", [zoom], 16]
+    - [">=", [zoom], 15]
 paint:
   line-color:
     - match

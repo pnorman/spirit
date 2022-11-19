@@ -19,10 +19,17 @@ filter:
   - - all
     - [==, [get, highway], service]
     - [==, [get, minor], null]
-    - [">=", [zoom], 15]
+    - [">=", [zoom], 14]
   - - all
     - [==, [get, highway], service]
-    - [">=", [zoom], 16]
+    - [">=", [zoom], 15]
+  - - all
+    - - in
+      - [get, highway]
+      - - literal
+        - - footway
+          - cycleway
+    - [">=", [zoom], 15]
 paint:
   line-color:
     - match
@@ -45,7 +52,11 @@ paint:
     - '#b7bab4' # lch(75,3,130)
     - service
     - '#b7bab4' # lch(75,3,130)
-    - green
+    - footway
+    - '#696b67' # lch(75,3,130)
+    - cycleway
+    - '#696b67' # lch(75,3,130)
+    - red
   line-width:
     - interpolate
     - - exponential
@@ -76,6 +87,10 @@ paint:
         - "true"
         - 0.5
         - 1
+      - footway
+      - .2
+      - cycleway
+      - .2
       - 1.5
     - 20
     - - match
@@ -102,6 +117,10 @@ paint:
         - "true"
         - 10
         - 14
+      - footway
+      - 4
+      - cycleway
+      - 4
       - 20
 layout:
   line-cap: round
@@ -111,7 +130,3 @@ layout:
     - - '*'
       - [get, layer]
       - 1000
-
-
-# lch(35,75,35)
-# 
