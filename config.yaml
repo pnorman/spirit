@@ -59,6 +59,22 @@ vector_layers:
             extent: 4096
             buffer: 16
             file: sql/roads-high.sql.jinja2
+    transit-points:
+        description: Transit-oriented points
+        fields:
+            station: If the point is a station or stop
+            mode: Mode of transportation
+        sql:
+          - minzoom: 12
+            maxzoom: 14
+            extent: 512
+            buffer: 0
+            file: sql/transit-points.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 2048
+            buffer: 0
+            file: sql/transit-points.sql.jinja2
     vegetation:
         description: vegetation areas
         fields:

@@ -1,0 +1,19 @@
+id: transit-points
+source: spirit
+source-layer: transit-points
+type: symbol
+layout:
+  icon-image: 
+    - match
+    - - get
+      - mode
+    - bus
+    - - case
+      - - get
+        - station
+      - bus_station
+      - bus_stop
+    - subway
+    - subway
+    - wetland
+  icon-allow-overlap: true
