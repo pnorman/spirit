@@ -1,0 +1,19 @@
+id: admin-2
+source: spirit
+source-layer: admin
+type: line
+filter: [==, [get, admin_level], 2]
+layout:
+  line-join: bevel
+  line-cap: square
+paint:
+  line-color: rgba(194,94,184, 0.6) # lch(55,60,330)
+  line-width:
+    - interpolate
+    - [exponential, 1.3]
+    - [zoom]
+    - 4
+    - 3
+    - 20
+    - 6
+  line-dasharray: [4, 1, 2, 1]

@@ -4,6 +4,14 @@ metadata:
     version: 0.0.1
     center: [0, 0, 4]
 vector_layers:
+    admin:
+        description: Administrative boundaries
+        sql:
+          - minzoom: 4
+            maxzoom: 15
+            buffer: 16
+            extent: 4096
+            file: sql/admin.sql.jinja2
     buildings:
         description: Building polygons
         sql:
@@ -28,7 +36,7 @@ vector_layers:
     water:
         description: Ocean and water polygons
         sql:
-          - minzoom: 8
+          - minzoom: 4
             maxzoom: 14
             extent: 1024
             file: sql/water.sql.jinja2
