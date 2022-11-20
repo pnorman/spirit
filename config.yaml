@@ -17,6 +17,14 @@ vector_layers:
             extent: 4096
             buffer: 8
             file: sql/buildings.sql.jinja2
+    building-names:
+        description: Building names
+        sql:
+          - minzoom: 15
+            maxzoom: 15
+            extent: 2048
+            buffer: 8
+            file: sql/building-names.sql.jinja2
     water:
         description: Ocean and water polygons
         sql:

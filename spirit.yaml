@@ -17,4 +17,5 @@ layers:
   - !!inc/file style/transport-fill.yaml
   - !!inc/file style/transit-points.yaml
   - !!inc/file style/water-line-text.yaml
+  - !!inc/file style/building-names.yaml
 glyphs: https://go-spatial.github.io/carto-assets/fonts/{fontstack}/{range}.pbf

@@ -1,0 +1,29 @@
+id: building-names
+source: spirit
+source-layer: building-names
+minzoom: 13
+type: symbol
+filter:
+  - '>='
+  - [get, way_area]
+  - ['*', 750, 6126430366.1, ['^', 0.25, [zoom]]]
+layout:
+  text-field: '{name}'
+  text-font:
+  - Open Sans Regular
+  - Arial Unicode MS Regular
+  text-size: 12
+  text-max-width:
+    - interpolate
+    - [linear]
+    - [length, [get, name]]
+    - 20
+    - 7
+    - 40
+    - 10
+    - 60
+    - 15
+paint:
+  text-color: '#3e3c2c' # lch(25,10,100)
+  text-halo-width: 1
+  text-halo-color: '#d9d5c2' # lch(85,10,100)
