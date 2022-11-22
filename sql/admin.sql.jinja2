@@ -4,7 +4,7 @@ SELECT
     admin_level
   FROM planet_osm_admin
   WHERE way && {{bbox}}
-{% if zoom >= 14 %}
+{% if zoom >= 10 %}
     AND admin_level IN (2, 3, 4, 5, 6, 7, 8)
 {% elif zoom >= 8 %}
     AND admin_level IN (2, 3, 4, 5, 6)
