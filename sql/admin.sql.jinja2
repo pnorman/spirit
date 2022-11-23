@@ -1,25 +1,74 @@
 WITH boundaries AS (
 SELECT
     ST_LineMerge(ST_Collect(way)) AS way,
-    admin_level
+    admin_level,
+    multiple_relations
   FROM planet_osm_admin
   WHERE way && {{bbox}}
-{% if zoom >= 10 %}
+{% if zoom >= 10 -%}
     AND admin_level IN (2, 3, 4, 5, 6, 7, 8)
-{% elif zoom >= 8 %}
+{% elif zoom >= 8 -%}
     AND admin_level IN (2, 3, 4, 5, 6)
-{% elif zoom >= 6 %}
-    AND admin_level IN (2, 3, 4)
-{% else %}
+{% elif zoom >= 4 -%}
+    AND admin_level IN (2, 3, 4) -- later filtered down more based on parent area
+{% else -%}
     AND admin_level = 2
-{% endif %}
+{% endif -%}
+  GROUP BY admin_level, multiple_relations
+), dumped_boundaries AS (
+SELECT
+    (ST_Dump(way)).geom AS way, -- We need to break the multilinestrings into discrete linestrings so we can see what country each part is in
+    admin_level,
+    multiple_relations
+  FROM boundaries
+), adm2_boundaries AS (
+SELECT
+    way,
+    admin_level,
+    NOT multiple_relations AS in_other_country -- if it wasn't in multiple relations, it had to of met the subquery for being in 2+ countries
+  FROM dumped_boundaries b
+  WHERE admin_level = 2
+    AND (multiple_relations -- avoid line in polygon checks where they're not necessary.
+      OR (SELECT COUNT(*) FROM planet_osm_polygon p
+        WHERE p.boundary = 'administrative' AND p.admin_level = '2'
+          AND ST_Covers(p.way, b.way)) >= 2)
+), other_boundaries AS (
+SELECT
+    way,
+    b.admin_level
+  FROM dumped_boundaries b
+{% if zoom >= 6 -%}
+  WHERE multiple_relations AND b.admin_level != 2
+{% else -%}
+  WHERE multiple_relations AND b.admin_level NOT IN (2, 4) -- 2 and 4 have special treatment
+    OR (multiple_relations AND b.admin_level = 4 AND 
+      (SELECT true FROM planet_osm_polygon p
+      WHERE p.boundary = 'administrative' AND p.admin_level = '2'
+        AND p.way_area > 8e+12
+        AND ST_Covers(p.way, b.way)
+        LIMIT 1))
+{% endif -%}
+), unioned_boundaries AS (
+SELECT
+    ST_LineMerge(ST_Collect(way)) AS way,
+    admin_level,
+    in_other_country
+  FROM adm2_boundaries a
+  GROUP BY admin_level, in_other_country
+UNION ALL
+SELECT
+    ST_LineMerge(ST_Collect(way)) AS way,
+    admin_level,
+    NULL
+  FROM other_boundaries
   GROUP BY admin_level
 )
 SELECT
-{% if zoom >= 15 %}
+{% if zoom >= 15 -%}
     ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-{% else %}
+{% else -%}
     ST_AsMVTGeom(ST_Simplify(way, {{tile_length}}/512), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-{% endif %}
-    admin_level
-  FROM boundaries
+{% endif -%}
+    admin_level,
+    in_other_country
+  FROM unioned_boundaries

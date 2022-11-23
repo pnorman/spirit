@@ -1,12 +1,13 @@
-id: admin-background
+id: admin-background-dashed
 source: spirit
 source-layer: admin
 type: line
 layout:
   line-join: bevel
   line-cap: square
-filter: [any, ['!=', [get, admin_level], 2], ['!', [get, in_other_country]]]
+filter: [all, [get, in_other_country], [==, [get, admin_level], 2]]
 paint:
+  line-dasharray: [1.0, 1.0]
   line-color: rgba(194,94,184, 0.6) # lch(55,60,330)
   line-width:
     - interpolate

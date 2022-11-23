@@ -2,7 +2,6 @@ id: admin-4
 source: spirit
 source-layer: admin
 type: line
-minzoom: 5
 filter: [==, [get, admin_level], 4]
 layout:
   line-join: bevel

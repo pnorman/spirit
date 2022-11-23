@@ -8,6 +8,11 @@ vector_layers:
         description: Administrative boundaries
         sql:
           - minzoom: 4
+            maxzoom: 14
+            buffer: 16
+            extent: 1024
+            file: sql/admin.sql.jinja2
+          - minzoom: 15
             maxzoom: 15
             buffer: 16
             extent: 4096

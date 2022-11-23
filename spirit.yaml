@@ -17,6 +17,7 @@ layers:
   - !!inc/file style/transport-fill.yaml
   - !!inc/file style/transit-points.yaml
   - !!inc/file style/admin-background.yaml
+  - !!inc/file style/admin-background-dashed.yaml
   - !!inc/file style/admin-2.yaml
   - !!inc/file style/admin-4.yaml
   - !!inc/file style/admin-6.yaml
