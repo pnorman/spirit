@@ -54,3 +54,17 @@ With tiles being served in one terminal session, run a local style server with
 ```sh
 node_modules/.bin/charites serve spirit.yaml
 ```
+
+## License
+
+Copyright Paul Norman 2022
+
+This map style and associated documentation files (the "Style") is
+released under the CC0 Public Domain Dedication, version 1.0, as
+published by Creative Commons. To the extent possible under law, the
+author(s) have dedicated all copyright and related and neighboring
+rights to the Style to the public domain worldwide. The Style is
+distributed WITHOUT ANY WARRANTY.
+
+You should have received a copy of the CC0 legalcode along with this
+work. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
