@@ -1,6 +1,6 @@
 WITH boundaries AS (
 SELECT
-    ST_LineMerge(ST_Collect(way)) AS way,
+    way,
     admin_level,
     multiple_relations
   FROM planet_osm_admin
@@ -14,19 +14,12 @@ SELECT
 {% else -%}
     AND admin_level = 2
 {% endif -%}
-  GROUP BY admin_level, multiple_relations
-), dumped_boundaries AS (
-SELECT
-    (ST_Dump(way)).geom AS way, -- We need to break the multilinestrings into discrete linestrings so we can see what country each part is in
-    admin_level,
-    multiple_relations
-  FROM boundaries
 ), adm2_boundaries AS (
 SELECT
     way,
     admin_level,
     NOT multiple_relations AS in_other_country -- if it wasn't in multiple relations, it had to of met the subquery for being in 2+ countries
-  FROM dumped_boundaries b
+  FROM boundaries b
   WHERE admin_level = 2
     AND (multiple_relations -- avoid line in polygon checks where they're not necessary.
       OR (SELECT COUNT(*) FROM planet_osm_polygon p
@@ -36,7 +29,7 @@ SELECT
 SELECT
     way,
     b.admin_level
-  FROM dumped_boundaries b
+  FROM boundaries b
 {% if zoom >= 6 -%}
   WHERE multiple_relations AND b.admin_level != 2
 {% else -%}
