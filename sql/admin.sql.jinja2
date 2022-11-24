@@ -33,8 +33,8 @@ SELECT
 {% if zoom >= 6 -%}
   WHERE multiple_relations AND b.admin_level != 2
 {% else -%}
-  WHERE multiple_relations AND b.admin_level NOT IN (2, 4) -- 2 and 4 have special treatment
-    OR (multiple_relations AND b.admin_level = 4 AND 
+  WHERE multiple_relations AND b.admin_level NOT IN (2, 3, 4) -- 2 and 3,4 have special treatment
+    OR (multiple_relations AND b.admin_level IN (3, 4) AND
       (SELECT true FROM planet_osm_polygon p
       WHERE p.boundary = 'administrative' AND p.admin_level = '2'
         AND p.way_area > 8e+12

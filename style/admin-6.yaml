@@ -2,7 +2,7 @@ id: admin-6
 source: spirit
 source-layer: admin
 type: line
-filter: [==, [get, admin_level], 6]
+filter: [in, [get, admin_level], [literal, [5, 6]]]
 layout:
   line-join: bevel
   line-cap: square
