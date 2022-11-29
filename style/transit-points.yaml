@@ -12,7 +12,11 @@ layout:
         - station
       - bus_station
       - bus_stop
+    - tram
+    - bus_stop
     - subway
     - subway
+    - airplane
+    - airplane
     - wetland
   icon-allow-overlap: true
