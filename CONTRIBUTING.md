@@ -26,3 +26,42 @@ This enables a wider range of colour and saturation than typical general-purpose
 ### Technical targets
 
 We target Maplibre GL JS usage as part of a web-page that is either focused on the map, or has the map as part of a larger page. Usage across desktops, tablets, and phones is supported, with support for high-DPI displays. Smart watches and print are not targeted.
+
+
+## Icons
+
+- All icons must be SVG, saved as standards compliant SVG without any proprietary tags. In Inkscape software, you will need to "Save As..." and choose the format Optimized SVG (preferable) or Plain SVG.
+- Use a common canvas size, which is usually 15x15 px.
+- Align vectors to the pixel grid.
+- Make a clean design, so reduced complexity where possible.
+
+## Colours
+
+Work out colours in the LCH colour space, because RGB and other non-perceptual colourspaces are hard to reason about.
+
+The [chroma.js documentation](https://gka.github.io/chroma.js/) can function as a colour calculator.
+
+![](docs/chromajs.png)
+
+### Hues
+
+Use a consistent hue angle for a class of features. The following hue angles are used in this style
+
+<table>
+<thead>
+<tr>
+<th>Features</th>
+<th>Hue</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Water</td>
+<td style="background:#69c5e2;color:black">230°</td>
+</tr>
+<tr>
+<td>Transit</td>
+<td style="background:#006bce;color:white">280°</td>
+</tr>
+</tbody>
+</table>
