@@ -1,37 +1,36 @@
-id: transport-casing
+# A layer at the base of the transport stack, covering tunnels, as well as round end-caps for anything else
+id: transport-base-casing
 source: spirit
 source-layer: transport
 type: line
 filter:
-  - all
-  - - any
-    - - all # Allow certain classifications to appear when they are included in the source
-      - - in
-        - [get, highway]
-        - - literal
-          - - motorway
-            - trunk
-            - primary
-            - secondary
-            - tertiary
-            - unclassified
-            - residential
-            - living_street
-    - - all
-      - [==, [get, highway], service]
-      - [==, [get, minor], null]
-      - [">=", [zoom], 14]
-    - - all
-      - [==, [get, highway], service]
-      - [">=", [zoom], 15]
-    - - all
-      - - in
-        - [get, highway]
-        - - literal
-          - - footway
-            - cycleway
-      - [">=", [zoom], 15]
-  - ['!', [get, tunnel]]
+  - any
+  - - all # Allow certain classifications to appear when they are included in the source
+    - - in
+      - [get, highway]
+      - - literal
+        - - motorway
+          - trunk
+          - primary
+          - secondary
+          - tertiary
+          - unclassified
+          - residential
+          - living_street
+  - - all
+    - [==, [get, highway], service]
+    - [==, [get, minor], null]
+    - [">=", [zoom], 14]
+  - - all
+    - [==, [get, highway], service]
+    - [">=", [zoom], 15]
+  - - all
+    - - in
+      - [get, highway]
+      - - literal
+        - - footway
+          - cycleway
+    - [">=", [zoom], 15]
 paint:
   line-color:
     - match
@@ -125,7 +124,7 @@ paint:
       - 4
       - 20
 layout:
-  line-cap: butt
+  line-cap: round
   line-sort-key:
     - +
     - [get, z_order]

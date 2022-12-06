@@ -1,10 +1,7 @@
-id: transport-fill
+id: transport-tunnel-casing
 source: spirit
 source-layer: transport
 type: line
-# This messy filter could be done with a [step, [zoom], ..., N, ...] but this
-# would require re-stating the conditions for all lower zoom for each step.
-# Instead, it requires one of the any branches is met, and each branch involves a zoom level conditional
 filter:
   - all
   - - any
@@ -27,29 +24,41 @@ filter:
     - - all
       - [==, [get, highway], service]
       - [">=", [zoom], 15]
-  - ['!', [get, tunnel]]
+    - - all
+      - - in
+        - [get, highway]
+        - - literal
+          - - footway
+            - cycleway
+      - [">=", [zoom], 15]
+  - [get, tunnel]
 paint:
+  line-dasharray: [.5, .5]
   line-color:
     - match
     - [get, highway]
     - motorway
-    - '#e52838' # lch(50,80,30)
+    - '#e19991' # 
     - trunk
-    - '#ec822c' # lch(65,70,60)
+    - '#bd5c00' # lch(50,70,60)
     - primary
-    - '#ec822c' # lch(65,70,60)
+    - '#bd5c00' # lch(50,70,60)
     - secondary
-    - '#f7bd55' # lch(80,60,80)
+    - '#c9952c' # lch(65,60,80)
     - tertiary
-    - '#f7bd55' # lch(80,60,80)
+    - '#c9952c' # lch(65,60,80)
     - unclassified
-    - '#e0e3de' # lch(90,3,130)
+    - '#b7bab4' # lch(75,3,130)
     - residential
-    - '#e0e3de' # lch(90,3,130)
+    - '#b7bab4' # lch(75,3,130)
     - living_street
-    - '#e0e3de' # lch(90,3,130)
+    - '#b7bab4' # lch(75,3,130)
     - service
-    - '#e0e3de' # lch(90,3,130)
+    - '#b7bab4' # lch(75,3,130)
+    - footway
+    - '#696b67' # lch(75,3,130)
+    - cycleway
+    - '#696b67' # lch(75,3,130)
     - red
   line-width:
     - interpolate
@@ -60,55 +69,62 @@ paint:
     - - match
       - [get, highway]
       - motorway
-      - 2
+      - 4
       - trunk
-      - 1.5
+      - 3.5
       - primary
-      - 1.5
+      - 3.5
       - secondary
-      - 1
+      - 2
       - tertiary
-      - 1
+      - 2
       - unclassified
-      - 1
+      - 1.5
       - residential
-      - 1
+      - 1.5
       - living_street
-      - 1
+      - 1.5
       - service
       - - match
         - [to-string, [get, minor]]
         - "true"
-        - 0.2
         - 0.5
-      - 1
+        - 1
+      - footway
+      - .2
+      - cycleway
+      - .2
+      - 1.5
     - 20
     - - match
       - [get, highway]
       - motorway
-      - 25
+      - 40
       - trunk
-      - 20
+      - 30
       - primary
-      - 20
+      - 30
       - secondary
-      - 15
+      - 25
       - tertiary
-      - 15
+      - 25
       - unclassified
-      - 10
+      - 20
       - residential
-      - 10
+      - 20
       - living_street
-      - 10
+      - 20
       - service
       - - match
         - [to-string, [get, minor]]
         - "true"
-        - 3
-        - 6
-      - 10
-
+        - 10
+        - 14
+      - footway
+      - 4
+      - cycleway
+      - 4
+      - 20
 layout:
   line-cap: butt
   line-sort-key:

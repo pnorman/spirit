@@ -13,6 +13,9 @@ layers:
   - !!inc/file style/vegetation-pattern.yaml
   - !!inc/file style/water.yaml
   - !!inc/file style/water-lines.yaml
+  - !!inc/file style/transport-base-casing.yaml
+  - !!inc/file style/transport-tunnel-casing.yaml
+  - !!inc/file style/transport-base-fill.yaml
   - !!inc/file style/transport-casing.yaml
   - !!inc/file style/transport-fill.yaml
   - !!inc/file style/transit-points.yaml

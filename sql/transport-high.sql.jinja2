@@ -18,7 +18,7 @@ SELECT
       WHEN oneway = '-1' THEN 'yes'
       WHEN oneway = 'no' THEN NULL
       ELSE oneway END AS oneway,
-    tunnel,
+    tunnel IS NOT NULL and tunnel != 'no' AS tunnel,
     bridge,
     layer,
     (SELECT ref FROM planet_osm_route 
