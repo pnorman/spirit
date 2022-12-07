@@ -1,4 +1,4 @@
-id: transport-tunnel-casing
+id: road-casing
 source: spirit
 source-layer: transport
 type: line
@@ -31,14 +31,14 @@ filter:
           - - footway
             - cycleway
       - [">=", [zoom], 15]
-  - [get, tunnel]
+  - ['!', [get, tunnel]]
+  - ['!', [get, bridge]]
 paint:
-  line-dasharray: [.5, .5]
   line-color:
     - match
     - [get, highway]
     - motorway
-    - '#e19991' # 
+    - '#b40017' # lch(35,80,30)
     - trunk
     - '#bd5c00' # lch(50,70,60)
     - primary

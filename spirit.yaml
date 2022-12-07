@@ -13,13 +13,13 @@ layers:
   - !!inc/file style/vegetation-pattern.yaml
   - !!inc/file style/water.yaml
   - !!inc/file style/water-lines.yaml
-  - !!inc/file style/transport-base-casing.yaml
-  - !!inc/file style/transport-tunnel-casing.yaml
-  - !!inc/file style/transport-base-fill.yaml
-  - !!inc/file style/transport-casing.yaml
-  - !!inc/file style/transport-fill.yaml
-  - !!inc/file style/transport-bridge-casing.yaml
-  - !!inc/file style/transport-bridge-fill.yaml
+  - !!inc/file style/road-base-casing.yaml
+  - !!inc/file style/road-tunnel-casing.yaml
+  - !!inc/file style/road-base-fill.yaml
+  - !!inc/file style/road-casing.yaml
+  - !!inc/file style/road-fill.yaml
+  - !!inc/file style/road-bridge-casing.yaml
+  - !!inc/file style/road-bridge-fill.yaml
   - !!inc/file style/transit-points.yaml
   - !!inc/file style/admin-background.yaml
   - !!inc/file style/admin-background-dashed.yaml

@@ -1,5 +1,5 @@
 # A layer at the base of the transport stack, covering tunnels, as well as round end-caps for anything else
-id: transport-base-casing
+id: road-base-casing
 source: spirit
 source-layer: transport
 type: line

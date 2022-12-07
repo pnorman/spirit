@@ -1,4 +1,4 @@
-id: transport-fill
+id: road-bridge-fill
 source: spirit
 source-layer: transport
 type: line
@@ -27,8 +27,7 @@ filter:
     - - all
       - [==, [get, highway], service]
       - [">=", [zoom], 15]
-  - ['!', [get, tunnel]]
-  - ['!', [get, bridge]]
+  - [get, bridge]
 paint:
   line-color:
     - match

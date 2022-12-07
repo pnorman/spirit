@@ -1,5 +1,4 @@
-# A layer at the base of the transport stack, covering tunnels, as well as round end-caps for anything else.
-id: transport-base-fill
+id: road-fill
 source: spirit
 source-layer: transport
 type: line
@@ -7,35 +6,35 @@ type: line
 # would require re-stating the conditions for all lower zoom for each step.
 # Instead, it requires one of the any branches is met, and each branch involves a zoom level conditional
 filter:
-  - any
-  - - all # Allow certain classifications to appear when they are included in the source
-    - - in
-      - [get, highway]
-      - - literal
-        - - motorway
-          - trunk
-          - primary
-          - secondary
-          - tertiary
-          - unclassified
-          - residential
-          - living_street
-  - - all
-    - [==, [get, highway], service]
-    - [==, [get, minor], null]
-    - [">=", [zoom], 14]
-  - - all
-    - [==, [get, highway], service]
-    - [">=", [zoom], 15]
+  - all
+  - - any
+    - - all # Allow certain classifications to appear when they are included in the source
+      - - in
+        - [get, highway]
+        - - literal
+          - - motorway
+            - trunk
+            - primary
+            - secondary
+            - tertiary
+            - unclassified
+            - residential
+            - living_street
+    - - all
+      - [==, [get, highway], service]
+      - [==, [get, minor], null]
+      - [">=", [zoom], 14]
+    - - all
+      - [==, [get, highway], service]
+      - [">=", [zoom], 15]
+  - ['!', [get, tunnel]]
+  - ['!', [get, bridge]]
 paint:
   line-color:
     - match
     - [get, highway]
     - motorway
-    - - case
-      - [get, tunnel]
-      - '#e19991' # lch(70,30,30)
-      - '#e52838' # lch(50,80,30)
+    - '#e52838' # lch(50,80,30)
     - trunk
     - '#ec822c' # lch(65,70,60)
     - primary
@@ -112,10 +111,10 @@ paint:
       - 10
 
 layout:
-  line-cap: round
+  line-cap: butt
   line-sort-key:
     - +
-    - ['-', [get, z_order]]
+    - [get, z_order]
     - - '*'
       - [get, layer]
-      - -1000
+      - 1000
