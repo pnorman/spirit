@@ -32,6 +32,7 @@ filter:
             - cycleway
       - [">=", [zoom], 15]
   - ['!', [get, tunnel]]
+  - ['!', [get, bridge]]
 paint:
   line-color:
     - match
