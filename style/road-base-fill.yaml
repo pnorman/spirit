@@ -1,7 +1,7 @@
 # A layer at the base of the transport stack, covering tunnels, as well as round end-caps for anything else.
 id: road-base-fill
 source: spirit
-source-layer: transport
+source-layer: roads
 type: line
 # This messy filter could be done with a [step, [zoom], ..., N, ...] but this
 # would require re-stating the conditions for all lower zoom for each step.

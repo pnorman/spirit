@@ -1,6 +1,6 @@
 id: road-tunnel-casing
 source: spirit
-source-layer: transport
+source-layer: rail
 type: line
 filter:
   - all

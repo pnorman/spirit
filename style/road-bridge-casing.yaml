@@ -1,6 +1,6 @@
 id: road-bridge-casing
 source: spirit
-source-layer: transport
+source-layer: roads
 type: line
 filter:
   - all

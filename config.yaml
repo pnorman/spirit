@@ -65,8 +65,8 @@ vector_layers:
             extent: 4096
             buffer: 8
             file: sql/water-lines.sql.jinja2
-    transport:
-        description: Linear transportation features
+    roads:
+        description: Linear road features
         fields:
             highway: Type of highway
         sql:
@@ -74,12 +74,12 @@ vector_layers:
             maxzoom: 14
             extent: 1024
             buffer: 4
-            file: sql/transport-high.sql.jinja2
+            file: sql/roads-high.sql.jinja2
           - minzoom: 15
             maxzoom: 15
             extent: 4096
             buffer: 16
-            file: sql/transport-high.sql.jinja2
+            file: sql/roads-high.sql.jinja2
     transit-points:
         description: Transit-oriented points
         fields:
