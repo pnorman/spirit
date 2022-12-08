@@ -23,6 +23,7 @@ layers:
   - !!inc/file style/road-bridge-casing.yaml
   - !!inc/file style/road-bridge-fill.yaml
   - !!inc/file style/transit-points.yaml
+  - !!inc/file style/aeroways.yaml
   - !!inc/file style/admin-background.yaml
   - !!inc/file style/admin-background-dashed.yaml
   - !!inc/file style/admin-2.yaml
