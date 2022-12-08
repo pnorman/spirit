@@ -18,6 +18,8 @@ layers:
   - !!inc/file style/road-base-fill.yaml
   - !!inc/file style/road-casing.yaml
   - !!inc/file style/road-fill.yaml
+  - !!inc/file style/rail-casing.yaml
+  - !!inc/file style/rail-fill.yaml
   - !!inc/file style/road-bridge-casing.yaml
   - !!inc/file style/road-bridge-fill.yaml
   - !!inc/file style/transit-points.yaml

@@ -1,0 +1,29 @@
+WITH all_rails AS (
+SELECT
+    way,
+    railway,
+    service IS NOT NULL AND service IN ('spur', 'siding', 'yard') AS minor,
+    tunnel IS NOT NULL and tunnel != 'no' AS tunnel,
+    bridge IS NOT NULL and bridge != 'no' AS bridge,
+    layer,
+    z_order
+  FROM planet_osm_transport_line
+  WHERE way && {{bbox}}
+    AND railway IN ('rail')
+), merged_rail AS (
+SELECT
+    ST_LineMerge(ST_Collect(way)) AS way,
+    railway,
+    minor,
+    tunnel,
+    bridge,
+    COALESCE(layer, 0) AS layer,
+    z_order
+  FROM all_rails
+  GROUP BY railway, minor, tunnel, bridge, layer, z_order
+)
+SELECT
+    ST_AsMVTGeom((ST_Dump(way)).geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    railway, minor, tunnel, bridge, layer, z_order
+FROM merged_rail
+ORDER BY layer, z_order

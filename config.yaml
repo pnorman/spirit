@@ -80,6 +80,21 @@ vector_layers:
             extent: 4096
             buffer: 16
             file: sql/roads-high.sql.jinja2
+    railways:
+        description: Linear railway features
+        fields:
+            highway: Type of highway
+        sql:
+          - minzoom: 12
+            maxzoom: 14
+            extent: 1024
+            buffer: 4
+            file: sql/railways-high.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 4096
+            buffer: 16
+            file: sql/railways-high.sql.jinja2
     transit-points:
         description: Transit-oriented points
         fields:

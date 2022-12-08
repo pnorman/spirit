@@ -1,0 +1,35 @@
+id: rail-casing
+source: spirit
+source-layer: railways
+type: line
+filter:
+  - all
+  - - in
+    - [get, railway]
+    - - literal
+      - - rail
+  - ['!', [get, tunnel]]
+  - ['!', [get, bridge]]
+paint:
+  line-color:
+    - case
+    - [get, minor]
+    - '#aaa'
+    - '#999'
+  line-width:
+    - interpolate
+    - - exponential
+      - 1.35
+    - - zoom
+    - 12
+    - 3
+    - 20
+    - 14
+layout:
+  line-cap: butt
+  line-sort-key:
+    - +
+    - [get, z_order]
+    - - '*'
+      - [get, layer]
+      - 1000
