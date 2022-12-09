@@ -1,4 +1,4 @@
-id: rail-casing
+id: rail-bridge-casing
 source: spirit
 source-layer: railways
 type: line
@@ -8,8 +8,7 @@ filter:
     - [get, railway]
     - - literal
       - - rail
-  - ['!', [get, tunnel]]
-  - ['!', [get, bridge]]
+  - [get, bridge]
 paint:
   line-color:
     - case

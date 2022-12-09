@@ -1,4 +1,4 @@
-id: rail-casing
+id: rail-bridge-fill
 source: spirit
 source-layer: railways
 type: line
@@ -8,31 +8,24 @@ filter:
     - [get, railway]
     - - literal
       - - rail
-  - ['!', [get, tunnel]]
-  - ['!', [get, bridge]]
+  - [get, bridge]
 paint:
-  line-color:
-    - case
-    - [get, minor]
-    - '#aaa'
-    - '#5e5e5e'
+  line-dasharray: [3, 3]
+  line-color: white
   line-width:
     - interpolate
     - - exponential
       - 1.35
     - - zoom
     - 12
-    - 3
+    - 1
     - 20
-    - 14
+    - 8
 layout:
   line-cap: butt
   line-sort-key:
     - +
-    - - case
-      - [get, minor]
-      - 0
-      - 10
+    - [get, z_order]
     - - '*'
       - [get, layer]
       - 1000

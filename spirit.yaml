@@ -22,6 +22,9 @@ layers:
   - !!inc/file style/rail-fill.yaml
   - !!inc/file style/road-bridge-casing.yaml
   - !!inc/file style/road-bridge-fill.yaml
+  - !!inc/file style/rail-bridge-outer-casing.yaml
+  - !!inc/file style/rail-bridge-casing.yaml
+  - !!inc/file style/rail-bridge-fill.yaml
   - !!inc/file style/transit-points.yaml
   - !!inc/file style/aeroways.yaml
   - !!inc/file style/admin-background.yaml
