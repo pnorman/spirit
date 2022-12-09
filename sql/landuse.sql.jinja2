@@ -1,0 +1,16 @@
+WITH landuse AS (
+SELECT
+    way,
+    CASE WHEN landuse IN ('residential', 'commercial', 'retail', 'industrial', 'education') THEN landuse
+      WHEN amenity = 'school' THEN 'education'
+    END as landuse
+  FROM planet_osm_polygon
+  WHERE way && {{bbox}}
+    AND (landuse IN ('residential', 'commercial', 'retail', 'industrial')
+      OR amenity IN ('school'))
+)
+SELECT
+    ST_AsMVTGeom(ST_Collect(way), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    landuse
+  FROM landuse
+  GROUP BY landuse

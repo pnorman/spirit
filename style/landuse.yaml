@@ -1,0 +1,19 @@
+id: landuse
+source: spirit
+source-layer: landuse
+type: fill
+paint:
+    fill-color: 
+      - match
+      - [get, landuse]
+      - residential
+      - '#f9f0dd' # lch(95,10,90)
+      - commercial
+      - '#fde2e5' # lch(92,10,10)
+      - retail
+      - '#fde2e5' # lch(92,10,10)
+      - industrial
+      - '#e0e3de' # lch(90,3,130)
+      - education
+      - '#ece3b3' # lch(90,3,130)
+      - red

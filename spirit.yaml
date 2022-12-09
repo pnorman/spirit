@@ -7,12 +7,13 @@ sources:
 sprite: http://127.0.0.1:8081/sprites
 layers:
   - !!inc/file style/background.yaml
-  - !!inc/file style/building-fill.yaml
-  - !!inc/file style/building-outline.yaml
+  - !!inc/file style/landuse.yaml
   - !!inc/file style/vegetation.yaml
   - !!inc/file style/vegetation-pattern.yaml
   - !!inc/file style/water.yaml
   - !!inc/file style/water-lines.yaml
+  - !!inc/file style/building-fill.yaml
+  - !!inc/file style/building-outline.yaml
   - !!inc/file style/road-base-casing.yaml
   - !!inc/file style/road-tunnel-casing.yaml
   - !!inc/file style/road-base-fill.yaml

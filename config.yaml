@@ -125,6 +125,21 @@ vector_layers:
             extent: 2048
             buffer: 0
             file: sql/transit-points.sql.jinja2
+    landuse:
+        description: Various types of landuse
+        fields: {}
+        sql:
+          - minzoom: 10
+            maxzoom: 14
+            extent: 1024
+            buffer: 4
+            file: sql/landuse.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 4096
+            buffer: 16
+            file: sql/landuse.sql.jinja2
+
     vegetation:
         description: vegetation areas
         fields:
