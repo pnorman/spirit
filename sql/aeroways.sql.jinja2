@@ -1,8 +1,14 @@
 WITH aeroways AS (
 SELECT
     ST_LineMerge(ST_Collect(way)) AS way,
-    aeroway,
-    ref
+{% if zoom <= 12%}
+    NULL as ref,-- No ref rendering on low zooms
+{% elif zoom <= 13 %}
+    CASE WHEN aeroway = 'runway' THEN ref END AS ref,
+{% else %}
+    ref,
+{% endif %}
+    aeroway
   FROM planet_osm_line
   WHERE way && {{bbox}}
     AND aeroway IN ('runway', 'taxiway')

@@ -1,0 +1,37 @@
+id: aeroway-text
+source: spirit
+source-layer: aeroways
+type: symbol
+paint:
+  text-color: '#4d5262' #lch(35,10,280)
+  text-halo-color: '#eef0fa' #lch(95,5,280)
+  text-halo-width: 1.5
+  text-halo-blur: 1
+minzoom: 12
+layout:
+  text-font:
+    - Open Sans Regular
+    - Arial Unicode MS Regular
+  text-field: '{ref}'
+  symbol-placement: line
+  text-size:
+    - interpolate
+    - - exponential
+      - 1.35
+    - - zoom
+    - 12
+    - - match
+      - - get
+        - aeroway
+      - runway
+      - 10
+      - 10
+    - 20
+    - - match
+      - - get
+        - aeroway
+      - runway
+      - 18
+      - 14
+  symbol-spacing: 400
+  text-letter-spacing: 0.2

@@ -99,7 +99,7 @@ vector_layers:
         description: Runways and other aeroways
         fields: {}
         sql:
-          - minzoom: 12
+          - minzoom: 10
             maxzoom: 14
             extent: 1024
             buffer: 8
