@@ -3,8 +3,8 @@ source: spirit
 source-layer: water-lines
 type: symbol
 paint:
-  text-color: '#1e596a' #lch(35,20,230)
-  text-halo-color: '#e6f3f8' #lch(95,5,230)
+  text-color: '#24586d' # lch(35,20,240)
+  text-halo-color: '#e7f2f9' # lch(95,5,240)
   text-halo-width: 1.5
   text-halo-blur: 1
 minzoom: 12

@@ -3,4 +3,4 @@ source: spirit
 source-layer: water
 type: fill
 paint:
-  fill-color: '#69c5e2' #lch(75,30,230)
+  fill-color: '#4cb7e1' #lch(70,35,240)

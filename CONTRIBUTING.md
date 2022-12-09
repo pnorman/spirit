@@ -57,7 +57,7 @@ Use a consistent hue angle for a class of features. The following hue angles are
 <tbody>
 <tr>
 <td>Water</td>
-<td style="background:#69c5e2;color:black">230°</td>
+<td style="background:#4cb7e1;color:black">240°</td>
 </tr>
 <tr>
 <td>Transit</td>
