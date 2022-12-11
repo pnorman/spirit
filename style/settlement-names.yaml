@@ -13,7 +13,6 @@ layout:
     - city
     - 14
     - 12
-  text-allow-overlap: true
 paint:
   text-color: black
   text-halo-width: 1
