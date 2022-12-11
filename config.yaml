@@ -127,7 +127,8 @@ vector_layers:
             file: sql/transit-points.sql.jinja2
     landuse:
         description: Various types of landuse
-        fields: {}
+        fields:
+            landuse: Type of landuse
         sql:
           - minzoom: 10
             maxzoom: 14
@@ -139,6 +140,23 @@ vector_layers:
             extent: 4096
             buffer: 16
             file: sql/landuse.sql.jinja2
+    landuse-names:
+        description: Various types of landuse
+        fields:
+            landuse: Type of landuse
+            name: Name of landuse
+            way_area: Area in square meters in web mercator
+        sql:
+          - minzoom: 10
+            maxzoom: 14
+            extent: 256
+            buffer: 0
+            file: sql/landuse-names.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 1024
+            buffer: 0
+            file: sql/landuse-names.sql.jinja2
     settlements:
         description: Populated places
         fields: {}

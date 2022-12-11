@@ -35,5 +35,5 @@ paint:
       - education
       - '#ece3b3' # lch(90,25,100)
       - park
-      - '#cfe8df'
+      - '#cfe8df' # lch(90,10,170)
       - red
