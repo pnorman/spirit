@@ -139,7 +139,21 @@ vector_layers:
             extent: 4096
             buffer: 16
             file: sql/landuse.sql.jinja2
-
+    settlements:
+        description: Populated places
+        fields: {}
+        sql:
+        sql:
+          - minzoom: 8
+            maxzoom: 14
+            extent: 1024
+            buffer: 4
+            file: sql/settlements.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 4096
+            buffer: 16
+            file: sql/settlements.sql.jinja2
     vegetation:
         description: vegetation areas
         fields:
