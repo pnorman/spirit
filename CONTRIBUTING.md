@@ -27,7 +27,6 @@ This enables a wider range of colour and saturation than typical general-purpose
 
 We target Maplibre GL JS usage as part of a web-page that is either focused on the map, or has the map as part of a larger page. Usage across desktops, tablets, and phones is supported, with support for high-DPI displays. Smart watches and print are not targeted.
 
-
 ## Icons
 
 - All icons must be SVG, saved as standards compliant SVG without any proprietary tags. In Inkscape software, you will need to "Save As..." and choose the format Optimized SVG (preferable) or Plain SVG.
@@ -65,3 +64,11 @@ Use a consistent hue angle for a class of features. The following hue angles are
 </tr>
 </tbody>
 </table>
+
+## Required technical knowledge
+
+Contributing to the style requires some technical knowledge in the following areas
+
+- [MapLibre GL style specification](https://maplibre.org/maplibre-gl-js-docs/style-spec/), focusing on layers and expressions, including data-driven expressions;
+- YAML, in particular appropriate indentation for arrays. MapLibre GL styles tend to feature deeply nested arrays; and
+- SQL for writing read-only PostGIS queries if modifying vector tiles.
