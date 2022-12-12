@@ -20,3 +20,15 @@ layout:
     - airplane
     - wetland
   icon-allow-overlap: true
+  text-optional: true
+  text-field: '{name}'
+  text-font:
+  - Open Sans Regular
+  - Arial Unicode MS Regular
+  text-size: 12
+  text-offset: [0, 0.4]
+  text-anchor: top
+paint:
+  text-color: '#003c77'
+  text-halo-width: 1
+  text-halo-color: white

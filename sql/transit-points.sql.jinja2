@@ -1,5 +1,7 @@
+WITH transit_normalized AS (
 SELECT
-    ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    way,
+    name,
     aeroway IS NOT DISTINCT FROM 'aerodrome'
       OR amenity IS NOT DISTINCT FROM 'bus_station'
       OR tags @> 'public_transport=>station'
@@ -17,6 +19,7 @@ SELECT
   FROM (
     SELECT
         way,
+        name,
         highway,
         railway,
         amenity,
@@ -44,6 +47,7 @@ SELECT
     UNION ALL
     SELECT
         (ST_MaximumInscribedCircle(way)).center AS way,
+        name,
         highway,
         railway,
         amenity,
@@ -65,3 +69,18 @@ SELECT
           OR aeroway = 'aerodrome'
         )
   ) AS transit
+)
+SELECT
+    ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    name,
+    station,
+    mode
+  FROM transit_normalized
+  ORDER BY station DESC,
+    CASE mode
+      WHEN 'airplane' THEN 1
+      WHEN 'subway' THEN 3
+      WHEN 'tram' THEN 4
+      WHEN 'bus' THEN 5
+      ELSE 10
+    END
