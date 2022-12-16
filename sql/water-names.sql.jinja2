@@ -1,0 +1,12 @@
+SELECT
+    ST_AsMVTGeom((ST_MaximumInscribedCircle(way)).center, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    name,
+    way_area
+  FROM planet_osm_polygon
+  WHERE way && {{bbox}}
+    AND name IS NOT NULL
+    AND (waterway IN ('dock', 'riverbank')
+        OR landuse IN ('reservoir', 'basin')
+        OR "natural" IN ('water'))
+    AND way_area > 16 * {{coordinate_area}}
+  ORDER BY way_area DESC

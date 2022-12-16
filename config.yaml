@@ -65,6 +65,21 @@ vector_layers:
             extent: 4096
             buffer: 8
             file: sql/water-lines.sql.jinja2
+    water-names:
+        description: Names for water bodies
+        fields:
+            name: Name of water body
+        sql:
+          - minzoom: 8
+            maxzoom: 14
+            extent: 1024
+            buffer: 2
+            file: sql/water-names.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 4096
+            buffer: 8
+            file: sql/water-names.sql.jinja2
     roads:
         description: Linear road features
         fields:

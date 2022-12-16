@@ -1,0 +1,20 @@
+id: water-names
+source: spirit
+source-layer: water-names
+type: symbol
+paint:
+  text-color: '#24586d' # lch(35,20,240)
+  text-halo-color: '#e7f2f9' # lch(95,5,240)
+  text-halo-width: 1.5
+  text-halo-blur: 1
+layout:
+  text-font:
+    - Open Sans Regular
+    - Arial Unicode MS Regular
+  text-field: '{name}'
+  symbol-placement: point
+  text-size: 12
+filter:
+  - '>='
+  - [get, way_area]
+  - ['*', 750, 6126430366.1, ['^', 0.25, [zoom]]]
