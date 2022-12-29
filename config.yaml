@@ -17,6 +17,15 @@ vector_layers:
             buffer: 16
             extent: 4096
             file: sql/admin.sql.jinja2
+    admin-names:
+        description: Administrative area names
+        sql:
+          - minzoom: 2
+            maxzoom: 14
+            buffer: 16
+            extent: 512
+            file: sql/admin-names.sql.jinja2
+
     buildings:
         description: Building polygons
         sql:

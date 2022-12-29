@@ -62,6 +62,10 @@ Use a consistent hue angle for a class of features. The following hue angles are
 <td>Transit</td>
 <td style="background:#006bce;color:white">280°</td>
 </tr>
+<tr>
+<td>Admin borders</td>
+<td style="background:#c25eb8;color:black">330°</td>
+</tr>
 </tbody>
 </table>
 

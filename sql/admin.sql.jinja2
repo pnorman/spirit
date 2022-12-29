@@ -7,7 +7,7 @@ SELECT
   WHERE way && {{bbox}}
 {% if zoom >= 10 -%}
     AND admin_level IN (2, 3, 4, 5, 6, 7, 8)
-{% elif zoom >= 8 -%}
+{% elif zoom >= 7 -%}
     AND admin_level IN (2, 3, 4, 5, 6)
 {% elif zoom >= 4 -%}
     AND admin_level IN (2, 3, 4) -- later filtered down more based on parent area
@@ -60,7 +60,7 @@ SELECT
 {% if zoom >= 15 -%}
     ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
 {% else -%}
-    ST_AsMVTGeom(ST_Simplify(way, {{tile_length}}/512), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    ST_AsMVTGeom(ST_Simplify(way, {{tile_length}}/750), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
 {% endif -%}
     admin_level,
     in_other_country

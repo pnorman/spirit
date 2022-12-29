@@ -35,6 +35,7 @@ layers:
   - !!inc/file style/admin-6.yaml
   - !!inc/file style/admin-8.yaml
   - !!inc/file style/settlement-names.yaml
+  - !!inc/file style/admin-names.yaml
   - !!inc/file style/aeroway-text.yaml
   - !!inc/file style/road-text.yaml
   - !!inc/file style/water-line-text.yaml
