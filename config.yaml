@@ -21,7 +21,7 @@ vector_layers:
     admin-names:
         description: Administrative area names
         sql:
-          - minzoom: 2
+          - minzoom: 0
             maxzoom: 14
             buffer: 16
             extent: 512
@@ -51,7 +51,7 @@ vector_layers:
     water:
         description: Ocean and water polygons
         sql:
-          - minzoom: 4
+          - minzoom: 0
             maxzoom: 14
             extent: 1024
             file: sql/water.sql.jinja2
