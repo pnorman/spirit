@@ -41,5 +41,6 @@ layers:
   - !!inc/file style/water-line-text.yaml
   - !!inc/file style/water-names.yaml
   - !!inc/file style/landuse-names.yaml
+  - !!inc/file style/vegetation-names.yaml
   - !!inc/file style/building-names.yaml
 glyphs: https://go-spatial.github.io/carto-assets/fonts/{fontstack}/{range}.pbf
