@@ -57,7 +57,7 @@ node_modules/.bin/charites serve spirit.yaml
 
 ## License
 
-Copyright Paul Norman 2022
+Copyright Paul Norman 2022-2023
 
 This map style and associated documentation files (the "Style") is
 released under the CC0 Public Domain Dedication, version 1.0, as
