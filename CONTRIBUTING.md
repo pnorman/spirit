@@ -4,13 +4,13 @@
 
 ### Purpose
 
-Street Spirit aims to be a general purpose map style for OpenStreetMap data, suitable for
-- use as a locator map,
+Street Spirit aims to be a general purpose map style for OpenStreetMap data, suitable
+- for use as a locator map,
 - to show off what can be done with OpenStreetMap data,
 - to be up-to-date with the latest OpenStreetMap data, and
-- using to orient a viewer to a location they are at.
+- for using to orient a viewer to a location they are at.
 
-There is no ranking of these goals, and they may require compromises between the different goals. 
+There is no ranking of these goals, and they may require compromises between the different goals.
 
 It does not seek to
 - be a suitable style for overlaying complex data on,

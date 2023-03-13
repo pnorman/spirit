@@ -24,20 +24,7 @@ layout:
     - 60
     - 15
 paint:
-  text-color:
-    - match
-    - [get, vegetation]
-    - wood
-    - black
-    - heath
-    - black
-    - scrub
-    - black
-    - grass
-    - black
-    - wetland
-    - black
-    - red
+  text-color: black
   text-halo-width: 1
   text-halo-color:
     - match
