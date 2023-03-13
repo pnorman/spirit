@@ -1,0 +1,17 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+width="15" height="15" viewBox="0 0 15 15">
+<sodipodi:namedview
+showgrid="true">
+<inkscape:grid
+type="xygrid"
+id="pixels" />
+</sodipodi:namedview>
+<rect id="fill" fill="#006bce" width="15" height="15" rx="2"/>
+<path
+    d="M 6.8446 2.11261 C 6.84766 1.2324 8.17567 1.2324 8.17567 2.13841 L 8.17567 5.83527 L 13.3512 8.9479 L 13.3512 10.3137 L 8.19997 8.61855 L 8.19997 11.3806 L 9.39142 12.3155 L 9.39142 13.3944 L 7.55341 12.8238 L 5.71539 13.3944 L 5.71539 12.3155 L 6.89471 11.3806 L 6.89471 8.61855 L 1.74041 10.3137 L 1.74041 8.9479 L 6.8446 5.83527 Z"
+    fill="white"
+    id="plane" />
+</svg>

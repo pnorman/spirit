@@ -3,7 +3,7 @@ source: spirit
 source-layer: transit-points
 type: symbol
 layout:
-  icon-image: 
+  icon-image:
     - match
     - [get, mode]
     - bus
@@ -16,8 +16,10 @@ layout:
     - bus_stop
     - subway
     - subway
+    - train
+    - train
     - airplane
-    - airplane
+    - airport
     - wetland
   icon-allow-overlap: true
   text-optional: true
