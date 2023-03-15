@@ -21,24 +21,42 @@ SELECT
     tunnel IS NOT NULL and tunnel != 'no' AS tunnel,
     bridge IS NOT NULL and bridge != 'no' AS bridge,
     layer,
-    (SELECT ref FROM planet_osm_route 
+    (SELECT ref FROM planet_osm_route
       WHERE route = 'road' AND planet_osm_transport_line.osm_id = planet_osm_route.member_id
       ORDER BY cardinality(string_to_array(network, ':')) ASC, char_length(network) ASC, network, planet_osm_route.osm_id
       LIMIT 1) AS route_ref,
     z_order
   FROM planet_osm_transport_line
   WHERE way && {{bbox}}
+{% if zoom <= 10 %}
+    AND highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link',
+                    'secondary', 'secondary_link', 'tertiary', 'tertiary_link')
+{% elif zoom <= 13 %}
+    AND highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link',
+                    'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'unclassified', 'residential',
+                    'living_street')
+{% else %}
     AND highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link',
                     'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'unclassified', 'residential',
                     'living_street', 'service', 'bridleway', 'footway', 'cycleway', 'path')
+{% endif %}
 ), reffed_roads AS (
 SELECT
     way,
+{# Omitting name and ref from small roads allows for better merging and smaller tiles #}
+{% if zoom <= 11 %}
+    CASE WHEN highway IN ('motorway', 'trunk', 'primary', 'secondary') THEN name END AS name,
+    CASE WHEN highway IN ('motorway', 'trunk', 'primary', 'secondary') THEN COALESCE(route_ref, ref) END AS ref,
+{% elif zoom <= 12 %}
+    CASE WHEN highway IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary') THEN name END AS name,
+    CASE WHEN highway IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary') THEN COALESCE(route_ref, ref) END AS ref,
+{% else %}
     name,
+    COALESCE(route_ref, ref) AS ref,
+{% endif %}
     highway,
     link,
     minor,
-    COALESCE(route_ref, ref) AS ref,
     oneway,
     tunnel,
     bridge,

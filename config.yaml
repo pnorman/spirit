@@ -95,7 +95,7 @@ vector_layers:
         fields:
             highway: Type of highway
         sql:
-          - minzoom: 12
+          - minzoom: 10
             maxzoom: 14
             extent: 1024
             buffer: 4
