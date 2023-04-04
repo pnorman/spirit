@@ -3,6 +3,11 @@ source: spirit
 source-layer: roads
 type: line
 filter:
+# This messy filter could be done with a [step, [zoom], ..., N, ...] but this
+# would require re-stating the conditions for all lower zoom for each step.
+# Instead, it requires one of the any branches is met, and each branch involves
+# a zoom level conditional. If the zoom-level part is omitted, the results look
+# odd when zooming in and out.
   - all
   - - any
     - - all # Allow certain classifications to appear when they are included in the source
