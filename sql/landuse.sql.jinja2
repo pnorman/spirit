@@ -2,7 +2,7 @@ WITH landuse AS (
 SELECT
     way,
     CASE
-      WHEN leisure = 'park' THEN 'park'
+      WHEN leisure IN ('park', 'stadium') THEN 'park'
       WHEN amenity = 'school' THEN 'education'
       WHEN landuse IN ('residential', 'commercial', 'retail', 'industrial', 'education') THEN landuse
     END as landuse
@@ -10,7 +10,7 @@ SELECT
   WHERE way && {{bbox}}
     AND (landuse IN ('residential', 'commercial', 'retail', 'industrial')
       OR amenity IN ('school')
-      OR leisure IN ('park'))
+      OR leisure IN ('park', 'stadium'))
 )
 SELECT
     ST_AsMVTGeom(ST_Collect(way), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
