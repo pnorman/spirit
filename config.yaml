@@ -1,7 +1,7 @@
 metadata:
     id: v1
     name: Street Spirit
-    attribution: © OpenStreetMap contributors
+    attribution: <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a> contributors
     version: 0.0.1
     center: [0, 0, 4]
 vector_layers:
