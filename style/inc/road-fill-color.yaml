@@ -1,0 +1,21 @@
+- match
+- [get, highway]
+- motorway
+- '#e52838' # lch(50,80,30)
+- trunk
+- '#ec822c' # lch(65,70,60)
+- primary
+- '#ec822c' # lch(65,70,60)
+- secondary
+- '#f7bd55' # lch(80,60,80)
+- tertiary
+- '#f7bd55' # lch(80,60,80)
+- unclassified
+- '#e0e3de' # lch(90,3,130)
+- residential
+- '#e0e3de' # lch(90,3,130)
+- living_street
+- '#e0e3de' # lch(90,3,130)
+- service
+- '#e0e3de' # lch(90,3,130)
+- red
