@@ -1,0 +1,10 @@
+WITH parks AS (
+SELECT
+    way
+  FROM planet_osm_polygon
+  WHERE way && {{bbox}}
+    AND leisure IN ('park', 'stadium')
+)
+SELECT
+    ST_AsMVTGeom(ST_Collect(way), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way
+  FROM parks

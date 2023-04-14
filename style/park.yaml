@@ -1,0 +1,6 @@
+id: park
+source: spirit
+source-layer: park
+type: fill
+paint:
+    fill-color: '#cfe8df' # lch(90,10,170)

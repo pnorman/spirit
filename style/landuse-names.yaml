@@ -37,8 +37,6 @@ paint:
     - black
     - education
     - '#353109' # lch(20,25,100)
-    - park
-    - '#20342e' # lch(20,10,170)
     - red
   text-halo-width: 1
   text-halo-color:
@@ -54,6 +52,4 @@ paint:
     - '#e0e3de' # lch(90,3,130)
     - education
     - '#ece3b3' # lch(90,25,100)
-    - park
-    - '#cfe8df' # lch(90,10,170)
     - red

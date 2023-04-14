@@ -8,6 +8,7 @@ sprite: http://127.0.0.1:8081/sprites
 layers:
   - !!inc/file style/background.yaml
   - !!inc/file style/landuse.yaml
+  - !!inc/file style/park.yaml
   - !!inc/file style/vegetation.yaml
   - !!inc/file style/vegetation-pattern.yaml
   - !!inc/file style/water.yaml
@@ -40,7 +41,8 @@ layers:
   - !!inc/file style/road-text.yaml
   - !!inc/file style/water-line-text.yaml
   - !!inc/file style/water-names.yaml
-  - !!inc/file style/landuse-names.yaml
   - !!inc/file style/vegetation-names.yaml
+  - !!inc/file style/park-names.yaml
+  - !!inc/file style/landuse-names.yaml
   - !!inc/file style/building-names.yaml
 glyphs: https://go-spatial.github.io/carto-assets/fonts/{fontstack}/{range}.pbf

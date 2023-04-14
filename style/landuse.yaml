@@ -6,8 +6,6 @@ layout:
   fill-sort-key:
     - match
     - [get, landuse]
-    - park
-    - 20
     - education
     - 10
     - commercial
@@ -21,7 +19,7 @@ layout:
     - 0
 
 paint:
-    fill-color: 
+    fill-color:
       - match
       - [get, landuse]
       - residential
@@ -34,6 +32,4 @@ paint:
       - '#e0e3de' # lch(90,3,130)
       - education
       - '#ece3b3' # lch(90,25,100)
-      - park
-      - '#cfe8df' # lch(90,10,170)
       - red

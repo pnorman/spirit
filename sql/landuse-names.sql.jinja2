@@ -3,7 +3,6 @@ SELECT
     (ST_MaximumInscribedCircle(way)).center AS way,
     name,
     CASE
-      WHEN leisure = 'park' THEN 'park'
       WHEN amenity = 'school' THEN 'education'
       WHEN landuse IN ('residential', 'commercial', 'retail', 'industrial', 'education') THEN landuse
     END as landuse,
@@ -11,8 +10,7 @@ SELECT
   FROM planet_osm_polygon
   WHERE way && {{bbox}}
     AND (landuse IN ('residential', 'commercial', 'retail', 'industrial')
-      OR amenity IN ('school')
-      OR leisure IN ('park'))
+      OR amenity IN ('school'))
     AND name IS NOT NULL
 )
 SELECT
