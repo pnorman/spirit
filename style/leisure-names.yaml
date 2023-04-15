@@ -1,6 +1,6 @@
-id: park-names
+id: leisure-names
 source: spirit
-source-layer: park-names
+source-layer: leisure-names
 minzoom: 13
 type: symbol
 filter:

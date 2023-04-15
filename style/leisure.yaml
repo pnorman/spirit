@@ -1,6 +1,6 @@
-id: park
+id: leisure
 source: spirit
-source-layer: park
+source-layer: leisure
 type: fill
 paint:
     fill-color: '#cfe8df' # lch(90,10,170)
