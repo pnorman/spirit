@@ -2,5 +2,21 @@ id: leisure
 source: spirit
 source-layer: leisure
 type: fill
+filter:
+  - in
+  - [get, leisure]
+  - [literal, [park, stadium]]
+layout:
+  fill-sort-key:
+    - match
+    - [get, leisure]
+    - park
+    - 20
+    - stadium
+    - 10
+    - playground
+    - 3
+    - 0
 paint:
     fill-color: '#cfe8df' # lch(90,10,170)
+    fill-outline-color: '#78a897' # lch(65,20,170)
