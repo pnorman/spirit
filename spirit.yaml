@@ -44,5 +44,6 @@ layers:
   - !!inc/file style/vegetation-names.yaml
   - !!inc/file style/leisure-names.yaml
   - !!inc/file style/landuse-names.yaml
+  - !!inc/file style/food.yaml
   - !!inc/file style/building-names.yaml
 glyphs: https://go-spatial.github.io/carto-assets/fonts/{fontstack}/{range}.pbf

@@ -66,6 +66,14 @@ Use a consistent hue angle for a class of features. The following hue angles are
 <td>Admin borders</td>
 <td style="background:#c25eb8;color:black">330°</td>
 </tr>
+<tr>
+<td>Buildings</td>
+<td style="background:#c1b994;color:#3e3c2c">100°</td>
+</tr>
+<tr>
+<td>Food</td>
+<td style="background:#ce7e03;color:#663d06">70°</td>
+</tr>
 </tbody>
 </table>
 

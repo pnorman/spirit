@@ -257,3 +257,13 @@ vector_layers:
             extent: 1024
             buffer: 16
             file: sql/vegetation-names.sql.jinja2
+    food:
+        description: Food-related POIs
+        fields:
+            name: Name of food POI
+        sql:
+          - minzoom: 15
+            maxzoom: 15
+            extent: 1024
+            buffer: 16
+            file: sql/food.sql.jinja2
