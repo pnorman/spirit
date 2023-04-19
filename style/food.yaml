@@ -8,6 +8,8 @@ layout:
     - [get, food]
     - restaurant
     - restaurant
+    - fast_food
+    - fast_food
     - restaurant
   icon-allow-overlap: false
   icon-size: 1
