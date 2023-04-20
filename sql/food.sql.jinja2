@@ -5,7 +5,7 @@ WITH food AS (
       amenity
     FROM planet_osm_point
     WHERE way && {{bbox}}
-      AND amenity IN ('restaurant', 'fast_food')
+      AND amenity IN ('bar', 'biergarten', 'cafe', 'fast_food', 'food_court', 'ice_cream', 'pub', 'restaurant')
   UNION ALL
   SELECT
       (ST_MaximumInscribedCircle(way)).center AS way,
@@ -13,7 +13,7 @@ WITH food AS (
       amenity
     FROM planet_osm_point
     WHERE way && {{bbox}}
-      AND amenity IN ('restaurant', 'fast_food')
+      AND amenity IN ('bar', 'biergarten', 'cafe', 'fast_food', 'food_court', 'ice_cream', 'pub', 'restaurant')
 )
 SELECT
     ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
