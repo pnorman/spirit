@@ -1,0 +1,19 @@
+id: education
+source: spirit
+source-layer: education
+type: fill
+layout:
+    fill-sort-key:
+      - match
+      - [get, education]
+      - kindergarten
+      - 4
+      - school
+      - 3
+      - college
+      - 2
+      - university
+      - 1
+      - 0
+paint:
+    fill-color: '#ece3b3' # lch(90,25,100)
