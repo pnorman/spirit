@@ -8,6 +8,7 @@ sprite: http://127.0.0.1:8081/sprites
 layers:
   - !!inc/file style/background.yaml
   - !!inc/file style/landuse.yaml
+  - !!inc/file style/education.yaml
   - !!inc/file style/leisure.yaml
   - !!inc/file style/vegetation.yaml
   - !!inc/file style/vegetation-pattern.yaml
@@ -43,6 +44,7 @@ layers:
   - !!inc/file style/water-names.yaml
   - !!inc/file style/vegetation-names.yaml
   - !!inc/file style/leisure-names.yaml
+  - !!inc/file style/education-names.yaml
   - !!inc/file style/landuse-names.yaml
   - !!inc/file style/food.yaml
   - !!inc/file style/building-names.yaml

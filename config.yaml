@@ -182,6 +182,37 @@ vector_layers:
             extent: 1024
             buffer: 0
             file: sql/landuse-names.sql.jinja2
+    education:
+        description: Various types of educational areas
+        fields:
+            landuse: Type of landuse
+        sql:
+          - minzoom: 10
+            maxzoom: 14
+            extent: 1024
+            buffer: 4
+            file: sql/education.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 4096
+            buffer: 16
+            file: sql/education.sql.jinja2
+    education-names:
+        description: Names of educational facilities
+        fields:
+            education: Type of landuse
+            name: Name of education
+        sql:
+          - minzoom: 10
+            maxzoom: 14
+            extent: 256
+            buffer: 0
+            file: sql/education-names.sql.jinja2
+          - minzoom: 15
+            maxzoom: 15
+            extent: 1024
+            buffer: 0
+            file: sql/education-names.sql.jinja2
     leisure:
         description: Parks and other leisure areas
         sql:

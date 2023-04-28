@@ -6,8 +6,6 @@ layout:
   fill-sort-key:
     - match
     - [get, landuse]
-    - education
-    - 10
     - commercial
     - 4
     - retail
@@ -30,6 +28,4 @@ paint:
       - '#fde2e5' # lch(92,10,10)
       - industrial
       - '#e0e3de' # lch(90,3,130)
-      - education
-      - '#ece3b3' # lch(90,25,100)
       - red

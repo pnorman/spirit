@@ -1,13 +1,13 @@
-WITH landuse AS (
+WITH education AS (
 SELECT
     way,
-    landuse
+    amenity AS education
   FROM planet_osm_polygon
   WHERE way && {{bbox}}
-    AND landuse IN ('residential', 'commercial', 'retail', 'industrial')
+    AND amenity IN ('school')
 )
 SELECT
     ST_AsMVTGeom(ST_Collect(way), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    landuse
-  FROM landuse
-  GROUP BY landuse
+    education
+  FROM education
+  GROUP BY education
