@@ -13,7 +13,46 @@
 
 ### Loading Data
 
-Load some OpenStreetMap data into a PostGIS database with the [flex OpenStreetMap Carto instructions](https://github.com/gravitystorm/openstreetmap-carto/blob/7c75f348c4ffc706f3d0fcd67572ab8ba5ade864/INSTALL.md#openstreetmap-data), including running `scripts/get-external-data.py` and custom indexes.
+#### OpenStreetMap Data
+
+You need OpenStreetMap data loaded into a PostGIS database. These stylesheets expect a database generated with osm2pgsql using the flex backend with the supplied Lua scripts.
+
+Start by creating a database
+
+```
+sudo -u postgres createuser -s $USER
+createdb flex
+```
+
+Enable PostGIS and hstore extensions with
+
+```
+psql -d flex -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
+```
+
+then grab some OSM data. It's probably easiest to grab an PBF of OSM data from [Geofabrik](https://download.geofabrik.de/). Once you've done that, import with osm2pgsql:
+
+```
+osm2pgsql --output flex --style spirit.lua -d flex ~/path/to/data.osm.pbf
+```
+
+#### Custom indexes
+Custom indexes are required for rendering performance and are essential on full planet databases.
+
+```
+psql -d flex -f indexes.sql
+```
+
+#### Scripted download
+Some features are rendered using preprocessed shapefiles.
+
+To download them and import them into the database you can run the following script
+
+```
+scripts/get-external-data.py
+```
+
+The script downloads shapefiles, loads them into the database and sets up the tables for rendering. Additional script option documentation can be seen with `scripts/get-external-data.py --help`.
 
 ### Installing dependencies
 

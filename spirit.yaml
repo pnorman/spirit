@@ -9,6 +9,7 @@ layers:
   - !!inc/file style/background.yaml
   - !!inc/file style/landuse.yaml
   - !!inc/file style/education.yaml
+  - !!inc/file style/education-outline.yaml
   - !!inc/file style/leisure.yaml
   - !!inc/file style/vegetation.yaml
   - !!inc/file style/vegetation-pattern.yaml
