@@ -5,7 +5,7 @@
 --
 -- ---------------------------------------------------------------------------
 
-require ('themes.spirit.common')
+local common = require ('themes.spirit.common')
 
 local themepark, theme, cfg = ...
 
@@ -56,7 +56,7 @@ themepark:add_proc('area', function(object, data)
     elseif object.tags.amenity == 'college' then
         education = 'college'
     end
-    if education ~= nil and isarea(object.tags) then
+    if education ~= nil and common.isarea(object.tags) then
         local g_transform = object:as_area():transform(3857)
         local a = {
             geom = g_transform,

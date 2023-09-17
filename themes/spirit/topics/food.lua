@@ -5,7 +5,7 @@
 --
 -- ---------------------------------------------------------------------------
 
-require ('themes.spirit.common')
+local common = require ('themes.spirit.common')
 
 local themepark, theme, cfg = ...
 
@@ -27,7 +27,7 @@ themepark:add_table{
 local amenities = { 'bar', 'biergarten', 'cafe', 'fast_food', 'food_court', 'ice_cream', 'pub', 'restaurant' }
 
 themepark:add_proc('node', function(object, data)
-    if object.tags.amenity and contains(amenities, object.tags.amenity) then
+    if object.tags.amenity and common.contains(amenities, object.tags.amenity) then
         local a = {
             point = object:as_point(),
             name = object.tags.name,
@@ -38,7 +38,7 @@ themepark:add_proc('node', function(object, data)
 end)
 
 themepark:add_proc('area', function(object, data)
-    if object.tags.amenity and contains(amenities, object.tags.amenity) and isarea(object.tags) then
+    if object.tags.amenity and common.contains(amenities, object.tags.amenity) and common.isarea(object.tags) then
         local g_transform = object:as_area():transform(3857)
         local a = {
             geom = g_transform,

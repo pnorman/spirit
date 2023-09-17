@@ -5,7 +5,7 @@
 --
 -- ---------------------------------------------------------------------------
 
-require ('themes.spirit.common')
+local common = require ('themes.spirit.common')
 
 local themepark, theme, cfg = ...
 
@@ -23,14 +23,20 @@ themepark:add_table{
     }),
 }
 
+local z_order = {
+ rail = 440
+}
+
+
 local ssy = {'spur', 'siding', 'yard'}
 themepark:add_proc('way', function(object, data)
-    if object.tags.railway == 'rail' and not isarea(object.tags) then
+    local z = z_order[object.tags.railway]
+    if z and not common.isarea(object.tags) then
         local a = { railway = object.tags.railway,
-                    layer = layer(object.tags.layer),
-                    z_order = z_order(object.tags),
+                    layer = common.layer(object.tags.layer),
+                    z_order = z,
                     geom = object.as_linestring() }
-        if contains(ssy, object.tags.service) then
+        if common.contains(ssy, object.tags.service) then
             a.minor = true
         end
         if object.tags.bridge and object.tags.bridge ~= 'no' then

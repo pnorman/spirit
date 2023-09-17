@@ -5,7 +5,7 @@
 --
 -- ---------------------------------------------------------------------------
 
-require ('themes.spirit.common')
+local common = require ('themes.spirit.common')
 
 local themepark, theme, cfg = ...
 
@@ -59,7 +59,7 @@ themepark:add_proc('area', function(object, data)
         place = 'isolated_dwelling'
     end
 
-    if place ~= nil and isarea(object.tags) then
+    if place ~= nil and common.isarea(object.tags) then
         local g = object:as_area():transform(3857)
         local a = {
             geom = g:pole_of_inaccessibility(),

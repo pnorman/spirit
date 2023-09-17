@@ -5,7 +5,7 @@
 --
 -- ---------------------------------------------------------------------------
 
-require ('themes.spirit.common')
+local common = require ('themes.spirit.common')
 
 local themepark, theme, cfg = ...
 
@@ -35,7 +35,7 @@ themepark:add_table{
 
 themepark:add_proc('area', function(object, data)
     if (object.tags.natural == 'water' or object.tags.waterway == 'dock' or object.tags.waterway == 'basin' or object.tags.waterway == 'reservoir')
-        and isarea(object.tags) then
+        and common.isarea(object.tags) then
         local g_transform = object.as_area():transform(3857)
         local name = object.tags.name
         local a = { name = name, way_area = g_transform:area(), geom = g_transform }
@@ -54,7 +54,7 @@ themepark:add_proc('way', function(object, data)
         or object.tags.waterway == 'stream'
         or object.tags.waterway == 'drain'
         or object.tags.waterway == 'ditch'
-    ) and not isarea(object.tags) then
+    ) and not common.isarea(object.tags) then
         local a = { waterway = object.tags.waterway,
                     geom = object.as_linestring() }
         themepark:add_debug_info(a, object.tags)

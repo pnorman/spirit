@@ -5,7 +5,7 @@
 --
 -- ---------------------------------------------------------------------------
 
-require ('themes.spirit.common')
+local common = require ('themes.spirit.common')
 
 local themepark, theme, cfg = ...
 
@@ -24,7 +24,7 @@ themepark:add_table{
 }
 
 themepark:add_proc('area', function(object, data)
-    if object.tags.building and object.tags.building ~= 'no' and isarea(object.tags) then
+    if object.tags.building and object.tags.building ~= 'no' and common.isarea(object.tags) then
         for g in object.as_area():geometries() do
             local g_transform = g:transform(3857)
             local name = object.tags.name

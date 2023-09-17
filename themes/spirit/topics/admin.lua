@@ -5,14 +5,12 @@
 --
 -- ---------------------------------------------------------------------------
 
-require ('themes.spirit.common')
-
 local themepark, theme, cfg = ...
 
 --- Normalizes admin_level tags
 -- @param v The admin_level tag value
 -- @return The input value if it is an integer between 0 and 100, or nil otherwise
-function admin_level (v)
+local function admin_level (v)
     if v and string.find(v, "^%d+$") and tonumber(v) < 100 and tonumber(v) > 0 then
         return tonumber(v)
     end

@@ -5,7 +5,7 @@
 --
 -- ---------------------------------------------------------------------------
 
-require ('themes.spirit.common')
+local common = require ('themes.spirit.common')
 
 local themepark, theme, cfg = ...
 
@@ -67,7 +67,7 @@ local z_order = {
 local minor_service = {'parking_aisle', 'drive-through', 'driveway'}
 themepark:add_proc('way', function(object, data)
     local z = z_order[object.tags.highway]
-    if z and not isarea(object.tags) then
+    if z and not common.isarea(object.tags) then
         if object.tags.highway == 'construction' then
             if object.tags.construction and z_order[object.tags.construction] then
                 z = z_order[object.tags.construction]/10
@@ -79,10 +79,10 @@ themepark:add_proc('way', function(object, data)
                     highway = object.tags.highway,
                     ref = object.tags.ref,
                     oneway = object.tags.oneway,
-                    layer = layer(object.tags.layer),
+                    layer = common.layer(object.tags.layer),
                     z_order = z,
                     geom = object.as_linestring() }
-        if contains(minor_service, object.tags.service) then
+        if common.contains(minor_service, object.tags.service) then
             a.minor = true
         end
         if object.tags.bridge and object.tags.bridge ~= 'no' then

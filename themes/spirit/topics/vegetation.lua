@@ -5,7 +5,7 @@
 --
 -- ---------------------------------------------------------------------------
 
-require ('themes.spirit.common')
+local common = require ('themes.spirit.common')
 
 local themepark, theme, cfg = ...
 
@@ -44,7 +44,7 @@ themepark:add_proc('area', function(object, data)
         wetland = object.tags.wetland
     end
 
-    if vegetation ~= nil and isarea(object.tags) then
+    if vegetation ~= nil and common.isarea(object.tags) then
         local g_transform = object:as_area():transform(3857)
         local a = {
             name = object.tags.name,
