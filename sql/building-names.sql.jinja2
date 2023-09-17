@@ -1,11 +1,8 @@
 SELECT
-    ST_AsMVTGeom((ST_MaximumInscribedCircle(way)).center, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    ST_AsMVTGeom(point, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
     name,
     way_area
-  FROM planet_osm_polygon
-  WHERE way && {{bbox}}
-    AND building IS NOT NULL
-    AND building != 'no'
-    AND name IS NOT NULL
+  FROM buildings
+  WHERE point && {{bbox}}
     AND way_area > {{coordinate_area}}*16
   ORDER BY way_area DESC

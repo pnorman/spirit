@@ -8,9 +8,7 @@ way 391482237), we have to ST_Dump the geoms to turn multis into polys. Unfortun
 just ST_Collect(ST_Dump(...)) because you can't mix an aggregate and set-returning function like
 this. So we have to do a LATERAL join.
 #}
-  FROM planet_osm_polygon,
-    LATERAL ST_Dump(ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}})) AS merged
-  WHERE way && {{bbox}}
-    AND building IS NOT NULL
-    AND building != 'no'
+  FROM buildings,
+    LATERAL ST_Dump(ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}})) AS merged
+  WHERE buildings.geom && {{bbox}}
     AND way_area > {{coordinate_area}}

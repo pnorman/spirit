@@ -2,6 +2,8 @@
 
 ## Requirements
 
+- osm2pgsql 1.9.2+
+- osm2pgsql themepark
 - Python 3.9+
 - PostgreSQL 10+
 - PostGIS 3.3+
@@ -19,26 +21,33 @@ Start by creating a database
 
 ```
 sudo -u postgres createuser -s $USER
-createdb flex
+createdb spirit
 ```
 
 Enable PostGIS and hstore extensions with
 
 ```
-psql -d flex -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
+psql -d spirit -c 'CREATE EXTENSION postgis; CREATE EXTENSION hstore;'
+```
+
+### Themepark
+
+Install themepark to somewhere on your system, e.g. `$HOME/osm2pgsql-themepark`
+
+```sh
+git clone https://github.com/osm2pgsql-dev/osm2pgsql-themepark.git $HOME/osm2pgsql-themepark
+```
+
+Set your LUA_PATH to include themepark, e.g.
+
+```sh
+export LUA_PATH="$HOME/osm2pgsql-themepark/lua/?.lua;;"
 ```
 
 then grab some OSM data. It's probably easiest to grab an PBF of OSM data from [Geofabrik](https://download.geofabrik.de/). Once you've done that, import with osm2pgsql:
 
 ```
-osm2pgsql --output flex --style spirit.lua -d flex ~/path/to/data.osm.pbf
-```
-
-### Custom indexes
-Custom indexes are required for rendering performance and are essential on full planet databases.
-
-```
-psql -d flex -f indexes.sql
+osm2pgsql --output flex --style spirit.lua -d spirit ~/path/to/data.osm.pbf
 ```
 
 ### Scripted download

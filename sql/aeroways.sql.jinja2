@@ -1,6 +1,5 @@
-WITH aeroways AS (
 SELECT
-    ST_LineMerge(ST_Collect(way)) AS way,
+    ST_AsMVTGeom((ST_Dump(ST_LineMerge(ST_Collect(geom)))).geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
 {% if zoom <= 12%}
     NULL as ref,-- No ref rendering on low zooms
 {% elif zoom <= 13 %}
@@ -9,13 +8,6 @@ SELECT
     ref,
 {% endif %}
     aeroway
-  FROM planet_osm_line
-  WHERE way && {{bbox}}
-    AND aeroway IN ('runway', 'taxiway')
-  GROUP BY aeroway, ref
-)
-SELECT
-    ST_AsMVTGeom((ST_Dump(way)).geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    aeroway,
-    ref
 FROM aeroways
+WHERE geom && {{bbox}}
+GROUP BY aeroway, ref

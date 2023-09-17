@@ -1,17 +1,8 @@
-WITH landuse AS (
 SELECT
-    (ST_MaximumInscribedCircle(way)).center AS way,
-    name,
-    landuse,
-    way_area
-  FROM planet_osm_polygon
-  WHERE way && {{bbox}}
-    AND landuse IN ('residential', 'commercial', 'retail', 'industrial')
-    AND name IS NOT NULL
-)
-SELECT
-    ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    ST_AsMVTGeom(point, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
     name,
     landuse,
     way_area
   FROM landuse
+  WHERE point && {{bbox}}
+    AND name IS NOT NULL

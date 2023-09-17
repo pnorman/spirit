@@ -1,30 +1,18 @@
 SELECT
-    ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
     name,
     place
-  FROM (
-  SELECT
-      way,
-      name,
-      place
-    FROM planet_osm_point
-    WHERE way && {{bbox}}
-  UNION ALL
-  SELECT
-      (ST_MaximumInscribedCircle(way)).center AS way,
-      name,
-      place
-    FROM planet_osm_point
-    WHERE way && {{bbox}}) AS points
-  WHERE name IS NOT NULL
+  FROM settlements
+  WHERE geom && {{bbox}}
+    AND name IS NOT NULL
 {% if zoom <= 9 %}
-  AND place IN ('city')
+    AND place IN ('city')
 {% elif zoom <= 10 %}
-  AND place IN ('city', 'town')
+    AND place IN ('city', 'town')
 {% elif zoom <= 11 %}
-  AND place IN ('city', 'town', 'village')
+    AND place IN ('city', 'town', 'village')
 {% elif zoom <= 12 %}
-  AND place IN ('city', 'town', 'village', 'hamlet')
+    AND place IN ('city', 'town', 'village', 'hamlet')
 {% else %}
-  AND place IN ('city', 'town', 'village', 'hamlet', 'isolated_dwelling')
+    AND place IN ('city', 'town', 'village', 'hamlet', 'isolated_dwelling')
 {% endif %}
