@@ -15,9 +15,7 @@ layout:
   icon-size: 1
   text-optional: true
   text-field: '{name}'
-  text-font:
-  - Open Sans Regular
-  - Arial Unicode MS Regular
+  text-font: !!inc/file style/inc/regular-font.yaml
   text-size: 11
   text-offset: [0, 0.5]
   text-anchor: top

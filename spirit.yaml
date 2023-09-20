@@ -5,6 +5,7 @@ sources:
     type: vector
     url: http://127.0.0.1:8000/tilejson.json
 sprite: http://127.0.0.1:8081/sprites
+glyphs: https://pnorman.dev.openstreetmap.org/spirit/fonts/{fontstack}/{range}.pbf
 layers:
   - !!inc/file style/background.yaml
   - !!inc/file style/landuse.yaml
@@ -49,4 +50,3 @@ layers:
   - !!inc/file style/landuse-names.yaml
   - !!inc/file style/food.yaml
   - !!inc/file style/building-names.yaml
-glyphs: https://go-spatial.github.io/carto-assets/fonts/{fontstack}/{range}.pbf

@@ -4,9 +4,7 @@ source-layer: settlements
 type: symbol
 layout:
   text-field: '{name}'
-  text-font:
-  - Open Sans Regular
-  - Arial Unicode MS Regular
+  text-font: !!inc/file style/inc/regular-font.yaml
   text-size:
     - match
     - [get, place]

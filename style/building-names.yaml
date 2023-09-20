@@ -9,9 +9,7 @@ filter:
   - ['*', 750, 6126430366.1, ['^', 0.25, [zoom]]]
 layout:
   text-field: '{name}'
-  text-font:
-  - Open Sans Regular
-  - Arial Unicode MS Regular
+  text-font: !!inc/file style/inc/regular-font.yaml
   text-size: 12
   text-max-width:
     - interpolate

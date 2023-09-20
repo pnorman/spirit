@@ -24,9 +24,7 @@ layout:
   icon-allow-overlap: true
   text-optional: true
   text-field: '{name}'
-  text-font:
-  - Open Sans Regular
-  - Arial Unicode MS Regular
+  text-font: !!inc/file style/inc/regular-font.yaml
   text-size: 12
   text-offset: [0, 0.4]
   text-anchor: top

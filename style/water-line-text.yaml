@@ -9,9 +9,7 @@ paint:
   text-halo-blur: 1
 minzoom: 12
 layout:
-  text-font:
-    - Open Sans Regular
-    - Arial Unicode MS Regular
+  text-font: !!inc/file style/inc/regular-font.yaml
   text-field: '{name}'
   symbol-placement: line
   text-size:
