@@ -3,21 +3,14 @@ source: spirit
 source-layer: food
 type: symbol
 layout:
-  icon-image:
-    - match
-    - [get, food]
-    - restaurant
-    - restaurant
-    - fast_food
-    - fast_food
-    - restaurant
+  icon-image: food
   icon-allow-overlap: false
   icon-size: 1
   text-optional: true
   text-field: '{name}'
   text-font: !!inc/file style/inc/regular-font.yaml
   text-size: 11
-  text-offset: [0, 0.5]
+  text-offset: [0, 0.45]
   text-anchor: top
   symbol-sort-key:
     - match

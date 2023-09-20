@@ -1,0 +1,14 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+width="8" height="8" viewBox="0 0 8 8">
+<sodipodi:namedview
+showgrid="true">
+<inkscape:grid
+type="xygrid"
+id="pixels" />
+</sodipodi:namedview>
+<circle cx="4" cy="4" r="4" fill="#f1e0d1" />
+<circle cx="4" cy="4" r="3" fill="#ce7e03" />
+</svg>
