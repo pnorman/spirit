@@ -83,7 +83,7 @@ npm install @unvt/charites @basemaps/sprites
 Once tilekiln is installed, run it in development mode with
 
 ```sh
-~/osm/tilekiln/venv/bin/tilekiln dev config.yaml -d flex
+~/osm/tilekiln/venv/bin/tilekiln dev config.yaml -d spirit
 ```
 
 ## Serving sprites
