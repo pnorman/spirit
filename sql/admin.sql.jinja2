@@ -1,67 +1,67 @@
 WITH boundaries AS (
 SELECT
-    way,
-    admin_level,
+    geom,
+    min_admin_level,
     multiple_relations
-  FROM planet_osm_admin
-  WHERE way && {{bbox}}
+  FROM admin_lines
+  WHERE geom && {{bbox}}
 {% if zoom >= 10 -%}
-    AND admin_level IN (2, 3, 4, 5, 6, 7, 8)
+    AND min_admin_level IN (2, 3, 4, 5, 6, 7, 8)
 {% elif zoom >= 7 -%}
-    AND admin_level IN (2, 3, 4, 5, 6)
+    AND min_admin_level IN (2, 3, 4, 5, 6)
 {% elif zoom >= 4 -%}
-    AND admin_level IN (2, 3, 4) -- later filtered down more based on parent area
+    AND min_admin_level IN (2, 3, 4) -- later filtered down more based on parent area
 {% else -%}
-    AND admin_level = 2
+    AND min_admin_level = 2
 {% endif -%}
 ), adm2_boundaries AS (
 SELECT
-    way,
-    admin_level,
+    geom,
+    min_admin_level,
     NOT multiple_relations AS in_other_country -- if it wasn't in multiple relations, it had to of met the subquery for being in 2+ countries
   FROM boundaries b
-  WHERE admin_level = 2
+  WHERE min_admin_level = 2
     AND (multiple_relations -- avoid line in polygon checks where they're not necessary.
-      OR (SELECT COUNT(*) FROM planet_osm_polygon p
-        WHERE p.boundary = 'administrative' AND p.admin_level = '2'
-          AND ST_Covers(p.way, b.way)) >= 2)
+      OR (SELECT COUNT(*) FROM admin p
+        WHERE p.admin_level = 2
+          AND ST_Covers(p.area, b.geom)) >= 2)
 ), other_boundaries AS (
 SELECT
-    way,
-    b.admin_level
+    geom,
+    b.min_admin_level
   FROM boundaries b
 {% if zoom >= 6 -%}
-  WHERE multiple_relations AND b.admin_level != 2
+  WHERE multiple_relations AND b.min_admin_level != 2
 {% else -%}
-  WHERE multiple_relations AND b.admin_level NOT IN (2, 3, 4) -- 2 and 3,4 have special treatment
-    OR (multiple_relations AND b.admin_level IN (3, 4) AND
-      (SELECT true FROM planet_osm_polygon p
-      WHERE p.boundary = 'administrative' AND p.admin_level = '2'
+  WHERE multiple_relations AND b.min_admin_level NOT IN (2, 3, 4) -- 2 and 3,4 have special treatment
+    OR (multiple_relations AND b.min_admin_level IN (3, 4) AND
+      (SELECT true FROM admin p
+      WHERE p.admin_level = 2
         AND p.way_area > 8e+12
-        AND ST_Covers(p.way, b.way)
+        AND ST_Covers(p.area, b.geom)
         LIMIT 1))
 {% endif -%}
 ), unioned_boundaries AS (
 SELECT
-    ST_LineMerge(ST_Collect(way)) AS way,
-    admin_level,
+    ST_LineMerge(ST_Collect(geom)) AS geom,
+    min_admin_level,
     in_other_country
   FROM adm2_boundaries a
-  GROUP BY admin_level, in_other_country
+  GROUP BY min_admin_level, in_other_country
 UNION ALL
 SELECT
-    ST_LineMerge(ST_Collect(way)) AS way,
-    admin_level,
+    ST_LineMerge(ST_Collect(geom)) AS geom,
+    min_admin_level,
     NULL
   FROM other_boundaries
-  GROUP BY admin_level
+  GROUP BY min_admin_level
 )
 SELECT
 {% if zoom >= 15 -%}
-    ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
 {% else -%}
-    ST_AsMVTGeom(ST_Simplify(way, {{tile_length}}/750), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    ST_AsMVTGeom(ST_Simplify(geom, {{tile_length}}/750), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
 {% endif -%}
-    admin_level,
+    min_admin_level AS admin_level,
     in_other_country
   FROM unioned_boundaries

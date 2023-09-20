@@ -1,13 +1,6 @@
-WITH education AS (
 SELECT
-    way,
-    amenity AS education
-  FROM planet_osm_polygon
-  WHERE way && {{bbox}}
-    AND amenity IN ('school', 'kindergarten', 'university', 'college')
-)
-SELECT
-    ST_AsMVTGeom(ST_Collect(way), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    ST_AsMVTGeom(ST_Collect(geom), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
     education
   FROM education
+  WHERE geom && {{bbox}}
   GROUP BY education

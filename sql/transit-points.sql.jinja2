@@ -1,77 +1,24 @@
 WITH transit_normalized AS (
-SELECT
-    way,
+  SELECT
+    geom,
     name,
-    aeroway IS NOT DISTINCT FROM 'aerodrome'
-      OR amenity IS NOT DISTINCT FROM 'bus_station'
-      OR tags @> 'public_transport=>station'
-      OR railway IS NOT DISTINCT FROM 'station' AS station,
-    CASE
-      WHEN aeroway = 'aerodrome' THEN 'airplane'
-      WHEN railway = 'station' AND tags @> 'station=>subway'
-        OR tags @> 'public_transport=>station, subway=>yes' THEN 'subway'
-      WHEN highway = 'tram_stop'
-        OR tags @> 'public_transport=>platform, tram=>yes'  THEN 'tram'
-      WHEN highway = 'bus_stop'
-        OR tags @> 'public_transport=>platform, bus=>yes'
-        OR amenity = 'bus_station'
-        OR tags @> 'public_transport=>station, bus=>yes' THEN 'bus' END as mode
-  FROM (
-    SELECT
-        way,
-        name,
-        highway,
-        railway,
-        amenity,
-        aeroway,
-        tags
-      FROM planet_osm_point
-      WHERE way && {{bbox}}
-        AND (
+    station,
+    mode
+  FROM transit
+  WHERE geom && {{bbox}}
+    AND (
 {% if zoom >= 15 %}
-          highway = 'bus_stop'
-          OR tags @> 'public_transport=>platform, bus=>yes' OR
+      mode = 'bus' OR
+{% elif zoom >= 13 %}
+      (mode = 'bus' AND station) OR
 {% endif %}
 {% if zoom >= 14 %}
-          highway = 'tram_stop'
-          OR tags @> 'public_transport=>platform, tram=>yes' OR
+      (mode = 'tram' AND NOT station) OR
 {% endif %}
-{% if zoom >= 13 %}
-          amenity = 'bus_station'
-          OR tags @> 'public_transport=>station, bus=>yes' OR
-{% endif %}
-          (railway = 'station' AND tags @> 'station=>subway')
-          OR tags @> 'public_transport=>station, subway=>yes'
-          OR aeroway = 'aerodrome'
-)
-    UNION ALL
-    SELECT
-        (ST_MaximumInscribedCircle(way)).center AS way,
-        name,
-        highway,
-        railway,
-        amenity,
-        aeroway,
-        tags  
-      FROM planet_osm_polygon
-      WHERE way && {{bbox}}
-        AND (
-{% if zoom >= 14 %}
-          highway = 'tram_stop'
-          OR tags @> 'public_transport=>platform, tram=>yes' OR
-{% endif %}
-{% if zoom >= 13 %}
-          amenity = 'bus_station'
-          OR tags @> 'public_transport=>station, bus=>yes' OR
-{% endif %}
-          (railway = 'station' AND tags @> 'station=>subway')
-          OR tags @> 'public_transport=>station, subway=>yes'
-          OR aeroway = 'aerodrome'
-        )
-  ) AS transit
+    mode = 'subway' OR mode = 'airplane')
 )
 SELECT
-    ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
     name,
     station,
     mode
