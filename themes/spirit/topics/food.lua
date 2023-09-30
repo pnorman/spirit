@@ -38,7 +38,7 @@ themepark:add_proc('node', function(object, data)
 end)
 
 themepark:add_proc('area', function(object, data)
-    if object.tags.amenity and common.contains(amenities, object.tags.amenity) and common.isarea(object.tags) then
+    if object.tags.amenity and common.contains(amenities, object.tags.amenity) then
         local g_transform = object:as_area():transform(3857)
         local a = {
             geom = g_transform,

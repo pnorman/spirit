@@ -31,7 +31,7 @@ local z_order = {
 local ssy = {'spur', 'siding', 'yard'}
 themepark:add_proc('way', function(object, data)
     local z = z_order[object.tags.railway]
-    if z and not common.isarea(object.tags) then
+    if z then
         local a = { railway = object.tags.railway,
                     layer = common.layer(object.tags.layer),
                     z_order = z,

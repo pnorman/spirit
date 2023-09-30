@@ -59,7 +59,7 @@ themepark:add_proc('area', function(object, data)
         place = 'isolated_dwelling'
     end
 
-    if place ~= nil and common.isarea(object.tags) then
+    if place ~= nil then
         local g = object:as_area():transform(3857)
         local a = {
             geom = g:pole_of_inaccessibility(),

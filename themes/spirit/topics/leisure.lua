@@ -34,7 +34,7 @@ themepark:add_proc('area', function(object, data)
         leisure = 'playground'
     end
 
-    if leisure ~= nil and common.isarea(object.tags) then
+    if leisure ~= nil then
         local g_transform = object:as_area():transform(3857)
         local a = {
             name = object.tags.name,

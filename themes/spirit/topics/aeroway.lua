@@ -22,8 +22,8 @@ themepark:add_table{
 }
 
 themepark:add_proc('way', function(object, data)
-    if (object.tags.aeroway == 'runway'
-        or object.tags.aeroway == 'taxiway') and not common.isarea(object.tags) then
+    if object.tags.aeroway == 'runway'
+       or object.tags.aeroway == 'taxiway' then
         local a = { aeroway = object.tags.aeroway,
                     ref = object.tags.ref,
                     geom = object.as_linestring() }

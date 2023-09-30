@@ -36,7 +36,7 @@ themepark:add_proc('area', function(object, data)
         landuse = 'industrial'
     end
 
-    if landuse ~= nil and common.isarea(object.tags) then
+    if landuse ~= nil then
         local g_transform = object:as_area():transform(3857)
         local a = {
             name = object.tags.name,
