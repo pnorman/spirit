@@ -24,7 +24,10 @@ themepark:add_table{
         { column = 'layer', type = 'smallint' },
         { column = 'z_order', type = 'smallint' },
     }),
-    -- TODO: Add partial index for low zoom roads
+    indexes = {
+        { column = 'geom',
+          method = 'gist',
+          where = "highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link')"}}
 }
 
 themepark:add_table{
