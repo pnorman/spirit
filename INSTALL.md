@@ -2,12 +2,12 @@
 
 ## Requirements
 
-- osm2pgsql 1.9.2+
-- osm2pgsql themepark
-- Python 3.9+
-- PostgreSQL 10+
-- PostGIS 3.3+
-- Tilekiln 0.1.0 or later
+- [osm2pgsql](https://osm2pgsql.org/) 1.9.2+
+- [osm2pgsql themepark](https://osm2pgsql.org/themepark/)
+- [Python](https://www.python.org/) 3.10+
+- [PostgreSQL](https://www.postgresql.org/) 10+
+- [PostGIS](https://postgis.net/) 3.3+
+- [Tilekiln](https://github.com/pnorman/tilekiln) 0.3.0+
 - [charites](https://github.com/unvt/charites)
 - [@basemaps/sprites](https://www.npmjs.com/package/@basemaps/sprites)
 
