@@ -1,0 +1,1 @@
+SELECT ST_AsMVTGeom("geom", {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,"name","name_de","name_en","kind","rail","tunnel","bridge","surface","z_order" FROM "street_polygons" WHERE "geom" && {{bbox}} ORDER BY "z_order" desc

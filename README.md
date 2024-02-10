@@ -4,6 +4,8 @@
 
 Street Spirit aims to be a general purpose map style for OpenStreetMap data, using client-side rendering and vector tiles. It is starting from a mostly fresh start, taking advantage of the decade of lessons in designing an open source stylesheet in [OpenStreetMap Carto](https://github.com/gravitystorm/openstreetmap-carto).
 
+In addition to the Street Spirit style, this code can optionally generate [Shortbread](https://shortbread-tiles.org/) schema vector tiles.
+
 ## Installing
 
 Installation instructions are in [INSTALL.md](INSTALL.md).

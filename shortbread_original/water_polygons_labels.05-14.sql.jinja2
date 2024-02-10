@@ -1,0 +1,1 @@
+SELECT ST_AsMVTGeom("geom", {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,"name","name_de","name_en","kind","way_area" FROM "water_polygons_labels" WHERE "geom" && {{bbox}} ORDER BY "way_area" desc

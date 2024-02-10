@@ -1,0 +1,1 @@
+SELECT ST_AsMVTGeom("geom", {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,"kind" FROM "pier_lines" WHERE "geom" && {{bbox}}

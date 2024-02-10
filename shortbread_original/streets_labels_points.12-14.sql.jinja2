@@ -1,0 +1,1 @@
+SELECT ST_AsMVTGeom("geom", {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,"name","name_de","name_en","kind","ref" FROM "streets_labels_points" WHERE "geom" && {{bbox}}
