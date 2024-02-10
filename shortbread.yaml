@@ -51,9 +51,9 @@ vector_layers:
       minzoom: 9
   water_polygons_labels:
     sql:
-    - maxzoom: 14
-      file: shortbread_original/water_polygons_labels.05-14.sql.jinja2
-      minzoom: 5
+    - minzoom: 5
+      maxzoom: 14
+      file: shortbread/water_polygons_labels.sql.jinja2
   streets_labels_points:
     sql:
     - maxzoom: 14
@@ -61,9 +61,9 @@ vector_layers:
       minzoom: 12
   water_polygons:
     sql:
-    - maxzoom: 14
-      file: shortbread_original/water_polygons.05-14.sql.jinja2
-      minzoom: 5
+    - minzoom: 5
+      maxzoom: 14
+      file: shortbread/water_polygons.sql.jinja2
   aerialways:
     sql:
     - maxzoom: 14
@@ -132,9 +132,6 @@ vector_layers:
       minzoom: 2
   ocean:
     sql:
-    - maxzoom: 14
-      file: shortbread_original/ocean.10-14.sql.jinja2
-      minzoom: 10
-    - maxzoom: 9
-      file: shortbread_original/ocean.00-09.sql.jinja2
-      minzoom: 0
+    - minzoom: 0
+      maxzoom: 14
+      file: shortbread/ocean.sql.jinja2

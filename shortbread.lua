@@ -22,8 +22,6 @@ themepark:add_topic('core/name-with-fallback', {
 
 themepark:add_topic('core/layer')
 
-themepark:add_topic('external/oceans', { name = 'ocean' })
-
 themepark:add_topic('shortbread_v1/aerialways')
 themepark:add_topic('shortbread_v1/boundaries')
 themepark:add_topic('shortbread_v1/boundary_labels')
@@ -38,7 +36,7 @@ themepark:add_topic('shortbread_v1/pois')
 themepark:add_topic('shortbread_v1/public_transport')
 themepark:add_topic('shortbread_v1/sites')
 themepark:add_topic('shortbread_v1/streets')
-themepark:add_topic('shortbread_v1/water')
+themepark:add_topic('shortbread/water')
 
 -- Must be after "pois" layer, because as per Shortbread spec addresses that
 -- are already in "pois" should not be in the "addresses" layer.
