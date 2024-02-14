@@ -20,13 +20,17 @@ themepark:add_topic('core/name-with-fallback', {
 
 -- --------------------------------------------------------------------------
 
+-- Put spirit files above shortbread, because shortbread still does some stuff to objects that might cause problems.
+
+themepark:add_topic('spirit/buildings')
+
+
 themepark:add_topic('core/layer')
 
 themepark:add_topic('shortbread_v1/aerialways')
 themepark:add_topic('shortbread_v1/boundaries')
 themepark:add_topic('shortbread_v1/boundary_labels')
 themepark:add_topic('shortbread_v1/bridges')
-themepark:add_topic('shortbread_v1/buildings')
 themepark:add_topic('shortbread_v1/dams')
 themepark:add_topic('shortbread_v1/ferries')
 themepark:add_topic('shortbread_v1/land')

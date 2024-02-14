@@ -84,7 +84,9 @@ vector_layers:
     sql:
     - minzoom: 14
       maxzoom: 14
-      file: shortbread_original/buildings.14-14.sql.jinja2
+      extent: 4096
+      buffer: 8
+      file: shortbread/buildings.sql.jinja2
   addresses:
     sql:
     - minzoom: 14

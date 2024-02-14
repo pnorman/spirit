@@ -1,0 +1,14 @@
+SELECT
+    ST_Collect(merged.geom) AS way
+{#
+The order of merging is important. If you ST_AsMVTGeom(ST_Collect) you can effectively get a
+ST_Union in some cases. To avoid this, we first transform to the VT coords, then collect. But
+because a geom might be a multipolygon or st_asmvtgeom could turn a polygon into a MP (e.g.
+way 391482237), we have to ST_Dump the geoms to turn multis into polys. Unfortunately, we can't
+just ST_Collect(ST_Dump(...)) because you can't mix an aggregate and set-returning function like
+this. So we have to do a LATERAL join.
+#}
+  FROM buildings,
+    LATERAL ST_Dump(ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}})) AS merged
+  WHERE buildings.geom && {{bbox}}
+    AND way_area > {{coordinate_area}}
