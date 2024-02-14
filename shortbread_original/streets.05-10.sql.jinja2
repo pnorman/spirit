@@ -1,1 +1,10 @@
-SELECT ST_AsMVTGeom("geom", {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,"kind","ref","rail","z_order" FROM "streets_low" WHERE "geom" && {{bbox}} AND {{zoom}} >= "minzoom" ORDER BY "z_order" asc
+SELECT
+    ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    kind,
+    ref,
+    rail,
+    z_order
+    FROM streets_low
+    WHERE geom && {{bbox}}
+        AND {{zoom}} >= minzoom
+    ORDER BY z_order asc

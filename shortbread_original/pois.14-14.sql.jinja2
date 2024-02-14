@@ -1,1 +1,30 @@
-SELECT ST_AsMVTGeom("geom", {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,"name","name_de","name_en","amenity","leisure","tourism","shop","man_made","historic","emergency","highway","office","housename","housenumber","cuisine","sport","vending","information","tower_type","religion","denomination","recycling_glass_bottles","recycling_paper","recycling_clothes","recycling_scrap_metal","atm" FROM "pois" WHERE "geom" && {{bbox}}
+SELECT
+        ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+        name,
+        name_de,
+        name_en,
+        amenity,
+        leisure,
+        tourism,
+        shop,
+        man_made,
+        historic,
+        emergency,
+        highway,
+        office,
+        housename,
+        housenumber,
+        cuisine,
+        sport,
+        vending,
+        information,
+        tower_type,
+        religion,
+        denomination,
+        recycling_glass_bottles,
+        recycling_paper,
+        recycling_clothes,
+        recycling_scrap_metal,
+        atm
+    FROM pois
+    WHERE geom && {{bbox}}

@@ -1,1 +1,10 @@
-SELECT ST_AsMVTGeom("geom", {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,"name","name_de","name_en","admin_level","maritime","disputed" FROM "boundaries" WHERE "geom" && {{bbox}}
+SELECT
+        ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+        name,
+        name_de,
+        name_en,
+        admin_level,
+        maritime,
+        disputed
+    FROM boundaries
+    WHERE geom && {{bbox}}
