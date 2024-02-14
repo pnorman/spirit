@@ -3,7 +3,39 @@ metadata:
   attribution: <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a>
   id: shortbread_v1
   name: OpenStreetMap Shortbread
+# For convenience the layers are listed in the same order as Shortbread documentation
 vector_layers:
+  # Water
+  ocean:
+    sql:
+    - minzoom: 0
+      maxzoom: 14
+      file: shortbread/ocean.sql.jinja2
+  water_polygons:
+    sql:
+    - maxzoom: 14
+      minzoom: 5
+      file: shortbread/water_polygons.sql.jinja2
+  water_polygons_labels:
+    sql:
+    - minzoom: 5
+      maxzoom: 14
+      file: shortbread/water_polygons_labels.sql.jinja2
+  water_lines:
+    sql:
+    - minzoom: 9
+      maxzoom: 14
+      file: shortbread_original/water_lines.09-14.sql.jinja2
+  water_lines_labels:
+    sql:
+    - minzoom: 12
+      maxzoom: 14
+      file: shortbread_original/water_lines_labels.12-14.sql.jinja2
+  dam_lines:
+    sql:
+    - minzoom: 14
+      maxzoom: 14
+      file: shortbread_original/dam_lines.14-14.sql.jinja2
   dam_polygons:
     sql:
     - minzoom: 14
@@ -14,91 +46,52 @@ vector_layers:
     - minzoom: 12
       maxzoom: 14
       file: shortbread_original/pier_lines.12-14.sql.jinja2
-  ferries:
-    sql:
-    - minzoom: 10
-      maxzoom: 14
-      file: shortbread_original/ferries.10-14.sql.jinja2
-  dam_lines:
-    sql:
-    - minzoom: 14
-      maxzoom: 14
-      file: shortbread_original/dam_lines.14-14.sql.jinja2
-  land:
-    sql:
-    - minzoom: 7
-      maxzoom: 14
-      file: shortbread_original/land.07-14.sql.jinja2
-  street_labels:
-    sql:
-    - minzoom: 14
-      maxzoom: 14
-      file: shortbread_original/street_labels.14-14.sql.jinja2
-  addresses:
-    sql:
-    - minzoom: 14
-      maxzoom: 14
-      file: shortbread_original/addresses.14-14.sql.jinja2
-  water_lines_labels:
-    sql:
-    - minzoom: 12
-      maxzoom: 14
-      file: shortbread_original/water_lines_labels.12-14.sql.jinja2
-  water_lines:
-    sql:
-    - minzoom: 9
-      maxzoom: 14
-      file: shortbread_original/water_lines.09-14.sql.jinja2
-  water_polygons_labels:
-    sql:
-    - minzoom: 5
-      maxzoom: 14
-      file: shortbread/water_polygons_labels.sql.jinja2
-  streets_labels_points:
-    sql:
-    - minzoom: 12
-      maxzoom: 14
-      file: shortbread_original/streets_labels_points.12-14.sql.jinja2
-  water_polygons:
-    sql:
-    - maxzoom: 14
-      minzoom: 5
-      file: shortbread/water_polygons.sql.jinja2
-  aerialways:
-    sql:
-    - minzoom: 12
-      maxzoom: 14
-      file: shortbread_original/aerialways.12-14.sql.jinja2
-  buildings:
-    sql:
-    - minzoom: 14
-      maxzoom: 14
-      file: shortbread_original/buildings.14-14.sql.jinja2
-  street_polygons:
-    sql:
-    - minzoom: 11
-      maxzoom: 14
-      file: shortbread_original/street_polygons.11-14.sql.jinja2
-  bridges:
-    sql:
-    - minzoom: 12
-      maxzoom: 14
-      file: shortbread_original/bridges.12-14.sql.jinja2
   pier_polygons:
     sql:
     - minzoom: 12
       maxzoom: 14
       file: shortbread_original/pier_polygons.12-14.sql.jinja2
+
+  # Countries, States, Cities
+  boundary_labels:
+    sql:
+    - minzoom: 0
+      maxzoom: 14
+      file: shortbread_original/boundary_labels.00-14.sql.jinja2
+  boundaries:
+    sql:
+    - minzoom: 2
+      maxzoom: 14
+      file: shortbread_original/boundaries.02-14.sql.jinja2
+  place_labels:
+    sql:
+    - minzoom: 4
+      maxzoom: 14
+      file: shortbread_original/place_labels.04-14.sql.jinja2
+
+  # Land Use, Land Cover, Buildings
+  land:
+    sql:
+    - minzoom: 7
+      maxzoom: 14
+      file: shortbread_original/land.07-14.sql.jinja2
   sites:
     sql:
     - minzoom: 14
       maxzoom: 14
       file: shortbread_original/sites.14-14.sql.jinja2
-  public_transport:
+  buildings:
     sql:
-    - minzoom: 11
+    - minzoom: 14
       maxzoom: 14
-      file: shortbread_original/public_transport.11-14.sql.jinja2
+      file: shortbread_original/buildings.14-14.sql.jinja2
+  addresses:
+    sql:
+    - minzoom: 14
+      maxzoom: 14
+      file: shortbread_original/addresses.14-14.sql.jinja2
+
+  # Streets and Transport
   streets:
     sql:
     - minzoom: 5
@@ -110,28 +103,46 @@ vector_layers:
     - minzoom: 14
       maxzoom: 14
       file: shortbread_original/streets.14-14.sql.jinja2
-  place_labels:
+  street_polygons:
     sql:
-    - minzoom: 4
+    - minzoom: 11
       maxzoom: 14
-      file: shortbread_original/place_labels.04-14.sql.jinja2
+      file: shortbread_original/street_polygons.11-14.sql.jinja2
+  street_labels:
+    sql:
+    - minzoom: 14
+      maxzoom: 14
+      file: shortbread_original/street_labels.14-14.sql.jinja2
+  # TODO: streets_polygons_labels
+  streets_labels_points:
+    sql:
+    - minzoom: 12
+      maxzoom: 14
+      file: shortbread_original/streets_labels_points.12-14.sql.jinja2
+  bridges:
+    sql:
+    - minzoom: 12
+      maxzoom: 14
+      file: shortbread_original/bridges.12-14.sql.jinja2
+  aerialways:
+    sql:
+    - minzoom: 12
+      maxzoom: 14
+      file: shortbread_original/aerialways.12-14.sql.jinja2
+  ferries:
+    sql:
+    - minzoom: 10
+      maxzoom: 14
+      file: shortbread_original/ferries.10-14.sql.jinja2
+
+  # Points of interest
+  public_transport:
+    sql:
+    - minzoom: 11
+      maxzoom: 14
+      file: shortbread_original/public_transport.11-14.sql.jinja2
   pois:
     sql:
     - minzoom: 14
       maxzoom: 14
       file: shortbread_original/pois.14-14.sql.jinja2
-  boundary_labels:
-    sql:
-    - minzoom: 0
-      maxzoom: 14
-      file: shortbread_original/boundary_labels.00-14.sql.jinja2
-  boundaries:
-    sql:
-    - minzoom: 2
-      maxzoom: 14
-      file: shortbread_original/boundaries.02-14.sql.jinja2
-  ocean:
-    sql:
-    - minzoom: 0
-      maxzoom: 14
-      file: shortbread/ocean.sql.jinja2
