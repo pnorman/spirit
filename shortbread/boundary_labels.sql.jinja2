@@ -8,3 +8,4 @@ SELECT
     FROM boundary_labels
     WHERE geom && {{bbox}}
         AND {{zoom}} >= minzoom
+    ORDER BY way_area DESC
