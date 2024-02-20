@@ -35,12 +35,12 @@ vector_layers:
     sql:
     - minzoom: 14
       maxzoom: 14
-      file: shortbread_original/dam_lines.14-14.sql.jinja2
+      file: shortbread/dam_lines.sql.jinja2
   dam_polygons:
     sql:
     - minzoom: 14
       maxzoom: 14
-      file: shortbread_original/dam_polygons.14-14.sql.jinja2
+      file: shortbread/dam_polygons.sql.jinja2
   pier_lines:
     sql:
     - minzoom: 12
@@ -53,16 +53,16 @@ vector_layers:
       file: shortbread_original/pier_polygons.12-14.sql.jinja2
 
   # Countries, States, Cities
-  boundary_labels:
-    sql:
-    - minzoom: 0
-      maxzoom: 14
-      file: shortbread_original/boundary_labels.00-14.sql.jinja2
   boundaries:
     sql:
     - minzoom: 2
       maxzoom: 14
       file: shortbread_original/boundaries.02-14.sql.jinja2
+  boundary_labels:
+    sql:
+    - minzoom: 0
+      maxzoom: 14
+      file: shortbread_original/boundary_labels.00-14.sql.jinja2
   place_labels:
     sql:
     - minzoom: 4
