@@ -38,7 +38,7 @@ vector_layers:
       file: shortbread/dam_lines.sql.jinja2
   dam_polygons:
     sql:
-    - minzoom: 14
+    - minzoom: 12
       maxzoom: 14
       file: shortbread/dam_polygons.sql.jinja2
   pier_lines:
