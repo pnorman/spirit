@@ -57,7 +57,7 @@ vector_layers:
     sql:
     - minzoom: 2
       maxzoom: 14
-      file: shortbread_original/boundaries.02-14.sql.jinja2
+      file: shortbread/boundaries.sql.jinja2
   boundary_labels:
     sql:
     - minzoom: 0
