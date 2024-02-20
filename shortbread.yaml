@@ -1,52 +1,88 @@
----
 metadata:
   attribution: <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a>
   id: shortbread_v1
   name: OpenStreetMap Shortbread
+  description: The Shortbread vector tile schema is intended to be a basic, lean, general-purpose vector tile schema for OpenStreetMap data. It does not, and is not intended to, cover the full breadth and depth of OpenStreetMap tagging.
+  version: 1.0
 # For convenience the layers are listed in the same order as Shortbread documentation
 vector_layers:
   # Water
   ocean:
+    description: This layer contains oceans.
     sql:
     - minzoom: 0
       maxzoom: 14
       file: shortbread/ocean.sql.jinja2
   water_polygons:
+    description: This layer contains inland water bodies and glaciers.
+    fields:
+      kind: type of water body
+      way_area: &way_area Area of the feature in square meters, in the Web Mercator projection
     sql:
     - maxzoom: 14
       minzoom: 5
       file: shortbread/water_polygons.sql.jinja2
   water_polygons_labels:
+    description: Holds point geometries and names for all named water polygons available in the water_polygons layer.
+    fields:
+      kind: type of water body
+      way_area: *way_area
+      name: &name Value of OSM name tag
+      name_en: &name_en Value of OSM name_en tag
+      name_de: &name_de Value of OSM name_de tag
     sql:
     - minzoom: 5
       maxzoom: 14
       file: shortbread/water_polygons_labels.sql.jinja2
   water_lines:
+    description: Holds waterway line geometries
+    fields:
+      kind: type of waterway
+      tunnel: true for tunnel=yes/building_passage or covered=yes, false otherwise
+      bridge: true for bridge=yes/viaduct/boardwalk/cantilever/covered/low_water_crossing/movable/trestle, false otherwise
     sql:
     - minzoom: 9
       maxzoom: 14
       file: shortbread_original/water_lines.09-14.sql.jinja2
   water_lines_labels:
+    description: Hold line geometries and names for named water lines
+    fields:
+      kind: type of waterway
+      name: *name
+      name_en: *name_en
+      name_de: *name_de
     sql:
     - minzoom: 12
       maxzoom: 14
       file: shortbread_original/water_lines_labels.12-14.sql.jinja2
   dam_lines:
+    description: Holds line geometries of dams (not dykes)
+    fields:
+      kind: String
     sql:
     - minzoom: 14
       maxzoom: 14
       file: shortbread/dam_lines.sql.jinja2
   dam_polygons:
+    description: Holds polygon geometries of dams (not dykes).
+    fields:
+      kind: String
     sql:
     - minzoom: 12
       maxzoom: 14
       file: shortbread/dam_polygons.sql.jinja2
   pier_lines:
+    description: This layer contains piers, breakwaters and groynes mapped as lines. See the pier_polygons layer for those mapped as polygons
+    fields:
+      kind: String
     sql:
     - minzoom: 12
       maxzoom: 14
       file: shortbread_original/pier_lines.12-14.sql.jinja2
   pier_polygons:
+    description: This layer contains piers, breakwaters and groynes mapped as polygons. See the pier_lines layer for those mapped as lines.
+    fields:
+      kind: String
     sql:
     - minzoom: 12
       maxzoom: 14
@@ -54,16 +90,35 @@ vector_layers:
 
   # Countries, States, Cities
   boundaries:
+    description: Holds boundary lines of countries and states.
+    fields:
+      admin_level: highest administrative boundary this line belongs to
+      maritime: Boundary line is located on sea
+      disputed: Boundary line is tagged as disputed
     sql:
     - minzoom: 2
       maxzoom: 14
       file: shortbread/boundaries.sql.jinja2
   boundary_labels:
+    description: Holds label points for boundary polygons of countries and states.
+    fields:
+      admin_level: value of OSM admin_level=* tag
+      way_area: *way_area
+      name: *name
+      name_en: *name_en
+      name_de: *name_de
     sql:
     - minzoom: 0
       maxzoom: 14
       file: shortbread/boundary_labels.sql.jinja2
   place_labels:
+    description: Holds label points for populated places.
+    fields:
+      kind: Value of OSM place tag
+      name: *name
+      name_en: *name_en
+      name_de: *name_de
+      population: Value of OSM population tag
     sql:
     - minzoom: 4
       maxzoom: 14
@@ -71,16 +126,23 @@ vector_layers:
 
   # Land Use, Land Cover, Buildings
   land:
+    description: This layer contains basic land cover that is usually drawn first.
+    fields:
+      kind: String
     sql:
     - minzoom: 7
       maxzoom: 14
       file: shortbread_original/land.07-14.sql.jinja2
   sites:
+    description: This layer is for types of land use that will usually be above the basic land layer, but below buildings.
+    fields:
+      kind: String
     sql:
     - minzoom: 14
       maxzoom: 14
       file: shortbread_original/sites.14-14.sql.jinja2
   buildings:
+    description: Has polygons for every building
     sql:
     - minzoom: 14
       maxzoom: 14
@@ -88,6 +150,10 @@ vector_layers:
       buffer: 8
       file: shortbread/buildings.sql.jinja2
   addresses:
+    description: Has points for everything with an address. If a feature is available in the pois layer, it will not be duplicated in the addresses layer.
+    fields:
+      housename: Housename of feature
+      housenumber: Housenumber of feature
     sql:
     - minzoom: 14
       maxzoom: 14
@@ -95,6 +161,20 @@ vector_layers:
 
   # Streets and Transport
   streets:
+    description: Holds line geometries of the whole road network
+    fields:
+      kind: Feature class, contains value of highway=*, aeroway=* or railway=*
+      link: true for link roads
+      rail: true for railways, false otherwise
+      tunnel: true for tunnel=yes/building_passage or covered=yes, false otherwise
+      bridge: true for bridge=yes/viaduct/boardwalk/cantilever/covered/low_water_crossing/movable/trestle, false otherwise
+      oneway: true for oneway=yes/1/true/-1; always false for rail features
+      oneway_reverse: true for reverse (not reversible) oneways (oneway=-1); always false for rail features
+      tracktype: value of tracktype=*
+      surface: value of surface=*
+      service: value of service=*
+      bicycle: value of bicycle=*
+      horse: value of horse=*
     sql:
     - minzoom: 5
       maxzoom: 10
@@ -106,32 +186,66 @@ vector_layers:
       maxzoom: 14
       file: shortbread_original/streets.14-14.sql.jinja2
   street_polygons:
+    description: Holds polygons geometries of certain streets mapped as polygons
+    fields:
+      kind: Feature class, contains value of highway=* or area:aeroway=*
+      tunnel: true for tunnel=yes/building_passage or covered=yes, false otherwise
+      bridge: true for bridge=yes/viaduct/boardwalk/cantilever/covered/low_water_crossing/movable/trestle, false otherwise
+      surface: value of surface tag
     sql:
     - minzoom: 11
       maxzoom: 14
       file: shortbread_original/street_polygons.11-14.sql.jinja2
   street_labels:
+    description: This layer holds street geometries for labelling. It contains their names and reference numbers
+    fields:
+      kind: value of OSM highway=*, aeroway=* or taxiway=* tag
+      ref: value of OSM ref=* tag, semicolons replaced by newline characters
+      ref_rows: number of lines of the ref field
+      ref_cols: maximum line length of the ref field
+      name: *name
+      name_en: *name_en
+      name_de: *name_de
     sql:
     - minzoom: 14
       maxzoom: 14
       file: shortbread_original/street_labels.14-14.sql.jinja2
   # TODO: streets_polygons_labels
   streets_labels_points:
+    description: This layer holds motorway exit labels
+    fields:
+      kind: value of OSM highway=* or aeroway=* tag
+      ref: Reference number of the exit
+      name: *name
+      name_en: *name_en
+      name_de: *name_de
     sql:
     - minzoom: 12
       maxzoom: 14
       file: shortbread_original/streets_labels_points.12-14.sql.jinja2
   bridges:
+    description: This layer contains bridges mapped as polygons. There is no distinction which type of road, railway, runway or waterway uses this bridge.
+    fields:
+      kind: String
     sql:
     - minzoom: 12
       maxzoom: 14
       file: shortbread_original/bridges.12-14.sql.jinja2
   aerialways:
+    description: Holds aerialways as lines.
+    fields:
+      kind: String
     sql:
     - minzoom: 12
       maxzoom: 14
       file: shortbread_original/aerialways.12-14.sql.jinja2
   ferries:
+    description: Holds line geometries of ferries.
+    fields:
+      kind: String
+      name: *name
+      name_en: *name_en
+      name_de: *name_de
     sql:
     - minzoom: 10
       maxzoom: 14
@@ -139,11 +253,19 @@ vector_layers:
 
   # Points of interest
   public_transport:
+    description: Holds public transport stops as points. Areas in OSM are represented by a point.
+    fields:
+      kind: String
+      name: *name
+      name_en: *name_en
+      name_de: *name_de
     sql:
     - minzoom: 11
       maxzoom: 14
       file: shortbread_original/public_transport.11-14.sql.jinja2
   pois:
+    description: Holds public transport stops as points. Areas in OSM are represented by a point.
+    fields:
     sql:
     - minzoom: 14
       maxzoom: 14
