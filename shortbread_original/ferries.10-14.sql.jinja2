@@ -3,8 +3,7 @@ SELECT
         name,
         name_de,
         name_en,
-        kind,
-        motor_vehicle
+        kind
     FROM ferries
     WHERE geom && {{bbox}}
         AND {{zoom}} >= minzoom

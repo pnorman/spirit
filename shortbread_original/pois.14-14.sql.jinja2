@@ -18,13 +18,13 @@ SELECT
         sport,
         vending,
         information,
-        tower_type,
+        "tower:type",
         religion,
         denomination,
-        recycling_glass_bottles,
-        recycling_paper,
-        recycling_clothes,
-        recycling_scrap_metal,
+        "recycling:glass_bottles",
+        "recycling:paper",
+        "recycling:clothes",
+        "recycling:scrap_metal",
         atm
     FROM pois
     WHERE geom && {{bbox}}

@@ -20,8 +20,6 @@ themepark:add_topic('core/name-with-fallback', {
 
 -- --------------------------------------------------------------------------
 
--- Put spirit files above shortbread, because shortbread still does some stuff to objects that might cause problems.
-
 themepark:add_topic('spirit/buildings')
 
 
@@ -36,14 +34,14 @@ themepark:add_topic('shortbread_v1/ferries')
 themepark:add_topic('shortbread_v1/land')
 themepark:add_topic('shortbread_v1/piers')
 themepark:add_topic('shortbread_v1/places')
-themepark:add_topic('shortbread_v1/pois')
 themepark:add_topic('shortbread_v1/public_transport')
 themepark:add_topic('shortbread_v1/sites')
 themepark:add_topic('shortbread_v1/streets')
 themepark:add_topic('shortbread/water')
 
+themepark:add_topic('shortbread/pois')
 -- Must be after "pois" layer, because as per Shortbread spec addresses that
 -- are already in "pois" should not be in the "addresses" layer.
-themepark:add_topic('shortbread_v1/addresses')
+themepark:add_topic('shortbread/addresses')
 
 -- ---------------------------------------------------------------------------
