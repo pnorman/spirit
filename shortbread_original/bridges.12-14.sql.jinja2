@@ -1,0 +1,5 @@
+SELECT
+        ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+        kind
+    FROM bridges
+    WHERE geom && {{bbox}}

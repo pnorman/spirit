@@ -1,6 +1,6 @@
 -- ---------------------------------------------------------------------------
 --
--- Shortbread theme
+-- Street Spirit theme
 --
 -- Configuration for the osm2pgsql Themepark framework
 --

@@ -1,0 +1,52 @@
+name: Spirit
+version: 8
+sources:
+  spirit:
+    type: vector
+    url: http://127.0.0.1:8000/tilejson.json
+sprite: http://127.0.0.1:8081/sprites
+glyphs: https://pnorman.dev.openstreetmap.org/spirit/fonts/{fontstack}/{range}.pbf
+layers:
+  - !!inc/file style/background.yaml
+  - !!inc/file style/landuse.yaml
+  - !!inc/file style/education.yaml
+  - !!inc/file style/education-outline.yaml
+  - !!inc/file style/leisure.yaml
+  - !!inc/file style/vegetation.yaml
+  - !!inc/file style/vegetation-pattern.yaml
+  - !!inc/file style/water.yaml
+  - !!inc/file style/water-lines.yaml
+  - !!inc/file style/building-fill.yaml
+  - !!inc/file style/building-outline.yaml
+  - !!inc/file style/road-base-casing.yaml
+  - !!inc/file style/road-tunnel-casing.yaml
+  - !!inc/file style/road-base-fill.yaml
+  - !!inc/file style/road-casing.yaml
+  - !!inc/file style/road-fill.yaml
+  - !!inc/file style/rail-casing.yaml
+  - !!inc/file style/rail-fill.yaml
+  - !!inc/file style/road-bridge-casing.yaml
+  - !!inc/file style/road-bridge-fill.yaml
+  - !!inc/file style/rail-bridge-outer-casing.yaml
+  - !!inc/file style/rail-bridge-casing.yaml
+  - !!inc/file style/rail-bridge-fill.yaml
+  - !!inc/file style/aeroways.yaml
+  - !!inc/file style/transit-points.yaml
+  - !!inc/file style/admin-background.yaml
+  - !!inc/file style/admin-background-dashed.yaml
+  - !!inc/file style/admin-2.yaml
+  - !!inc/file style/admin-4.yaml
+  - !!inc/file style/admin-6.yaml
+  - !!inc/file style/admin-8.yaml
+  - !!inc/file style/settlement-names.yaml
+  - !!inc/file style/admin-names.yaml
+  - !!inc/file style/aeroway-text.yaml
+  - !!inc/file style/road-text.yaml
+  - !!inc/file style/water-line-text.yaml
+  - !!inc/file style/water-names.yaml
+  - !!inc/file style/vegetation-names.yaml
+  - !!inc/file style/leisure-names.yaml
+  - !!inc/file style/education-names.yaml
+  - !!inc/file style/landuse-names.yaml
+  - !!inc/file style/food.yaml
+  - !!inc/file style/building-names.yaml

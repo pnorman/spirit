@@ -1,0 +1,8 @@
+SELECT
+    ST_AsMVTGeom(way, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way
+{% if zoom <= 8 %}
+  FROM simplified_water_polygons
+{% else %}
+  FROM water_polygons
+{% endif %}
+  WHERE way && {{bbox}}
