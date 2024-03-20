@@ -26,7 +26,6 @@ themepark:add_topic('spirit/buildings')
 themepark:add_topic('core/layer')
 
 themepark:add_topic('shortbread_v1/aerialways')
-themepark:add_topic('shortbread_v1/boundaries')
 themepark:add_topic('shortbread_v1/boundary_labels')
 themepark:add_topic('shortbread_v1/bridges')
 themepark:add_topic('shortbread_v1/dams')
@@ -43,5 +42,6 @@ themepark:add_topic('shortbread/pois')
 -- Must be after "pois" layer, because as per Shortbread spec addresses that
 -- are already in "pois" should not be in the "addresses" layer.
 themepark:add_topic('shortbread/addresses')
+themepark:add_topic('shortbread/boundaries')
 
 -- ---------------------------------------------------------------------------
