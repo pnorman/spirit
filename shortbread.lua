@@ -21,7 +21,9 @@ themepark:add_topic('core/name-with-fallback', {
 -- --------------------------------------------------------------------------
 
 themepark:add_topic('spirit/buildings')
-
+themepark:add_topic('spirit/roads')
+themepark:add_topic('spirit/railway')
+themepark:add_topic('spirit/aeroway')
 
 themepark:add_topic('core/layer')
 
@@ -35,7 +37,6 @@ themepark:add_topic('shortbread_v1/piers')
 themepark:add_topic('shortbread_v1/places')
 themepark:add_topic('shortbread_v1/public_transport')
 themepark:add_topic('shortbread_v1/sites')
-themepark:add_topic('shortbread_v1/streets')
 themepark:add_topic('shortbread/water')
 
 themepark:add_topic('shortbread/pois')
@@ -43,5 +44,6 @@ themepark:add_topic('shortbread/pois')
 -- are already in "pois" should not be in the "addresses" layer.
 themepark:add_topic('shortbread/addresses')
 themepark:add_topic('shortbread/boundaries')
+themepark:add_topic('shortbread/streets')
 
 -- ---------------------------------------------------------------------------

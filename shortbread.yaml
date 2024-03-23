@@ -177,14 +177,15 @@ vector_layers:
             horse: value of horse=*
         sql:
           - minzoom: 5
-            maxzoom: 10
-            file: shortbread_original/streets.05-10.sql.jinja2
-          - minzoom: 11
             maxzoom: 13
-            file: shortbread_original/streets.11-13.sql.jinja2
+            extent: 2048
+            buffer: 16
+            file: shortbread/streets.sql.jinja2
           - minzoom: 14
             maxzoom: 14
-            file: shortbread_original/streets.14-14.sql.jinja2
+            extent: 4096
+            buffer: 64 # Needs to be wide to include aeroways. TODO: Vary this by feature type?
+            file: shortbread/streets.sql.jinja2
     street_polygons:
         description: Holds polygons geometries of certain streets mapped as polygons
         fields:
@@ -207,9 +208,9 @@ vector_layers:
             name_en: *name_en
             name_de: *name_de
         sql:
-          - minzoom: 14
+          - minzoom: 10
             maxzoom: 14
-            file: shortbread_original/street_labels.14-14.sql.jinja2
+            file: shortbread/street_labels.sql.jinja2
     # TODO: streets_polygons_labels
     streets_labels_points:
         description: This layer holds motorway exit labels

@@ -23,6 +23,11 @@ themepark:add_table{
         { column = 'tunnel', type = 'boolean' },
         { column = 'layer', type = 'smallint' },
         { column = 'z_order', type = 'smallint' },
+        { column = 'tracktype', type = 'text' },
+        { column = 'surface', type = 'text' },
+        { column = 'service', type = 'text' },
+        { column = 'bicycle', type = 'text' },
+        { column = 'horse', type = 'text' }
     }),
     indexes = {
         { column = 'geom',
@@ -59,6 +64,7 @@ local z_order = {
     secondary_link = 210,
     tertiary_link = 200,
     busway = 170,
+    bus_guideway = 170,
     service = 150,
     bridleway = 100,
     footway = 100,
@@ -82,6 +88,11 @@ themepark:add_proc('way', function(object, data)
                     highway = object.tags.highway,
                     ref = object.tags.ref,
                     oneway = object.tags.oneway,
+                    tracktype = object.tags.oneway,
+                    surface = object.tags.surface,
+                    service = object.tags.service,
+                    bicycle = object.tags.bicycle,
+                    horse = object.tags.horse,
                     layer = common.layer(object.tags.layer),
                     z_order = z,
                     geom = object.as_linestring() }

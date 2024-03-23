@@ -1,0 +1,116 @@
+WITH road AS (
+    SELECT
+        CASE WHEN oneway = '-1' THEN ST_Reverse(geom) ELSE geom END AS geom,
+        CASE highway
+            WHEN 'motorway_link' THEN 'motorway'
+            WHEN 'trunk_link' THEN 'trunk'
+            WHEN 'primary_link' THEN 'primary'
+            WHEN 'secondary_link' THEN 'secondary'
+            WHEN 'tertiary_link' THEN 'tertiary'
+            ELSE highway
+        END AS kind,
+        CASE WHEN highway IN ('motorway_link', 'trunk_link', 'primary_link', 'secondary_link', 'tertiary_link') THEN true END AS link,
+        false AS rail,
+        coalesce(tunnel, false) AS tunnel,
+        coalesce(bridge, false) AS bridge,
+        coalesce(oneway IN ('yes', '1', 'true', '-1'), false) AS oneway,
+        false AS oneway_reverse,
+        tracktype,
+        surface,
+        service,
+        bicycle,
+        horse,
+        z_order
+    FROM roads
+    WHERE geom && {{bbox}}
+        AND highway IN
+(
+{#
+    Formatting this way is slightly awkward since the `,' only goes on lines with something following.
+    Better would be to template this with Jinja somehow
+#}
+'motorway', 'motorway_link'
+{% if zoom >=6 %}, 'trunk', 'trunk_link'{% endif %}
+{% if zoom >=8 %}, 'primary', 'primary_link'{% endif %}
+{% if zoom >=9 %}, 'secondary', 'secondary_link'{% endif %}
+{% if zoom >=10 %}, 'tertiary', 'tertiary_link'{% endif %}
+{% if zoom >=12 %}, 'unclassified', 'residential', 'busway', 'bus_guideway'{% endif %}
+{% if zoom >= 13 %}, 'living_street', 'service', 'pedestrian', 'track', 'footway', 'steps', 'path', 'cycleway'{% endif %}
+)
+),
+{% if zoom >=8 %}
+rail AS (
+    SELECT
+        geom,
+        railway AS kind,
+        false AS link,
+        true AS rail,
+        coalesce(tunnel, false) AS tunnel,
+        coalesce(bridge, false) AS bridge,
+        false AS oneway,
+        false AS oneway_reverse,
+        NULL as tracktype,
+        NULL AS service,
+        NULL AS bicycle,
+        NULL AS horse,
+        z_order
+    FROM railways
+    WHERE geom && {{bbox}}
+        AND railway IN
+(
+'rail', 'narrow_gauge'
+{% if zoom >=10 %}, 'tram', 'light_rail', 'funicular', 'subway', 'monorail'{% endif %}
+)
+),
+{% endif %}
+{% if zoom >=11 %}
+aeroway AS (
+    SELECT
+        geom,
+        aeroway AS kind,
+        false AS link,
+        true AS rail,
+        false AS tunnel,
+        false AS bridge,
+        false AS oneway,
+        false AS oneway_reverse,
+        NULL as tracktype,
+        NULL AS service,
+        NULL AS bicycle,
+        NULL AS horse,
+        CASE WHEN aeroway = 'runway' THEN 510 ELSE 500 END AS z_order
+    FROM aeroways
+    WHERE geom && {{bbox}}
+        AND aeroway IN ('runway'{% if zoom >=11 %}, 'taxiway'{% endif %})
+),
+{% endif %}
+{% set columns = 'kind, link, rail, tunnel, bridge, oneway, oneway_reverse, tracktype, service, bicycle, horse' %}
+all_geoms AS (
+SELECT
+    geom, {{columns}}, z_order
+FROM road
+{% if zoom >=8 %}
+UNION ALL
+SELECT
+    geom, {{columns}}, z_order
+FROM rail
+{% endif %}
+{% if zoom >=11 %}
+UNION ALL
+SELECT
+    geom, {{columns}}, z_order
+FROM aeroway
+{% endif %}
+),
+merged AS (
+    SELECT
+        ST_LineMerge(ST_Collect(geom), oneway IS NOT DISTINCT FROM true) AS geom,
+        {{columns}}, z_order
+    FROM all_geoms
+    GROUP BY {{columns}}, z_order
+)
+SELECT
+    ST_AsMVTGeom((ST_Dump(geom)).geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    {{columns}}
+    FROM merged
+    ORDER BY z_order DESC

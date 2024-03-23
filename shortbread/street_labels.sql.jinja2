@@ -1,0 +1,84 @@
+WITH road AS (
+    SELECT
+        geom,
+        highway AS kind,
+        name,
+        ref,
+        z_order
+    FROM roads
+    WHERE geom && {{bbox}}
+        AND (ref IS NOT NULL OR name IS NOT NULL)
+        AND highway IN
+(
+{#
+    Formatting this way is slightly awkward since the `,' only goes on lines with something following.
+    Better would be to template this with Jinja somehow
+#}
+'motorway'
+{% if zoom >=12 %}, 'trunk', 'primary'{% endif %}
+{% if zoom >=13 %}, 'motorway_link', 'trunk_link', 'primary_link', 'secondary', 'secondary_link', 'tertiary'{% endif %}
+{% if zoom >=14 %}, 'tertiary_link', 'unclassified', 'residential', 'living_street', 'busway', 'bus_guideway',
+'service', 'pedestrian', 'track', 'footway', 'steps', 'path', 'cycleway'{% endif %}
+)
+),
+rail AS (
+    SELECT
+        geom,
+        railway AS kind,
+        NULL AS name, -- TODO: add railway names
+        ref,
+        z_order
+    FROM railways
+    WHERE geom && {{bbox}}
+        AND (ref IS NOT NULL OR name IS NOT NULL)
+        AND railway IN ('rail', 'narrow_gauge', 'tram', 'light_rail', 'funicular', 'subway', 'monorail')
+),
+{% if zoom >=11 %}
+aeroway AS (
+    SELECT
+        geom,
+        aeroway AS kind,
+        NULL AS name,
+        ref,
+        CASE WHEN aeroway = 'runway' THEN 510 ELSE 500 END AS z_order
+    FROM aeroways
+    WHERE geom && {{bbox}}
+        AND (ref IS NOT NULL)
+        AND aeroway IN ('runway'{% if zoom >=13 %}, 'taxiway'{% endif %})
+),
+{% endif %}
+{% set columns = 'kind, name, ref' %}
+all_geoms AS (
+SELECT
+    geom, {{columns}}, z_order
+FROM road
+UNION ALL
+SELECT
+    geom, {{columns}}, z_order
+FROM rail
+{% if zoom >=11 %}
+UNION ALL
+SELECT
+    geom, {{columns}}, z_order
+FROM aeroway
+{% endif %}
+),
+merged AS (
+    SELECT
+        ST_LineMerge(ST_Collect(geom)) AS geom,
+        kind,
+        name,
+        string_to_array(ref, ';') AS refs,
+        z_order
+    FROM all_geoms
+    GROUP BY {{columns}}, z_order
+)
+SELECT
+    ST_AsMVTGeom((ST_Dump(geom)).geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    kind,
+    name,
+    array_to_string(refs, E'\n') AS ref,
+    array_length(refs,1) AS ref_rows,
+    (SELECT MAX(char_length(ref)) FROM unnest(refs) AS u(ref)) AS ref_cols
+FROM merged
+ORDER BY z_order DESC
