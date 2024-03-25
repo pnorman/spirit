@@ -108,7 +108,8 @@ themepark:add_proc('relation', function(object, data)
         if member.type == 'w' then
             if not rinfos[member.ref] then
                 rinfos[member.ref] = { admin_level = admin_level, disputed = false }
-            elseif rinfos[member.ref].admin_level > admin_level then
+            end
+            if rinfos[member.ref].admin_level == nil or rinfos[member.ref].admin_level > admin_level then
                 rinfos[member.ref].admin_level = admin_level
             end
             rinfos[member.ref].disputed = disputed or rinfos[member.ref].disputed
