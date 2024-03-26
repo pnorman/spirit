@@ -98,7 +98,7 @@ themepark:add_proc('relation', function(object, data)
 
     local admin_level = get_admin_level(t)
     local disputed = valid_disputed(t)
-    -- If a relation does not an admin boundary or disputed boundary it has
+    -- If a relation is not an admin boundary or disputed boundary it has
     -- nothing to tell us and we don't need the ways.
     if not admin_level and not disputed then
         return
@@ -107,9 +107,10 @@ themepark:add_proc('relation', function(object, data)
     for _, member in ipairs(object.members) do
         if member.type == 'w' then
             if not rinfos[member.ref] then
-                rinfos[member.ref] = { admin_level = admin_level, disputed = false }
+                rinfos[member.ref] = { disputed = false }
             end
-            if rinfos[member.ref].admin_level == nil or rinfos[member.ref].admin_level > admin_level then
+            if admin_level ~= nil and
+                (rinfos[member.ref].admin_level == nil or rinfos[member.ref].admin_level > admin_level) then
                 rinfos[member.ref].admin_level = admin_level
             end
             rinfos[member.ref].disputed = disputed or rinfos[member.ref].disputed
