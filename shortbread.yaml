@@ -212,6 +212,17 @@ vector_layers:
             maxzoom: 14
             file: shortbread/street_labels.sql.jinja2
     # TODO: streets_polygons_labels
+    streets_polygons_labels:
+        description: Holds labelling points of the polygons of the streets_polygons layer
+        fields:
+            kind: value of OSM highway=*, aeroway=* or taxiway=* tag
+            name: *name
+            name_en: *name_en
+            name_de: *name_de
+        sql:
+          - minzoom: 14
+            maxzoom: 14
+            file: shortbread/streets_polygons_labels.sql.jinja2
     streets_labels_points:
         description: This layer holds motorway exit labels
         fields:
