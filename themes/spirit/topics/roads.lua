@@ -76,7 +76,7 @@ local z_order = {
 local minor_service = {'parking_aisle', 'drive-through', 'driveway'}
 themepark:add_proc('way', function(object, data)
     local z = z_order[object.tags.highway]
-    if z then
+    if z and (not object.tags.area or object.tags.area == 'no') then
         if object.tags.highway == 'construction' then
             if object.tags.construction and z_order[object.tags.construction] then
                 z = z_order[object.tags.construction]/10
