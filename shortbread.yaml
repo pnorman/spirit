@@ -19,8 +19,12 @@ vector_layers:
             kind: type of water body
             way_area: &way_area Area of the feature in square meters, in the Web Mercator projection
         sql:
-          - maxzoom: 14
-            minzoom: 5
+          - minzoom: 5
+            maxzoom: 13
+            extent: 2048
+            file: shortbread/water_polygons.sql.jinja2
+          - minzoom: 4
+            maxzoom: 14
             file: shortbread/water_polygons.sql.jinja2
     water_polygons_labels:
         description: Holds point geometries and names for all named water polygons available in the water_polygons layer.
@@ -131,8 +135,12 @@ vector_layers:
             kind: String
         sql:
           - minzoom: 7
+            maxzoom: 13
+            extent: 2048
+            file: shortbread/land.sql.jinja2
+          - minzoom: 14
             maxzoom: 14
-            file: shortbread_original/land.07-14.sql.jinja2
+            file: shortbread/land.sql.jinja2
     sites:
         description: This layer is for types of land use that will usually be above the basic land layer, but below buildings.
         fields:
