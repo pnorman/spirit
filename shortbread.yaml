@@ -11,6 +11,10 @@ vector_layers:
         description: This layer contains oceans.
         sql:
           - minzoom: 0
+            maxzoom: 13
+            extent: 2048
+            file: shortbread/ocean.sql.jinja2
+          - minzoom: 0
             maxzoom: 14
             file: shortbread/ocean.sql.jinja2
     water_polygons:
