@@ -66,10 +66,12 @@ local z_order = {
     busway = 170,
     bus_guideway = 170,
     service = 150,
+    track = 110,
     bridleway = 100,
     footway = 100,
     cycleway = 100,
     path = 100,
+    steps = 100,
     construction = 0
 }
 
