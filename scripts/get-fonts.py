@@ -78,7 +78,7 @@ class Downloader:
 
             # Check status codes
             if response.status_code == requests.codes.ok:
-                logging.info("  Download complete ({} bytes)".format(len(response.content)))
+                logging.info("  Font {} was downloaded".format(name) + "({} bytes)".format(len(response.content)) )
                 download_happened = True
 
                 # Write - we need to write because fontnik needs a path
