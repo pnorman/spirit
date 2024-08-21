@@ -1,0 +1,7 @@
+settings:
+  fonts_dir: fonts
+sources:
+  NotoSansRegular:
+    url: https://github.com/notofonts/noto-fonts/raw/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf
+  NotoSansBold:
+    url: https://github.com/notofonts/noto-fonts/raw/main/hinted/ttf/NotoSans/NotoSans-Bold.ttf
