@@ -1,7 +1,10 @@
 settings:
   fonts_dir: fonts
+  font_maker_dir: /path/to/fontmaker/font-maker
 sources:
-  NotoSansRegular:
-    url: https://github.com/notofonts/noto-fonts/raw/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf
-  NotoSansBold:
-    url: https://github.com/notofonts/noto-fonts/raw/main/hinted/ttf/NotoSans/NotoSans-Bold.ttf
+  Noto Sans Regular:
+    NotoSansRegular:
+      - https://github.com/notofonts/noto-fonts/raw/main/hinted/ttf/NotoSans/NotoSans-Regular.ttf
+  Noto Sans Bold:
+    NotoSansBold:
+      - https://github.com/notofonts/noto-fonts/raw/main/hinted/ttf/NotoSans/NotoSans-Bold.ttf

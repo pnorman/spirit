@@ -46,7 +46,7 @@ class Downloader:
         return DownloadResult(status_code = response.status_code, content = response.content,
                               last_modified = response.headers.get('Last-Modified', None))
 
-    def download(self, url, name, opts, fonts_dir, filename, filename_lastmod):
+    def download(self, url, name, opts, fonts_dir, filename, filename_lastmod, fontname):
         if os.path.exists(filename) and os.path.exists(filename_lastmod):
             with open(filename_lastmod, 'r') as fp:
                 lastmod_cache = fp.read()
@@ -63,8 +63,6 @@ class Downloader:
         download_happened = False
 
         if opts.no_update and (cached_data):
-
-            # It is ok if this returns None, since we are opts.no-update
             result = cached_data
         else:
             if opts.force:
@@ -78,10 +76,9 @@ class Downloader:
 
             # Check status codes
             if response.status_code == requests.codes.ok:
-                logging.info("  Font {} was downloaded".format(name) + "({} bytes)".format(len(response.content)) )
+                logging.info("  Font {} was downloaded".format(fontname) + "({} bytes)".format(len(response.content)) )
                 download_happened = True
 
-                # Write - we need to write because fontnik needs a path
                 with open(filename, 'wb') as fp:
                     fp.write(response.content)
                 with open(filename_lastmod, 'w') as fp:
@@ -145,29 +142,39 @@ def main():
     with open(opts.config) as config_file:
         config = yaml.safe_load(config_file)
         fonts_dir = opts.data or config["settings"]["fonts_dir"]
+        font_maker_dir = opts.data or config["settings"]["font_maker_dir"]
         os.makedirs(fonts_dir, exist_ok=True)
 
         with Downloader() as d:
 
             for name, source in config["sources"].items():
-                filename = os.path.join(fonts_dir, os.path.basename(urlparse(source["url"]).path))
-                filename_lastmod = filename + '.lastmod'
+                filenames = [];
+                for fontname, links in source.items():
+                    for link in links:
+                        filename = os.path.join(fonts_dir, os.path.basename(urlparse(link).path))
+                        filename_lastmod = filename + '.lastmod'
+                        filenames.append(filename)
 
-                # Todo do Check if there is need to download
+                        # Todo do Check if there is need to download
 
-                # This will fetch fonts
-                download = d.download(source["url"], name, opts, fonts_dir, filename, filename_lastmod)
+                        # This will fetch fonts
+                        download = d.download(link, name, opts, fonts_dir, filename, filename_lastmod, fontname)
 
                 workingdir = os.path.join(fonts_dir, name)
                 shutil.rmtree(workingdir, ignore_errors=True)
-                os.makedirs(workingdir, exist_ok=True)
-                
+        
                 # Todo do Check if there is need to convert
 
-                command = ['npx', '-p', 'fontnik', 'build-glyphs', filename, workingdir]
+                command = [
+                    f"{font_maker_dir}/font-maker",
+                    "--name",
+                    name,
+                    workingdir,
+                ] + filenames
+
                 subprocess.run(command, check=True)
 
-                logging.info("  Import complete")
+                logging.info("  Convert complete")
 
                 if opts.delete_cache:
                     try:
