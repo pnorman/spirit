@@ -1,6 +1,6 @@
 settings:
   fonts_dir: fonts
-  font_maker_dir: /path/to/fontmaker/font-maker
+  font_maker_dir: ~/vollweltkost/vendor/font-maker
 sources:
   Noto Sans Regular:
     NotoSansRegular:

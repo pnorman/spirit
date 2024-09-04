@@ -165,6 +165,7 @@ def main():
         
                 # Todo do Check if there is need to convert
 
+                font_maker_dir = os.path.expanduser(font_maker_dir)
                 command = [
                     f"{font_maker_dir}/font-maker",
                     "--name",
