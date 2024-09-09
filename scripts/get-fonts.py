@@ -143,8 +143,10 @@ def main():
     with open(opts.config) as config_file:
         config = yaml.safe_load(config_file)
         fonts_dir = opts.data or config["settings"]["fonts_dir"]
+        temp_fonts_dir = fonts_dir + '_temp'
         font_maker_dir = opts.maker or config["settings"]["font_maker_dir"]
         os.makedirs(fonts_dir, exist_ok=True)
+        os.makedirs(temp_fonts_dir, exist_ok=True)
 
         with Downloader() as d:
 
@@ -152,16 +154,16 @@ def main():
                 filenames = [];
                 for fontname, links in source.items():
                     for link in links:
-                        filename = os.path.join(fonts_dir, os.path.basename(urlparse(link).path))
+                        filename = os.path.join(temp_fonts_dir, os.path.basename(urlparse(link).path))
                         filename_lastmod = filename + '.lastmod'
                         filenames.append(filename)
 
                         # Todo do Check if there is need to download
 
                         # This will fetch fonts
-                        download = d.download(link, name, opts, fonts_dir, filename, filename_lastmod, fontname)
+                        download = d.download(link, name, opts, temp_fonts_dir, filename, filename_lastmod, fontname)
 
-                workingdir = os.path.join(fonts_dir, name)
+                workingdir = os.path.join(temp_fonts_dir, name)
                 shutil.rmtree(workingdir, ignore_errors=True)
         
                 # Todo do Check if there is need to convert
@@ -175,6 +177,10 @@ def main():
                 ] + filenames
 
                 subprocess.run(command, check=True)
+
+                shutil.rmtree(os.path.join(fonts_dir, name), ignore_errors=True)
+
+                shutil.move(os.path.join(workingdir, name), fonts_dir)
 
                 logging.info("  Convert complete")
 
