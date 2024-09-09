@@ -116,9 +116,10 @@ def main():
 
     parser.add_argument("-c", "--config", action="store", default="fonts.yml",
                         help="Name of configuration file (default fonts.yml)")
-    parser.add_argument("-D", "--data", action="store",
-                        help="Override data in fonts download directory")
-
+    parser.add_argument("-d", "--data", action="store",
+                        help="Fonts download directory")
+    parser.add_argument("-m", "--maker", action="store",
+                        help="font_maker_dir")
     parser.add_argument("-v", "--verbose", action="store_true",
                         help="Be more verbose. Overrides -q")
     parser.add_argument("-q", "--quiet", action="store_true",
@@ -142,7 +143,7 @@ def main():
     with open(opts.config) as config_file:
         config = yaml.safe_load(config_file)
         fonts_dir = opts.data or config["settings"]["fonts_dir"]
-        font_maker_dir = opts.data or config["settings"]["font_maker_dir"]
+        font_maker_dir = opts.maker or config["settings"]["font_maker_dir"]
         os.makedirs(fonts_dir, exist_ok=True)
 
         with Downloader() as d:
