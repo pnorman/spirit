@@ -28,7 +28,7 @@ themepark:add_topic('spirit/aeroway')
 themepark:add_topic('core/layer')
 
 themepark:add_topic('shortbread_v1/aerialways')
-themepark:add_topic('shortbread_v1/boundary_labels')
+themepark:add_topic('shortbread/boundary_labels')
 themepark:add_topic('shortbread_v1/bridges')
 themepark:add_topic('shortbread_v1/dams')
 themepark:add_topic('shortbread_v1/ferries')
