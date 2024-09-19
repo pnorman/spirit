@@ -10,6 +10,14 @@ local themepark = require('themepark')
 
 themepark.debug = false
 
+-- Tell themepark where the themes are in case it's not the current working directory
+local spirit_path = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+
+if spirit_path ~= nil then
+    -- theme_path[1] is the osm2pgsql-themepark location, but it doesn't pick up the spirit location
+    themepark.theme_path[2] = spirit_path..'themes/'
+end
+
 themepark:add_topic('core/name-with-fallback', {
     keys = {
         name = { 'name', 'name:en', 'name:de' },
