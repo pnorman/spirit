@@ -41,7 +41,7 @@ themepark:add_proc('way', function(object, data)
                     service = object.tags.service,
                     layer = common.layer(object.tags.layer),
                     z_order = z,
-                    geom = object.as_linestring() }
+                    geom = object:as_linestring() }
         if common.contains(ssy, object.tags.service) then
             a.minor = true
         end

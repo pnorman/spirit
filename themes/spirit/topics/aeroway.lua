@@ -26,7 +26,7 @@ themepark:add_proc('way', function(object, data)
        or object.tags.aeroway == 'taxiway' then
         local a = { aeroway = object.tags.aeroway,
                     ref = object.tags.ref,
-                    geom = object.as_linestring() }
+                    geom = object:as_linestring() }
         themepark:add_debug_info(a, object.tags)
         themepark:insert('aeroways', a)
     end

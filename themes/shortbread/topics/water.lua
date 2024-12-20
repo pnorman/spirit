@@ -108,7 +108,7 @@ themepark:add_proc('way', function(object, data)
     if check_waterway(waterway) then
         local a = {
             kind = waterway,
-            geom = object.as_linestring(),
+            geom = object:as_linestring(),
             layer = data.core.layer,
             bridge = get_bridge_value(t.bridge),
             tunnel = false,

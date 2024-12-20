@@ -56,7 +56,7 @@ themepark:add_proc('way', function(object, data)
         or object.tags.waterway == 'ditch'
     ) then
         local a = { waterway = object.tags.waterway,
-                    geom = object.as_linestring() }
+                    geom = object:as_linestring() }
         themepark:add_debug_info(a, object.tags)
         themepark:insert('waterways', a)
     end
