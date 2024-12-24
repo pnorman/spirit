@@ -36,7 +36,7 @@ themepark:add_table{
 themepark:add_proc('area', function(object, data)
     if (object.tags.natural == 'water' or object.tags.waterway == 'dock' or object.tags.waterway == 'basin' or object.tags.waterway == 'reservoir')
         then
-        local g_transform = object.as_area():transform(3857)
+        local g_transform = object:as_area():transform(3857)
         local name = object.tags.name
         local a = { name = name, way_area = g_transform:area(), geom = g_transform }
         -- Only add points for water areas that need labels

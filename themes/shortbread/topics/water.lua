@@ -157,7 +157,7 @@ themepark:add_proc('area', function(object, data)
         return
     end
 
-    local g = object.as_area():transform(3857)
+    local g = object:as_area():transform(3857)
     local a = {
         kind = kind,
         way_area = round(g:area()),

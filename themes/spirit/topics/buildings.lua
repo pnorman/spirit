@@ -25,7 +25,7 @@ themepark:add_table{
 
 themepark:add_proc('area', function(object, data)
     if object.tags.building and object.tags.building ~= 'no' then
-        for g in object.as_area():geometries() do
+        for g in object:as_area():geometries() do
             local g_transform = g:transform(3857)
             local name = object.tags.name
             local a = { name = name, way_area = g_transform:area(), geom = g_transform }
