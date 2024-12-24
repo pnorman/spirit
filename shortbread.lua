@@ -18,7 +18,7 @@ if spirit_path ~= nil then
        end
     themepark:add_theme_dir(spirit_path..'themes')
 else
-    print("Shortbread: WARNING: unable to set theme pathSetting theme_path to"..spirit_path..'themes')
+    themepark:add_theme_dir('themes')
 end
 
 themepark:add_topic('core/name-with-fallback', {
