@@ -6,6 +6,7 @@
 -- ---------------------------------------------------------------------------
 
 local themepark, theme, cfg = ...
+local expire = require('expire')
 
 themepark:add_table{
     name = 'pois',
@@ -41,6 +42,10 @@ themepark:add_table{
     tiles = {
         minzoom = 14,
     },
+    expire = {
+        { output = expire[14] }
+    }
+
 }
 
 -- ---------------------------------------------------------------------------

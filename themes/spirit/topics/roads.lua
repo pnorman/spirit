@@ -5,9 +5,9 @@
 --
 -- ---------------------------------------------------------------------------
 
-local common = require ('themes.spirit.common')
-
 local themepark, theme, cfg = ...
+local common = require('themes.spirit.common')
+local expire = require('expire')
 
 themepark:add_table{
     name = 'roads',
@@ -30,9 +30,19 @@ themepark:add_table{
         { column = 'horse', type = 'text' }
     }),
     indexes = {
-        { column = 'geom',
-          method = 'gist',
-          where = "highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link')"}}
+        {
+            column = 'geom',
+            method = 'gist',
+            where = "highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link')"
+        }
+    },
+    expire = {
+        { output = expire[10] },
+        { output = expire[11] },
+        { output = expire[12] },
+        { output = expire[13] },
+        { output = expire[14] }
+    }
 }
 
 themepark:add_table{
