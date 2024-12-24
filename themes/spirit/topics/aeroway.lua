@@ -7,9 +7,10 @@
 --
 -- ---------------------------------------------------------------------------
 
-local common = require ('themes.spirit.common')
 
 local themepark, theme, cfg = ...
+local common = require('themes.spirit.common')
+local expire = require('expire')
 
 themepark:add_table{
     name = 'aeroways',
@@ -19,6 +20,12 @@ themepark:add_table{
         { column = 'ref', type = 'text' },
         { column = 'aeroway', type = 'text' },
     }),
+    expire = {
+        { output = expire[11] },
+        { output = expire[12] },
+        { output = expire[13] },
+        { output = expire[14] }
+    }
 }
 
 themepark:add_proc('way', function(object, data)

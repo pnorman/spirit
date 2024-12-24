@@ -5,9 +5,9 @@
 --
 -- ---------------------------------------------------------------------------
 
-local common = require ('themes.spirit.common')
-
 local themepark, theme, cfg = ...
+local common = require('themes.spirit.common')
+local expire = require('expire')
 
 themepark:add_table{
     name = 'buildings',
@@ -20,6 +20,9 @@ themepark:add_table{
     }),
     indexes = {
         { method = 'gist', column = 'point' },
+    },
+    expire = {
+        { output = expire[14] }
     }
 }
 
