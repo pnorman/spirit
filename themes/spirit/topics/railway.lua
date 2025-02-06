@@ -5,9 +5,9 @@
 --
 -- ---------------------------------------------------------------------------
 
-local common = require ('themes.spirit.common')
-
 local themepark, theme, cfg = ...
+local common = require('themes.spirit.common')
+local expire = require('expire')
 
 themepark:add_table{
     name = 'railways',
@@ -24,6 +24,13 @@ themepark:add_table{
         { column = 'z_order', type = 'smallint' },
         { column = 'service', type = 'text' },
     }),
+    expire = {
+        { output = expire[10] },
+        { output = expire[11] },
+        { output = expire[12] },
+        { output = expire[13] },
+        { output = expire[14] }
+    }
 }
 
 local z_order = {
@@ -41,7 +48,7 @@ themepark:add_proc('way', function(object, data)
                     service = object.tags.service,
                     layer = common.layer(object.tags.layer),
                     z_order = z,
-                    geom = object.as_linestring() }
+                    geom = object:as_linestring() }
         if common.contains(ssy, object.tags.service) then
             a.minor = true
         end

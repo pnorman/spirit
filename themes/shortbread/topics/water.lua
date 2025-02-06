@@ -6,6 +6,7 @@
 -- ---------------------------------------------------------------------------
 
 local themepark, theme, cfg = ...
+local expire = require('expire')
 
 -- ---------------------------------------------------------------------------
 
@@ -35,6 +36,13 @@ themepark:add_table{
     },
     tiles = {
         minzoom = 5
+    },
+    expire = {
+        { output = expire[10] },
+        { output = expire[11] },
+        { output = expire[12] },
+        { output = expire[13] },
+        { output = expire[14] }
     }
 }
 
@@ -108,7 +116,7 @@ themepark:add_proc('way', function(object, data)
     if check_waterway(waterway) then
         local a = {
             kind = waterway,
-            geom = object.as_linestring(),
+            geom = object:as_linestring(),
             layer = data.core.layer,
             bridge = get_bridge_value(t.bridge),
             tunnel = false,
@@ -157,7 +165,7 @@ themepark:add_proc('area', function(object, data)
         return
     end
 
-    local g = object.as_area():transform(3857)
+    local g = object:as_area():transform(3857)
     local a = {
         kind = kind,
         way_area = round(g:area()),

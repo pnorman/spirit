@@ -10,13 +10,14 @@ local themepark = require('themepark')
 
 themepark.debug = false
 
--- Tell themepark where the spirit themes are in case it's not the current working directory
-local spirit_path = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
-
-if spirit_path ~= nil then
-    -- theme_path[1] is the osm2pgsql-themepark location, but it doesn't pick up the spirit location
-    themepark.theme_path[2] = spirit_path..'themes/'
+script_path = debug.getinfo(1, "S").source:sub(2):match("(.*/)")
+if script_path ~= nil then
+    -- osm2pgsql was told to load foo/spirit.lua, so we need to add foo to the path
+    package.path = script_path.."?.lua;"..package.path
 end
+
+-- Tell themepark where the themes are
+themepark:add_theme_dir('themes')
 
 themepark:add_topic('spirit/buildings')
 themepark:add_topic('spirit/water')

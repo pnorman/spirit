@@ -5,9 +5,9 @@
 --
 -- ---------------------------------------------------------------------------
 
-local common = require ('themes.spirit.common')
-
 local themepark, theme, cfg = ...
+local common = require('themes.spirit.common')
+local expire = require('expire')
 
 themepark:add_table{
     name = 'buildings',
@@ -20,12 +20,15 @@ themepark:add_table{
     }),
     indexes = {
         { method = 'gist', column = 'point' },
+    },
+    expire = {
+        { output = expire[14] }
     }
 }
 
 themepark:add_proc('area', function(object, data)
     if object.tags.building and object.tags.building ~= 'no' then
-        for g in object.as_area():geometries() do
+        for g in object:as_area():geometries() do
             local g_transform = g:transform(3857)
             local name = object.tags.name
             local a = { name = name, way_area = g_transform:area(), geom = g_transform }
