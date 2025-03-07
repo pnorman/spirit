@@ -90,13 +90,7 @@ themepark:add_table{
     tiles = {
         minzoom = 7
     },
-    expire = {
-        { output = expire[10] },
-        { output = expire[11] },
-        { output = expire[12] },
-        { output = expire[13] },
-        { output = expire[14] }
-    }
+    expire = expire.shortbread(7, 14, 'land', 'full-area')
 }
 
 -- ---------------------------------------------------------------------------

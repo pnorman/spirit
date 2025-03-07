@@ -26,13 +26,7 @@ themepark:add_table{
     tiles = {
         minzoom = 11,
     },
-    expire = {
-        { output = expire[11] },
-        { output = expire[12] },
-        { output = expire[13] },
-        { output = expire[14] }
-    }
-
+    expire = expire.shortbread(11, 14, 'public_transport', 'full-area')
 }
 
 -- ---------------------------------------------------------------------------

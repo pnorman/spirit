@@ -24,13 +24,7 @@ themepark:add_table{
         { column = 'z_order', type = 'smallint' },
         { column = 'service', type = 'text' },
     }),
-    expire = {
-        { output = expire[10] },
-        { output = expire[11] },
-        { output = expire[12] },
-        { output = expire[13] },
-        { output = expire[14] }
-    }
+    expire = expire.shortbread(8, 14, 'streets', 'boundary-only')
 }
 
 local z_order = {

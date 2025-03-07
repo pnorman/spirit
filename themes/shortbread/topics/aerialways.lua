@@ -27,11 +27,7 @@ themepark:add_table{
     tiles = {
         minzoom = 12,
     },
-    expire = {
-        { output = expire[12] },
-        { output = expire[13] },
-        { output = expire[14] }
-    }
+    expire = expire.shortbread(12, 14, 'aerialways', 'full-area')
 }
 
 -- ---------------------------------------------------------------------------

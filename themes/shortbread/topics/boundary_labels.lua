@@ -21,13 +21,7 @@ themepark:add_table{
         { key = 'admin_level', values = { '2', '4' }, on = 'r' },
         { key = 'boundary', value = 'administrative', on = 'r' },
     },
-    expire = {
-        { output = expire[10] },
-        { output = expire[11] },
-        { output = expire[12] },
-        { output = expire[13] },
-        { output = expire[14] }
-    }
+    expire = expire.shortbread(0, 14, 'boundary_labels', 'full-area')
 }
 
 -- ---------------------------------------------------------------------------

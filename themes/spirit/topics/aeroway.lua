@@ -20,12 +20,7 @@ themepark:add_table{
         { column = 'ref', type = 'text' },
         { column = 'aeroway', type = 'text' },
     }),
-    expire = {
-        { output = expire[11] },
-        { output = expire[12] },
-        { output = expire[13] },
-        { output = expire[14] }
-    }
+    expire = expire.shortbread(11, 14, 'streets', 'boundary-only')
 }
 
 themepark:add_proc('way', function(object, data)

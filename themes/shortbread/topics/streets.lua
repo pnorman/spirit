@@ -6,6 +6,7 @@
 -- ---------------------------------------------------------------------------
 
 local themepark, theme, cfg = ...
+local expire = require('expire')
 
 themepark:add_table{
     name = 'street_polygons',
@@ -24,6 +25,7 @@ themepark:add_table{
         order_by = 'z_order',
         order_dir = 'desc',
     },
+    expire = expire.shortbread(11, 14, 'street_polygons', 'full-area')
 }
 
 themepark:add_table{
@@ -36,6 +38,7 @@ themepark:add_table{
     tiles = {
         minzoom = 11
     },
+    expire = expire.shortbread(11, 14, 'streets_polygons_labels', 'full-area')
 }
 
 themepark:add_table{
@@ -49,6 +52,7 @@ themepark:add_table{
     tiles = {
         minzoom = 12,
     },
+    expire = expire.shortbread(12, 14, 'streets_labels_points', 'full-area')
 }
 
 -- ---------------------------------------------------------------------------
