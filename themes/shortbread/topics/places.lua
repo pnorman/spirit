@@ -51,13 +51,7 @@ themepark:add_table{
         order_by = 'population',
         order_dir = 'desc',
     },
-    expire = {
-        { output = expire[10] },
-        { output = expire[11] },
-        { output = expire[12] },
-        { output = expire[13] },
-        { output = expire[14] }
-    }
+    expire = expire.shortbread(4, 14, 'place_labels', 'full-area')
 }
 
 -- ---------------------------------------------------------------------------

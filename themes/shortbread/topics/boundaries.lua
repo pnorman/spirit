@@ -6,6 +6,7 @@
 -- ---------------------------------------------------------------------------
 
 local themepark, theme, cfg = ...
+local expire = require('expire')
 
 themepark:add_table{
     name = 'boundaries',
@@ -26,7 +27,8 @@ themepark:add_table{
     },
     tiles = {
         minzoom = 2
-    }
+    },
+    expire = expire.shortbread(0, 14, 'boundaries', 'boundary-only')
 }
 
 local rinfos = {}

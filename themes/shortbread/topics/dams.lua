@@ -21,9 +21,7 @@ themepark:add_table{
     tiles = {
         minzoom = 12,
     },
-    expire = {
-        { output = expire[14] }
-    }
+    expire = expire.shortbread(14, 14, 'dam_lines', 'full-area')
 }
 
 themepark:add_table{
@@ -39,11 +37,7 @@ themepark:add_table{
     tiles = {
         minzoom = 12,
     },
-    expire = {
-        { output = expire[12] },
-        { output = expire[13] },
-        { output = expire[14] }
-    }
+    expire = expire.shortbread(12, 14, 'dam_polygons', 'full-area')
 }
 
 -- ---------------------------------------------------------------------------

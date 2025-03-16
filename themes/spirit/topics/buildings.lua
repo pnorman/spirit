@@ -21,9 +21,7 @@ themepark:add_table{
     indexes = {
         { method = 'gist', column = 'point' },
     },
-    expire = {
-        { output = expire[14] }
-    }
+    expire = expire.shortbread(14, 14, 'buildings', 'full-area')
 }
 
 themepark:add_proc('area', function(object, data)

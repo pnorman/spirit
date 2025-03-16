@@ -36,13 +36,7 @@ themepark:add_table{
             where = "highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link')"
         }
     },
-    expire = {
-        { output = expire[10] },
-        { output = expire[11] },
-        { output = expire[12] },
-        { output = expire[13] },
-        { output = expire[14] }
-    }
+    expire = expire.shortbread(5, 14, 'streets', 'boundary-only')
 }
 
 themepark:add_table{

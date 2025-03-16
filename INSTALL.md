@@ -1,5 +1,7 @@
 # Install
 
+*These instructions are for installing the **shortbread** code, not street spirit itself.*
+
 ## Requirements
 
 - [osm2pgsql](https://osm2pgsql.org/) 1.9.2+
@@ -8,8 +10,6 @@
 - [PostgreSQL](https://www.postgresql.org/) 10+
 - [PostGIS](https://postgis.net/) 3.3+
 - [Tilekiln](https://github.com/pnorman/tilekiln) 0.3.0+
-- [charites](https://github.com/unvt/charites)
-- [@basemaps/sprites](https://www.npmjs.com/package/@basemaps/sprites)
 
 ## Installing dependencies
 
@@ -18,12 +18,6 @@ Install tilekiln into a Python virtualenv with
 ```sh
 python3 -m venv venv
 venv/bin/pip install tilekiln
-```
-
-Install charites with
-
-```sh
-npm install @unvt/charites @basemaps/sprites
 ```
 
 ### Themepark
@@ -58,10 +52,10 @@ psql -d spirit -c 'CREATE EXTENSION postgis;'
 Grab some OpenStreetMap data. It's probably easiest to grab a PBF of OSM data from [Geofabrik](https://download.geofabrik.de/). Once you've done that, import with osm2pgsql:
 
 ```
-osm2pgsql --output flex --style spirit.lua -d spirit ~/path/to/data.osm.pbf
+osm2pgsql --output flex --style shortbread.lua -d spirit ~/path/to/data.osm.pbf
 ```
 
-If you are only creating Shortbread tiles, instead of ``--style spirit.lua`` use ``--style shortbread.lua``
+If you are only creating Shortbread tiles, instead of ``--style shortbread.lua`` use ``--style spirit.lua``
 
 ### Scripted download
 Some features are rendered using preprocessed shapefiles.
@@ -79,10 +73,25 @@ The script downloads shapefiles, loads them into the database and sets up the ta
 Once tilekiln is installed, run it in development mode with
 
 ```sh
-venv/bin/tilekiln dev --config spirit.yaml --source-dbname spirit
+venv/bin/tilekiln dev --config shortbread.yaml --source-dbname spirit
 ```
 
-To create shortbread tiles, instead use ``--config shortbread.yaml``. If only creating shortbread tiles you do not need to serve sprites or view the style.
+To create shortbread tiles, instead use ``--config spirit.yaml``. If only creating shortbread tiles you do not need to serve sprites or view the style.
+
+
+## Street spirit notes
+
+*You only need these if not generating shortbread*
+
+- [charites](https://github.com/unvt/charites)
+- [@basemaps/sprites](https://www.npmjs.com/package/@basemaps/sprites)
+
+
+Install charites with
+
+```sh
+npm install @unvt/charites @basemaps/sprites
+```
 
 ## Serving sprites
 
