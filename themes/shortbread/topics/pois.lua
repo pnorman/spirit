@@ -77,7 +77,7 @@ get_value.tourism = osm2pgsql.make_check_values_func({
 get_value.shop = osm2pgsql.make_check_values_func({
     'supermarket', 'bakery', 'kiosk', 'mall', 'department_store', 'general',
     'convenience', 'clothes', 'florist', 'chemist', 'books', 'butcher',
-    'shoes', 'alcohol', 'beverages', 'optican', 'jewelry', 'gift', 'sports',
+    'shoes', 'alcohol', 'beverages', 'optician', 'jewelry', 'gift', 'sports',
     'stationery', 'outdoor', 'mobile_phone', 'toys', 'newsagent', 'greengrocer',
     'beauty', 'video', 'car', 'bicycle', 'doityourself', 'hardware',
     'furniture', 'computer', 'garden_centre', 'hairdresser', 'travel_agency',
