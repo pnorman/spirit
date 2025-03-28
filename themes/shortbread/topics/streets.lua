@@ -12,7 +12,7 @@ themepark:add_table{
     name = 'street_polygons',
     ids_type = 'way',
     geom = 'polygon',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
         { column = 'kind', type = 'text', not_null = true },
         { column = 'rail', type = 'bool' },
         { column = 'tunnel', type = 'bool' },

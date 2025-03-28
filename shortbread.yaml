@@ -208,7 +208,7 @@ vector_layers:
         sql:
           - minzoom: 11
             maxzoom: 14
-            file: shortbread_original/street_polygons.11-14.sql.jinja2
+            file: shortbread/street_polygons.sql.jinja2
     street_labels:
         description: This layer holds street geometries for labelling. It contains their names and reference numbers
         fields:
@@ -223,7 +223,6 @@ vector_layers:
           - minzoom: 10
             maxzoom: 14
             file: shortbread/street_labels.sql.jinja2
-    # TODO: streets_polygons_labels
     streets_polygons_labels:
         description: Holds labelling points of the polygons of the streets_polygons layer
         fields:
