@@ -152,7 +152,8 @@ vector_layers:
         sql:
           - minzoom: 14
             maxzoom: 14
-            file: shortbread_original/sites.14-14.sql.jinja2
+            buffer: 16
+            file: shortbread/sites.sql.jinja2
     buildings:
         description: Has polygons for every building
         sql:
