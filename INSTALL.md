@@ -73,7 +73,7 @@ The script downloads shapefiles, loads them into the database and sets up the ta
 Once tilekiln is installed, run it in development mode with
 
 ```sh
-venv/bin/tilekiln dev --config shortbread.yaml --source-dbname spirit
+venv/bin/tilekiln serve dev --config shortbread.yaml --source-dbname spirit
 ```
 
 To create shortbread tiles, instead use ``--config spirit.yaml``. If only creating shortbread tiles you do not need to serve sprites or view the style.
