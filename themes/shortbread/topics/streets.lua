@@ -36,9 +36,9 @@ themepark:add_table{
         { column = 'kind', type = 'text', not_null = true },
     }),
     tiles = {
-        minzoom = 11
+        minzoom = 14
     },
-    expire = expire.shortbread(11, 14, 'streets_polygons_labels', 'full-area')
+    expire = expire.shortbread(14, 14, 'streets_polygons_labels', 'full-area')
 }
 
 themepark:add_table{
