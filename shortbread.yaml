@@ -14,7 +14,7 @@ vector_layers:
             maxzoom: 13
             extent: 2048
             file: shortbread/ocean.sql.jinja2
-          - minzoom: 0
+          - minzoom: 14
             maxzoom: 14
             file: shortbread/ocean.sql.jinja2
     water_polygons:
@@ -27,7 +27,7 @@ vector_layers:
             maxzoom: 13
             extent: 2048
             file: shortbread/water_polygons.sql.jinja2
-          - minzoom: 4
+          - minzoom: 14
             maxzoom: 14
             file: shortbread/water_polygons.sql.jinja2
     water_polygons_labels:
