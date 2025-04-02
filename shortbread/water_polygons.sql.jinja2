@@ -1,7 +1,7 @@
 SELECT
-        ST_AsMVTGeom(ST_Collect(geom), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-        kind
+        ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+        kind,
+        way_area
     FROM water_areas
     WHERE geom && {{bbox}}
         AND ST_Area(geom) > 4*{{ coordinate_area }}
-    GROUP BY kind
