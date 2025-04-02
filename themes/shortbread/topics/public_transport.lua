@@ -17,9 +17,9 @@ themepark:add_table{
         { column = 'minzoom', type = 'int', tiles = 'minzoom' }
     }),
     tags = {
-        { key = 'aerialway', values = { 'ferry_terminal', 'station' }, on = 'na' },
+        { key = 'aerialway', value = 'station', on = 'na' },
         { key = 'aeroway', values = { 'aerodrome', 'helipad' }, on = 'na' },
-        { key = 'amenity', value = 'bus_station', on = 'na' },
+        { key = 'amenity', values = { 'ferry_terminal', 'bus_station' }, on = 'na' },
         { key = 'highway', value = 'bus_stop', on = 'na' },
         { key = 'railway', values = { 'station', 'halt', 'tram_stop' }, on = 'na' },
     },
@@ -56,24 +56,24 @@ local get_attributes = function(object)
             a.kind = 'tram_stop'
             a.minzoom = 14
         else
-            return  nil
+            return nil
         end
-    elseif t.amenity and t.amenity == 'bus_station' then
-        a.kind = 'bus_station'
-        a.minzoom = 13
+    elseif t.amenity then
+        if t.amenity == 'bus_station' then
+            a.kind = 'bus_station'
+            a.minzoom = 13
+        elseif t.amenity == 'ferry_terminal' then
+            a.kind = 'ferry_terminal'
+            a.minzoom = 12
+        else
+            return nil
+        end
     elseif t.highway and t.highway == 'bus_stop' then
         a.kind = 'bus_stop'
         a.minzoom = 14
-    elseif t.aerialway then
-        if t.aerialway == 'ferry_terminal' then
-            a.kind = 'ferry_terminal'
-            a.minzoom = 12
-        elseif t.aerialway == 'station' then
-            a.kind = 'aerialway_station'
-            a.minzoom = 13
-        else
-            return  nil
-        end
+    elseif t.aerialway and t.aerialway == 'station' then
+        a.kind = 'aerialway_station'
+        a.minzoom = 13
     else
         return nil
     end

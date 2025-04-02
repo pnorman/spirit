@@ -286,7 +286,7 @@ vector_layers:
         sql:
           - minzoom: 11
             maxzoom: 14
-            file: shortbread_original/public_transport.11-14.sql.jinja2
+            file: shortbread/public_transport.sql.jinja2
     pois:
         description: Holds public transport stops as points. Areas in OSM are represented by a point.
         fields:
