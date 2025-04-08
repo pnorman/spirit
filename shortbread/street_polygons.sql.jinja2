@@ -7,9 +7,9 @@ SELECT
         surface
     FROM street_polygons
     WHERE geom && {{bbox}}
-{% if zoom <= 11 %}
+{% if zoom < 13 %}
     AND kind IN ('runway')
-{% elif zoom <= 13 %}
+{% elif zoom < 14 %}
     AND kind IN ('runway', 'taxiway')
 {% else %}
     AND kind IN ('runway', 'taxiway', 'service', 'pedestrian')
