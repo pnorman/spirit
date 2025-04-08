@@ -18,7 +18,7 @@ Contributions to this project are welcome, see [CONTRIBUTING.md](CONTRIBUTING.md
 
 ### Style and documentation
 
-Copyright Paul Norman 2022-2023
+Copyright Paul Norman 2022-2025
 
 This map style, map icons, and associated documentation files (the "Style") is
 released under the CC0 Public Domain Dedication, version 1.0, as
