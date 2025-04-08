@@ -26,9 +26,11 @@ vector_layers:
           - minzoom: 5
             maxzoom: 13
             extent: 2048
+            buffer: 8
             file: shortbread/water_polygons.sql.jinja2
           - minzoom: 14
             maxzoom: 14
+            buffer: 16
             file: shortbread/water_polygons.sql.jinja2
     water_polygons_labels:
         description: Holds point geometries and names for all named water polygons available in the water_polygons layer.
