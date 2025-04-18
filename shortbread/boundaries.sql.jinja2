@@ -1,7 +1,10 @@
 SELECT
-        ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-        admin_level,
-        maritime,
-        disputed
-    FROM boundaries
-    WHERE geom && {{bbox}}
+    ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    admin_level,
+    maritime,
+    disputed
+  FROM boundaries
+  WHERE geom && {{bbox}}
+{% if zoom < 7 %}
+    AND admin_level = 2
+{% endif %}

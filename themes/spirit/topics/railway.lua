@@ -28,9 +28,14 @@ themepark:add_table{
 }
 
 local z_order = {
- rail = 440
+ rail = 440,
+ narrow_gauge = 430,
+ light_rail = 420,
+ funicular = 420,
+ subway = 420,
+ monorail = 420,
+ tram = 410
 }
-
 
 local ssy = {'spur', 'siding', 'yard'}
 themepark:add_proc('way', function(object, data)

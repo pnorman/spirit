@@ -14,7 +14,7 @@ vector_layers:
             maxzoom: 13
             extent: 2048
             file: shortbread/ocean.sql.jinja2
-          - minzoom: 0
+          - minzoom: 14
             maxzoom: 14
             file: shortbread/ocean.sql.jinja2
     water_polygons:
@@ -26,9 +26,11 @@ vector_layers:
           - minzoom: 5
             maxzoom: 13
             extent: 2048
+            buffer: 8
             file: shortbread/water_polygons.sql.jinja2
-          - minzoom: 4
+          - minzoom: 14
             maxzoom: 14
+            buffer: 16
             file: shortbread/water_polygons.sql.jinja2
     water_polygons_labels:
         description: Holds point geometries and names for all named water polygons available in the water_polygons layer.
@@ -152,7 +154,8 @@ vector_layers:
         sql:
           - minzoom: 14
             maxzoom: 14
-            file: shortbread_original/sites.14-14.sql.jinja2
+            buffer: 16
+            file: shortbread/sites.sql.jinja2
     buildings:
         description: Has polygons for every building
         sql:
@@ -208,7 +211,7 @@ vector_layers:
         sql:
           - minzoom: 11
             maxzoom: 14
-            file: shortbread_original/street_polygons.11-14.sql.jinja2
+            file: shortbread/street_polygons.sql.jinja2
     street_labels:
         description: This layer holds street geometries for labelling. It contains their names and reference numbers
         fields:
@@ -223,7 +226,6 @@ vector_layers:
           - minzoom: 10
             maxzoom: 14
             file: shortbread/street_labels.sql.jinja2
-    # TODO: streets_polygons_labels
     streets_polygons_labels:
         description: Holds labelling points of the polygons of the streets_polygons layer
         fields:
@@ -286,7 +288,7 @@ vector_layers:
         sql:
           - minzoom: 11
             maxzoom: 14
-            file: shortbread_original/public_transport.11-14.sql.jinja2
+            file: shortbread/public_transport.sql.jinja2
     pois:
         description: Holds public transport stops as points. Areas in OSM are represented by a point.
         fields:

@@ -1,14 +1,17 @@
 SELECT
         ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-        name,
-        name_de,
-        name_en,
         kind,
         rail,
         tunnel,
         bridge,
-        surface,
-        z_order
+        surface
     FROM street_polygons
     WHERE geom && {{bbox}}
+{% if zoom < 13 %}
+    AND kind IN ('runway')
+{% elif zoom < 14 %}
+    AND kind IN ('runway', 'taxiway')
+{% else %}
+    AND kind IN ('runway', 'taxiway', 'service', 'pedestrian')
+{% endif %}
     ORDER BY z_order DESC

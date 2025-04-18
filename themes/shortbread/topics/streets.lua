@@ -12,7 +12,7 @@ themepark:add_table{
     name = 'street_polygons',
     ids_type = 'way',
     geom = 'polygon',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
         { column = 'kind', type = 'text', not_null = true },
         { column = 'rail', type = 'bool' },
         { column = 'tunnel', type = 'bool' },
@@ -36,9 +36,9 @@ themepark:add_table{
         { column = 'kind', type = 'text', not_null = true },
     }),
     tiles = {
-        minzoom = 11
+        minzoom = 14
     },
-    expire = expire.shortbread(11, 14, 'streets_polygons_labels', 'full-area')
+    expire = expire.shortbread(14, 14, 'streets_polygons_labels', 'full-area')
 }
 
 themepark:add_table{
