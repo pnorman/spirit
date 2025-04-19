@@ -34,7 +34,7 @@ end
 
 themepark:add_table{
     name = 'place_labels',
-    ids_type = 'node',
+    ids_type = 'any',
     geom = 'point',
     columns = themepark:columns('core/name', {
         { column = 'kind', type = 'text', not_null = true },
@@ -56,38 +56,57 @@ themepark:add_table{
 
 -- ---------------------------------------------------------------------------
 
-themepark:add_proc('node', function(object, data)
-    local t = object.tags
-    if not t.place then
-        return
+local function place_columns(tags)
+    if not tags.place then
+        return nil
     end
 
-    local pt = place_types[t.place]
-    if pt == nil then
-        return
+    local place_type = place_types[tags.place]
+    if not place_type then
+        return nil
     end
 
-    local a = {
-        kind = t.place,
-        population = tonumber(t.population) or pt.pop,
-        minzoom = pt.minzoom,
-        geom = object:as_point()
+    local attributes = {
+        kind = tags.place,
+        population = tonumber(tags.population) or place_type.pop,
+        minzoom = place_type.minzoom
     }
 
-    if t.capital == 'yes' then
-        if t.place == 'city' or t.place == 'town' or t.place == 'village' or t.place == 'hamlet' then
-            a.kind = 'capital'
-            a.minzoom = 4
+    if tags.capital == 'yes' then
+        if tags.place == 'city' or tags.place == 'town' or tags.place == 'village' or tags.place == 'hamlet' then
+            attributes.kind = 'capital'
+            attributes.minzoom = 4
         end
-    elseif t.capital == '4' then
-        if t.place == 'city' or t.place == 'town' or t.place == 'village' or t.place == 'hamlet' then
-            a.kind = 'state_capital'
-            a.minzoom = 4
+    elseif tags.capital == '4' then
+        if tags.place == 'city' or tags.place == 'town' or tags.place == 'village' or tags.place == 'hamlet' then
+            attributes.kind = 'state_capital'
+            attributes.minzoom = 4
         end
     end
+    return attributes
+end
+
+themepark:add_proc('node', function(object, data)
+    local a = place_columns(object.tags)
+    if not a then
+        return
+    end
+
+    a.geom = object:as_point()
 
     themepark.themes.core.add_name(a, object)
-    themepark:insert('place_labels', a, t)
+    themepark:insert('place_labels', a, tags)
 end)
 
+themepark:add_proc('area', function(object, data)
+    local a = place_columns(object.tags)
+    if not a then
+        return
+    end
+
+    a.geom = object:as_area():transform(3857):pole_of_inaccessibility()
+
+    themepark.themes.core.add_name(a, object)
+    themepark:insert('place_labels', a, tags)
+end)
 -- ---------------------------------------------------------------------------
