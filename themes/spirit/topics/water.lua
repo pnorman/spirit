@@ -49,13 +49,14 @@ themepark:add_proc('area', function(object, data)
 end)
 
 themepark:add_proc('way', function(object, data)
+    local name = object.tags.name
     if (object.tags.waterway == 'river'
         or object.tags.waterway == 'canal'
         or object.tags.waterway == 'stream'
         or object.tags.waterway == 'drain'
         or object.tags.waterway == 'ditch'
     ) then
-        local a = { waterway = object.tags.waterway,
+        local a = { name = name, waterway = object.tags.waterway,
                     geom = object:as_linestring() }
         themepark:add_debug_info(a, object.tags)
         themepark:insert('waterways', a)
