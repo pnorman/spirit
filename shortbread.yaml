@@ -248,7 +248,7 @@ vector_layers:
         sql:
           - minzoom: 12
             maxzoom: 14
-            file: shortbread/street_labels_points.12-14.sql.jinja2
+            file: shortbread/street_labels_points.sql.jinja2
     bridges:
         description: This layer contains bridges mapped as polygons. There is no distinction which type of road, railway, runway or waterway uses this bridge.
         fields:
