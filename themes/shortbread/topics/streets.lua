@@ -42,7 +42,7 @@ themepark:add_table{
 }
 
 themepark:add_table{
-    name = 'streets_labels_points',
+    name = 'street_labels_points',
     ids_type = 'node',
     geom = 'point',
     columns = themepark:columns('core/name', {
@@ -52,7 +52,7 @@ themepark:add_table{
     tiles = {
         minzoom = 12,
     },
-    expire = expire.shortbread(12, 14, 'streets_labels_points', 'full-area')
+    expire = expire.shortbread(12, 14, 'street_labels_points', 'full-area')
 }
 
 -- ---------------------------------------------------------------------------
@@ -146,7 +146,7 @@ themepark:add_proc('node', function(object, data)
             geom = object:as_point()
         }
         themepark.themes.core.add_name(a, object)
-        themepark:insert('streets_labels_points', a, t)
+        themepark:insert('street_labels_points', a, t)
     end
 end)
 
