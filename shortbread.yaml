@@ -237,7 +237,7 @@ vector_layers:
           - minzoom: 14
             maxzoom: 14
             file: shortbread/streets_polygons_labels.sql.jinja2
-    streets_labels_points:
+    street_labels_points:
         description: This layer holds motorway exit labels
         fields:
             kind: value of OSM highway=* or aeroway=* tag
@@ -248,7 +248,7 @@ vector_layers:
         sql:
           - minzoom: 12
             maxzoom: 14
-            file: shortbread_original/streets_labels_points.12-14.sql.jinja2
+            file: shortbread/street_labels_points.sql.jinja2
     bridges:
         description: This layer contains bridges mapped as polygons. There is no distinction which type of road, railway, runway or waterway uses this bridge.
         fields:

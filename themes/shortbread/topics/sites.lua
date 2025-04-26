@@ -25,7 +25,7 @@ themepark:add_table{
     tags = {
         { key = 'amenity', values = amenity_values, on = 'a' },
         { key = 'landuse', value = 'construction', on = 'a' },
-        { key = 'leisure', value = 'sports_center', on = 'a' },
+        { key = 'leisure', value = 'sports_centre', on = 'a' },
         { key = 'military', value = 'danger_area', on = 'a' },
     },
     tiles = {
@@ -49,8 +49,8 @@ themepark:add_proc('area', function(object, data)
     if not a.kind then
         if t.military == 'danger_area' then
             a.kind = 'danger_area'
-        elseif t.leisure == 'sports_center' then
-            a.kind = 'sports_center'
+        elseif t.leisure == 'sports_centre' then
+            a.kind = 'sports_centre'
         elseif t.landuse == 'construction' then
             a.kind = 'construction'
         else
