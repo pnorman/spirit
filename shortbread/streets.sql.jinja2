@@ -84,7 +84,14 @@ aeroway AS (
         AND aeroway IN ('runway'{% if zoom >=11 %}, 'taxiway'{% endif %})
 ),
 {% endif %}
-{% set columns = 'kind, link, rail, tunnel, bridge, oneway, oneway_reverse, tracktype, service, bicycle, horse' %}
+{% if zoom >= 14 %}
+{% set columns = 'kind, link, rail, tunnel, bridge, oneway, oneway_reverse, tracktype, service'  %}
+{% elif zoom >= 11 %}
+{% set columns = 'kind, link, rail, tunnel, bridge, tracktype, service, bicycle, horse' %}
+{% else %} {# zoom >= 5 #}
+{% set columns = 'kind, rail' %}
+{% endif %}
+
 all_geoms AS (
 SELECT
     geom, {{columns}}, z_order
@@ -104,7 +111,11 @@ FROM aeroway
 ),
 merged AS (
     SELECT
+{% if zoom >= 14 %}
         ST_LineMerge(ST_Collect(geom), oneway IS NOT DISTINCT FROM true) AS geom,
+{% else %}
+        ST_LineMerge(ST_Collect(geom)) AS geom,
+{% endif %}
         {{columns}}, z_order
     FROM all_geoms
     GROUP BY {{columns}}, z_order

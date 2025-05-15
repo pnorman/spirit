@@ -7,3 +7,6 @@ SELECT
         way_area
     FROM water_area_labels
     WHERE geom && {{bbox}} ORDER BY way_area desc
+    {% if zoom < 14 %}
+    LIMIT 256
+    {% endif %}
