@@ -25,6 +25,10 @@ sources:
     type: shp
     url: https://osmdata.openstreetmap.de/download/water-polygons-split-3857.zip
     file: water-polygons-split-3857/water_polygons.shp
+    tiles:
+        minzoom: 10
+        maxzoom: 14
+        layer: ocean
     archive:
       format: zip
       files:

@@ -112,6 +112,33 @@ class Table:
         finally:
             self._conn.autocommit = old_autocommit
 
+    def get_tiles(self, minzoom: int, maxzoom: int, layer: str, fp):
+        with self._conn.cursor() as cur:
+            sql = f'''
+WITH nonmatch AS (
+    SELECT ST_SymDifference(ST_Collect(old.way), ST_Collect(new.way)) AS dgeom
+    FROM "{self._name}" AS old
+    FULL OUTER JOIN "{self._temp_schema}"."{self._name}" AS new
+    ON old.way = new.way and old.x = new.x and old.y = new.y
+    WHERE new.way IS NULL OR old.way IS NULL
+    GROUP BY COALESCE(old.x, new.x), COALESCE(old.y, new.y)
+),
+differences AS (SELECT (ST_Dump(dgeom)).geom AS geom FROM nonmatch)
+SELECT DISTINCT
+        z,
+        CAST(LEAST(GREATEST(0, squares.i+2^(z-1)), 2^z - 1) AS int) AS x,
+        CAST(LEAST(GREATEST(0, squares.j*-1+2^(z-1)), 2^z - 1) AS int) AS y
+    FROM differences,
+        generate_series(%s,%s) AS z,
+        ST_SquareGrid(40075016.685578/2^z, differences.geom) AS squares
+    WHERE ST_Intersects(differences.geom, squares.geom);
+'''
+            cur.execute(sql, [minzoom, maxzoom])
+            for result in cur.fetchall():
+                z, x, y = result
+                fp.write(f"{z}/{x}/{y},{layer}\n".encode('utf-8'))
+
+
     def replace(self, new_last_modified):
         with self._conn.cursor() as cur:
             cur.execute('''BEGIN;''')
@@ -269,6 +296,8 @@ def main():
 
     parser.add_argument("-R", "--renderuser", action="store",
                         help="User to grant access for rendering")
+    parser.add_argument("-e", "--expire", action="store",
+                        help="File to write tile expiration to")
 
     opts = parser.parse_args()
 
@@ -391,8 +420,23 @@ def main():
                 logging.info("  Import complete")
 
                 this_table.index()
+
                 if renderuser is not None:
                     this_table.grant_access(renderuser)
+
+                # Handle expiry generation
+                if opts.expire and "tiles" in source:
+                    if this_table.last_modified() is None:
+                        logging.info(f"  No previous data, not writing expiration for {name}")
+                    else:
+                        minzoom = source["tiles"]["minzoom"]
+                        maxzoom = source["tiles"]["maxzoom"]
+                        layer = source["tiles"]["layer"]
+                        with open(opts.expire, 'wb') as fp:
+                            this_table.get_tiles(minzoom, maxzoom, layer, fp)
+                            logging.info(f"  Wrote tile expiration for {name} to {opts.expire}")
+
+                # Replace the table in the schema with the new one
                 this_table.replace(download.last_modified)
 
                 shutil.rmtree(workingdir, ignore_errors=True)
