@@ -178,7 +178,7 @@ class Downloader:
         download_happened = False
 
         if opts.no_update and (cached_data or table_last_modified):
-            # It is ok if this returns None, because for this to be None, 
+            # It is ok if this returns None, because for this to be None,
             # we need to have something in table and therefore need not import (since we are opts.no-update)
             result = cached_data
         else:
