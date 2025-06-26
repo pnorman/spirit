@@ -116,7 +116,8 @@ class Table:
         with self._conn.cursor() as cur:
             sql = f'''
 WITH nonmatch AS (
-    SELECT ST_SymDifference(ST_Collect(old.way), ST_Collect(new.way)) AS dgeom
+    SELECT ST_SymDifference(COALESCE(ST_Collect(old.way), 'SRID=3857;GEOMETRYCOLLECTION EMPTY'::geometry),
+        COALESCE(ST_Collect(new.way), 'SRID=3857;GEOMETRYCOLLECTION EMPTY'::geometry)) AS dgeom
     FROM "{self._name}" AS old
     FULL OUTER JOIN "{self._temp_schema}"."{self._name}" AS new
     ON old.way = new.way and old.x = new.x and old.y = new.y
