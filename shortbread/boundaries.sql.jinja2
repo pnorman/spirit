@@ -1,5 +1,5 @@
 SELECT
-    ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
+    ST_AsMVTGeom(ST_LineMerge(ST_Collect(geom)), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
     admin_level,
     maritime,
     disputed
@@ -8,3 +8,4 @@ SELECT
 {% if zoom < 7 %}
     AND admin_level = 2
 {% endif %}
+GROUP BY admin_level, maritime, disputed
