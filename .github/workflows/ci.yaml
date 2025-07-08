@@ -1,0 +1,64 @@
+name: Shortbread validity checks
+on:
+  - push
+  - pull_request
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install python dependencies
+      run: pip install pyyaml
+    - name: Set up xmllint
+      run: sudo apt-get update -qq && sudo apt-get install -qq --no-install-recommends libxml2-utils
+    - name: Set up shell
+      run: set -o pipefail
+    - name: Validate YAML files
+      run: |
+        python3 -c 'from yaml import safe_load; safe_load(open("shortbread.yaml"))'
+    - name: Validate SVGs for valid XML
+      run: find . -name '*.svg' | xargs xmllint --noout
+  dryrun:
+    # This job imports no data and renders tiles to check for syntax errors/etc
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out Street Spirit
+      uses: actions/checkout@v4
+    - name: Check out osm2pgsql-themepark
+      uses: actions/checkout@v4
+      with:
+        repository: osm2pgsql-dev/osm2pgsql-themepark
+        path: osm2pgsql-themepark
+    - name: Set up import binaries
+      run: sudo apt-get update -qq && sudo apt-get install -qq --no-install-recommends osm2pgsql postgresql-16-postgis-3 gdal-bin
+    - name: Wait for database
+      run : sudo pg_ctlcluster 16 main start; until pg_isready; do sleep 0.5; done
+    - name: Setup database
+      run: sudo -i -u postgres createuser -s $USER && createdb -E utf8 spirit && psql -Xq -d spirit -c "CREATE EXTENSION postgis;"
+    - run: ls -al osm2pgsql-themepark
+    - name: Import empty file
+      run: |
+        LUA_PATH="./osm2pgsql-themepark/lua/?.lua;;" osm2pgsql -O flex -S shortbread.lua -d spirit -r xml <(echo '<osm version="0.6"/>')
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: Install python dependencies
+      run: pip install tilekiln pyyaml requests psycopg2
+    - name: Load empty shapefiles
+      run: scripts/get-external-data.py --no-update --cache -D scripts/empty_files
+    - name: Test validity of config
+      run: tilekiln config test --config shortbread.yaml
+    - name: Generate SQL for tiles
+      run: |
+        for z in `seq 0 14`; do echo "--=== ZOOM $z ===--"; tilekiln config sql --config shortbread.yaml -z $z -x 0 -y 0; done
+    - name: Create tile database
+      run: createdb -E utf8 tiles
+    - name: Set up tilekiln storage
+      run: tilekiln storage init --config shortbread.yaml --storage-dbname tiles
+    - name: Generate tiles to DB
+      run: |
+        for z in `seq 0 14`; do echo "--=== ZOOM $z ===--"; echo "$z/0/0" \
+        | tilekiln generate tiles --config shortbread.yaml --source-dbname spirit --storage-dbname tiles; done
