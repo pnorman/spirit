@@ -1,0 +1,3 @@
+layer(:background, source: :spirit, type: 'background') {
+  background_color '#EFF2EC' # lch(95,3,130)
+}

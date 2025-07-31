@@ -1,7 +1,0 @@
-id: education-outline
-source: spirit
-source-layer: education
-type: line
-paint:
-  line-color: '#cdc7ab' # lch(80,15,100)
-  line-width: 1

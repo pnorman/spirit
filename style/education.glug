@@ -1,0 +1,14 @@
+layer(:education, source: :spirit, source_layer: :education) {
+  fill_sort_key match(education,
+    'kindergarten', 4,
+    'school', 3,
+    'college', 2,
+    'university', 1,
+    0)
+  fill_color '#ece3b3' # lch(90,25,100)
+}
+
+layer(:education_outline, source: :spirit, source_layer: :education) {
+  line_width 1
+  line_color '#cdc7ab' # lch(80,15,100)
+}

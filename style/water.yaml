@@ -1,6 +1,0 @@
-id: water
-source: spirit
-source-layer: water
-type: fill
-paint:
-  fill-color: '#4cb7e1' #lch(70,35,240)
