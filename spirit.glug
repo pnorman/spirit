@@ -1,0 +1,21 @@
+version 8
+name 'Street Spirit'
+source :spirit, type: 'vector', url: 'http://127.0.0.1:8000/spirit_v1/tilejson.json'
+
+glyphs 'https://vector.openstreetmap.org/demo/shortbread/fonts/{fontstack}/{range}.pbf'
+sprite 'https://vector.openstreetmap.org/demo/shortbread/sprites/basics/sprites'
+
+instance_eval(File.read('style/background.glug'))
+instance_eval(File.read('style/landuse.glug'))
+instance_eval(File.read('style/education.glug'))
+instance_eval(File.read('style/leisure.glug'))
+instance_eval(File.read('style/vegetation.glug'))
+instance_eval(File.read('style/water.glug'))
+instance_eval(File.read('style/building.glug'))
+instance_eval(File.read('style/roads.glug'))
+instance_eval(File.read('style/aeroways.glug'))
+instance_eval(File.read('style/transit_points.glug'))
+instance_eval(File.read('style/admin.glug'))
+instance_eval(File.read('style/location_names.glug'))
+instance_eval(File.read('style/aeroway_text.glug'))
+instance_eval(File.read('style/road_text.glug'))

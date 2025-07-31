@@ -1,0 +1,10 @@
+layer(:aeroways, source: :spirit, source_layer: :aeroways) {
+  line_color '#b3b8cb' # lch(75,10,280)
+  line_width interpolate([:exponential, 1.2], zoom,
+    12, match(aeroway,
+      'runway', 12,
+      2),
+    20, match(aeroway,
+      'runway', 72,
+      18))
+}

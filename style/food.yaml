@@ -3,7 +3,7 @@ source: spirit
 source-layer: food
 type: symbol
 layout:
-  icon-image: food
+  icon-image: :'icon-restaurant'
   icon-allow-overlap: false
   icon-size: 1
   text-optional: true

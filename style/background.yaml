@@ -1,6 +1,0 @@
-id: background
-type: background
-layout:
-  visibility: visible
-paint:
-  background-color: '#eff2ec' # lch(95,3,130)
