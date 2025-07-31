@@ -1,9 +1,0 @@
-id: building-fill
-source: spirit
-source-layer: buildings
-layout:
-  visibility: visible
-minzoom: 13
-type: fill
-paint:
-  fill-color: '#d9d5c2' # lch(85,10,100)

@@ -1,0 +1,19 @@
+layer(:education_names, source: :spirit, source_layer: :"education-names") {
+  filter way_area >= (1500 * 6_126_430_366.1 * 0.25**zoom)
+
+  symbol_placement :point
+
+  text_field '{name}'
+  text_font literal(:noto_sans_regular)
+  text_size 12
+  text_color '#353109' # lch(20,25,100)
+  text_max_width interpolate([:linear],
+    name.length,
+    20, 7,
+    40, 10,
+    60, 15)
+
+  text_halo_blur 1
+  text_halo_width 1.5
+  text_halo_color '#ece3b3' # lch(90,25,100)
+}

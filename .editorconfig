@@ -11,5 +11,8 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 4
 
+[*.glug]
+indent_size = 2
+
 [*.{sql.jinja2,yaml}]
 indent_size = 2

@@ -1,0 +1,10 @@
+layer(:leisure, source: :spirit, source_layer: :landuse) {
+  filter leisure.in('park', 'stadium')
+  fill_sort_key match(leisure,
+    'park', 20,
+    'stadium', 10,
+    'playground', 3,
+    0)
+  fill_color '#cfe8df' # lch(90,10,170)
+  fill_outline_color '#78a897' # lch(65,20,170)
+}

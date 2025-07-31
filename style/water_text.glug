@@ -1,0 +1,44 @@
+layer(:water_line_text, zoom: 12..20, source: :spirit, source_layer: :"water-lines") {
+  # TODO: Move filter expression from water-line-text to data source
+  symbol_placement :line
+  symbol_spacing 400
+  text_letter_spacing 0.2
+
+  text_field '{name}'
+  text_font literal(:noto_sans_regular)
+  text_size interpolate([:exponential, 1.35], zoom,
+    12, match(waterway,
+      'river', 10,
+      'canal', 10,
+      0),
+    15, match(waterway,
+      'river', 14,
+      'canal', 14,
+      'stream', 10,
+      0),
+    20, match(waterway,
+      'river', 24,
+      'canal', 24,
+      'stream', 18,
+      0))
+
+  text_color '#24586d' # lch(35,20,240)
+
+  text_halo_blur 1
+  text_halo_width 1.5
+  text_halo_color '#e7f2f9' # lch(95,5,240)
+}
+
+layer(:water_names, source: :spirit, source_layer: :"water-names") {
+  filter way_area >= (750 * 6_126_430_366.1 * 0.25**zoom)
+
+  symbol_placement :point
+
+  text_field '{name}'
+  text_font literal(:noto_sans_regular)
+  text_size 12
+  text_color '#24586d' # lch(35,20,240)
+  text_halo_blur 1
+  text_halo_width 1.5
+  text_halo_color '#e7f2f9' # lch(95,5,240)
+}
