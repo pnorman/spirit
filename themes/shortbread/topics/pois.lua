@@ -65,7 +65,7 @@ get_value.amenity = osm2pgsql.make_check_values_func({
 
 get_value.leisure = osm2pgsql.make_check_values_func({
     'sports_centre', 'pitch', 'swimming_pool', 'water_park', 'golf_course',
-    'stadium', 'ice_rink',
+    'stadium', 'ice_rink', 'park'
 })
 
 get_value.tourism = osm2pgsql.make_check_values_func({
