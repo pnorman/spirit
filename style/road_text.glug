@@ -1,0 +1,31 @@
+layer(:road_text, source: :spirit, source_layer: :roads) {
+  filter highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+    'unclassified', 'residential', 'living_street') |
+         # Service highways need to be filtered client-side since they're all from overzoomed 14 tiles
+         ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15))) |
+         (highway.in('footway', 'cycleway') & (zoom >= 15))
+
+  symbol_placement :line
+  symbol_spacing 300
+  text_field '{name}'
+  text_font literal(:noto_sans_regular)
+  text_size interpolate([:exponential, 1.35], zoom,
+    12, 12,
+    20, 18)
+
+  text_color :black
+
+  text_halo_blur 1
+  text_halo_width 1.5
+  text_halo_color match(highway,
+    :motorway, '#e52838', # lch(50,80,30)
+    'trunk', '#ec822c', # lch(65,70,60)
+    'primary', '#ec822c', # lch(65,70,60)
+    'secondary', '#f7bd55', # lch(80,60,80)
+    'tertiary', '#f7bd55', # lch(80,60,80)
+    'unclassified', '#e0e3de', # lch(90,3,130)
+    'residential', '#e0e3de', # lch(90,3,130)
+    'living_street', '#e0e3de', # lch(90,3,130)
+    'service', '#e0e3de', # lch(90,3,130)
+    :green)
+}

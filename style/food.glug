@@ -1,0 +1,23 @@
+layer(:food, source: :spirit, source_layer: :food) {
+  symbol_sort_key match(leisure,
+    'restaurant', 10,
+    100)
+
+  icon_image 'food'
+  icon_allow_overlap false
+  icon_size 1
+
+  text_field '{name}'
+  text_font literal(:noto_sans_regular)
+  text_size 11
+  text_color '#663d06' # lch(30,40,70)
+  text_max_width interpolate([:linear],
+    name.length,
+    20, 7,
+    40, 10,
+    60, 15)
+  text_offset literal(0, 0.45)
+  text_optional true
+  text_halo_width 1
+  text_halo_color '#f1e0d1'
+}

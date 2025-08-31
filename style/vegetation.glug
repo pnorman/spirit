@@ -1,0 +1,21 @@
+layer(:vegetation, source: :spirit, source_layer: :vegetation) {
+  fill_sort_key match(vegetation,
+    'wood', 5,
+    'heath', 4,
+    'scrub', 3,
+    'grass', 2,
+    'wetland', 1,
+    0)
+  fill_color match(vegetation,
+    'wood', '#56b155', # lch(65,60,140)
+    'heath', '#9cc47f', # lch(75,40,130)
+    'scrub', '#9cc47f', # lch(75,40,130)
+    'grass', '#d5e9c5', # lch(90,20,130)
+    'wetland', '#d5e9c5', # lch(90,20,130)
+    :red)
+}
+
+layer(:vegetation_pattern, source: :spirit, source_layer: :vegetation) {
+  filter vegetation == 'wetland'
+  fill_pattern 'wetland'
+}

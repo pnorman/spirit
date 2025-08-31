@@ -1,0 +1,15 @@
+layer(:landuse, source: :spirit, source_layer: :landuse) {
+  fill_sort_key match(landuse,
+    'commercial', 4,
+    'retail', 3,
+    'residential', 2,
+    'industrial', 1,
+    0)
+
+  fill_color match(landuse,
+    'residential', '#f9f0dd', # lch(95,10,90)
+    'commercial', '#fde2e5', # lch(92,10,10)
+    'retail', '#fde2e5', # lch(92,10,10)
+    'industrial', '#e0e3de', # lch(90,3,130)
+    :red)
+}

@@ -1,0 +1,76 @@
+layer(:admin_ERROR, source: :spirit, source_layer: :admin) {
+  line_join :bevel
+  line_cap :square
+
+  line_color rgba(194, 94, 184, 0.6) # lch(55,60,330)
+  line_width interpolate([:exponential, 1.35], zoom,\
+    4, match(admin_level,
+      2, 5,
+      4, 3,
+      6, 0,
+      3),
+    10, match(admin_level,
+      2, 10,
+      4, 7,
+      6, 6,
+      3),
+    20, match(admin_level,
+      2, 30,
+      4, 15,
+      6, 10,
+      3))
+  # Everything except admin lines that are condominimums
+  on((admin_level != 2) | (_! in_other_country)) {
+    id :admin_background
+  }
+  # Only condominimums
+  on((admin_level == 2) & in_other_country) {
+    id :admin_background_dashed
+    line_dasharray literal(1.0, 1.0)
+  }
+  suppress
+}
+
+layer(:admin_ERROR, source: :spirit, source_layer: :admin) {
+  line_join :bevel
+  line_cap :square
+  line_color :black
+
+  # line_dasharray can't be data-driven yet, so separate layers are needed
+  on(admin_level == 2) {
+    id :admin_2
+    line_width interpolate([:exponential, 1.35], zoom,
+      4, 1.1,
+      12, 1.8,
+      20, 4)
+    line_dasharray literal(12, 3, 4, 3, 4, 3)
+  }
+
+  on((admin_level == 3) | (admin_level == 4)) {
+    id :admin_4
+    line_width interpolate([:exponential, 1.35], zoom,
+      4, 0.9,
+      12, 1.2,
+      20, 3)
+    line_dasharray literal(10, 3)
+  }
+
+  on((admin_level == 5) | (admin_level == 6)) {
+    id :admin_6
+    line_width interpolate([:exponential, 1.35], zoom,
+      4, 0.6,
+      12, 1,
+      20, 3)
+    line_dasharray literal(7, 2, 3, 2)
+  }
+
+  on((admin_level == 7) | (admin_level == 8)) {
+    id :admin_8
+    line_width interpolate([:exponential, 1.35], zoom,
+      10, 1,
+      20, 2.5)
+    line_dasharray literal(3, 3)
+  }
+
+  suppress
+}

@@ -1,0 +1,370 @@
+# As with most styles, the roads layer is the most complicated. There are twelve layers
+#
+# Layer               Includes                Width   Color   About
+# road_base_casing    all                     Case    Case    Used for rounded end-caps of bridge/tunnel
+# road_tunnel_casing  tunnel all              Case    Case    Dasharray. needed?
+# road_base_fill      vehicle                 Fill    Fill
+# road_casing         !tunnel !bridge all     Case    Case
+# road_fill           !tunnel !bridge vehicle Fill    Fill
+# TODO: rail
+# road_bridge_casing  bridge all              Case    Black
+# road_bridge_fill    bridge vehicle          Fill    Fill
+# TODO: rail bridge
+
+# The filters are somewhat messy and could be done with [step, [zoom], ..., N, ...] but this
+# would require re-stating the conditions for all lower zoom for each step.
+# Instead, it requires one of the any branches is met, and each branch involves
+# a zoom level conditional. If the zoom-level part is omitted, the results look
+# odd when zooming in and out.
+
+layer(:road_base_casing, source: :spirit, source_layer: :roads) {
+  filter highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+    'unclassified', 'residential', 'living_street') |
+         # Service highways need to be filtered client-side since they're all from overzoomed 14 tiles
+         ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15))) |
+         (highway.in('footway', 'cycleway') & (zoom >= 15))
+
+  line_sort_key z_order + 1000 * layer
+
+  line_cap :round
+
+  line_color match(highway,
+    :motorway, '#b40017', # lch(35,80,30)
+    'trunk', '#bd5c00', # lch(50,70,60)
+    'primary', '#bd5c00', # lch(50,70,60)
+    'secondary', '#c9952c', # lch(65,60,80)
+    'tertiary', '#c9952c', # lch(65,60,80)
+    'unclassified', '#b7bab4', # lch(75,3,130)
+    'residential', '#b7bab4', # lch(75,3,130)
+    'living_street', '#b7bab4', # lch(75,3,130)
+    'service', '#b7bab4', # lch(75,3,130)
+    'footway', '#696b67', # lch(75,3,130)
+    'cycleway', '#696b67', # lch(75,3,130)
+    :red)
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, match(highway,
+      :motorway, 4,
+      'trunk', 3.5,
+      'primary', 3.5,
+      'secondary', 2,
+      'tertiary', 2,
+      'unclassified', 1.5,
+      'residential', 1.5,
+      'living_street', 1.5,
+      'service', 1, # TODO: 0.5 for minor service
+      'footway', 0.2,
+      'cycleway', 0.2,
+      1.5),
+    20, match(highway,
+      :motorway, 40,
+      'trunk', 30,
+      'primary', 30,
+      'secondary', 25,
+      'tertiary', 25,
+      'unclassified', 20,
+      'residential', 20,
+      'living_street', 20,
+      'service', 14, # TODO: 10 for minor service
+      'footway', 4,
+      'cycleway', 4,
+      20))
+  on(tunnel == true) {
+    id :road_tunnel_casing
+    line_cap :butt
+    line_dasharray 0.5, 0.5
+  }
+}
+layer(:road_base_fill, source: :spirit, source_layer: :roads) {
+  filter highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+    'unclassified', 'residential', 'living_street') |
+         ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15)))
+
+  line_sort_key z_order + 1000 * layer
+
+  line_cap :butt
+
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, match(highway,
+      :motorway, 2,
+      'trunk', 1.5,
+      'primary', 1.5,
+      'secondary', 1,
+      'tertiary', 1,
+      'unclassified', 1,
+      'residential', 1,
+      'living_street', 1,
+      'service', 0.5, # TODO: 0.5 for minor service
+      1),
+    20, match(highway,
+      :motorway, 25,
+      'trunk', 20,
+      'primary', 20,
+      'secondary', 15,
+      'tertiary', 15,
+      'unclassified', 10,
+      'residential', 10,
+      'living_street', 10,
+      'service', 6, # TODO: 3 for minor service
+      'footway', 4,
+      'cycleway', 4,
+      20))
+  line_color match(highway,
+    :motorway, '#e52838', # lch(50,80,30)
+    'trunk', '#ec822c', # lch(65,70,60)
+    'primary', '#ec822c', # lch(65,70,60)
+    'secondary', '#f7bd55', # lch(80,60,80)
+    'tertiary', '#f7bd55', # lch(80,60,80)
+    'unclassified', '#e0e3de', # lch(90,3,130)
+    'residential', '#e0e3de', # lch(90,3,130)
+    'living_street', '#e0e3de', # lch(90,3,130)
+    'service', '#e0e3de', # lch(90,3,130)
+    :green)
+}
+
+layer(:road_casing, source: :spirit, source_layer: :roads) {
+  filter (highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+    'unclassified', 'residential', 'living_street') |
+          ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15))) |
+          (highway.in('footway', 'cycleway') & (zoom >= 15))) &
+         (_!(tunnel == true) & _!(bridge == true))
+
+  line_sort_key z_order + 1000 * layer
+
+  line_cap :butt
+
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, match(highway,
+      :motorway, 2,
+      'trunk', 1.5,
+      'primary', 1.5,
+      'secondary', 1,
+      'tertiary', 1,
+      'unclassified', 1,
+      'residential', 1,
+      'living_street', 1,
+      'service', 0.5, # TODO: 0.5 for minor service,
+      'footway', 0.2,
+      'cycleway', 0.2,
+      1.5),
+    20, match(highway,
+      :motorway, 25,
+      'trunk', 20,
+      'primary', 20,
+      'secondary', 15,
+      'tertiary', 15,
+      'unclassified', 10,
+      'residential', 10,
+      'living_street', 10,
+      'service', 6, # TODO: 3 for minor service
+      'footway', 4,
+      'cycleway', 4,
+      20))
+  line_color match(highway,
+    :motorway, '#e52838', # lch(50,80,30)
+    'trunk', '#bd5c00', # lch(50,70,60)
+    'primary', '#ec822c', # lch(65,70,60)
+    'secondary', '#f7bd55', # lch(80,60,80)
+    'tertiary', '#f7bd55', # lch(80,60,80)
+    'unclassified', '#e0e3de', # lch(90,3,130)
+    'residential', '#e0e3de', # lch(90,3,130)
+    'living_street', '#e0e3de', # lch(90,3,130)
+    'service', '#e0e3de', # lch(90,3,130)
+    'footway', '#696b67', # lch(75,3,130)
+    'cycleway', '#696b67', # lch(75,3,130)
+    :blue)
+}
+
+layer(:road_fill, source: :spirit, source_layer: :roads) {
+  filter (highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+    'unclassified', 'residential', 'living_street') |
+          ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15)))) &
+         (_!(tunnel == true) & _!(bridge == true))
+
+  line_sort_key z_order + 1000 * layer
+
+  line_cap :butt
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, match(highway,
+      :motorway, 2,
+      'trunk', 1.5,
+      'primary', 1.5,
+      'secondary', 1,
+      'tertiary', 1,
+      'unclassified', 1,
+      'residential', 1,
+      'living_street', 1,
+      'service', 0.5, # TODO: 0.5 for minor service
+      1),
+    20, match(highway,
+      :motorway, 25,
+      'trunk', 20,
+      'primary', 20,
+      'secondary', 15,
+      'tertiary', 15,
+      'unclassified', 10,
+      'residential', 10,
+      'living_street', 10,
+      'service', 6, # TODO: 3 for minor service
+      'footway', 4,
+      'cycleway', 4,
+      20))
+  line_color match(highway,
+    :motorway, '#e52838', # lch(50,80,30)
+    'trunk', '#ec822c', # lch(65,70,60)
+    'primary', '#ec822c', # lch(65,70,60)
+    'secondary', '#f7bd55', # lch(80,60,80)
+    'tertiary', '#f7bd55', # lch(80,60,80)
+    'unclassified', '#e0e3de', # lch(90,3,130)
+    'residential', '#e0e3de', # lch(90,3,130)
+    'living_street', '#e0e3de', # lch(90,3,130)
+    'service', '#e0e3de', # lch(90,3,130)
+    :yellow)
+}
+
+layer(:rail_casing, source: :spirit, source_layer: :railways) {
+  filter (railway == 'rail') & (_!(tunnel == true) & _!(bridge == true))
+
+  line_sort_key case_when(minor, 0, 10) + 1000 * layer
+
+  line_color case_when(minor, '#aaa', '#5e5e5e')
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, 3,
+    20, 14)
+  line_cap :butt
+}
+
+layer(:rail_fill, source: :spirit, source_layer: :railways) {
+  filter (railway == 'rail') & (_!(tunnel == true) & _!(bridge == true))
+
+  line_sort_key z_order + 1000 * layer
+
+  line_dasharray 3, 3
+  line_color :white
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, 1,
+    20, 8)
+  line_cap :butt
+}
+
+layer(:road_bridge_casing, source: :spirit, source_layer: :roads) {
+  filter (highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+    'unclassified', 'residential', 'living_street') |
+          ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15))) |
+          (highway.in('footway', 'cycleway') & (zoom >= 15))) & (bridge == true)
+
+  line_sort_key z_order + 1000 * layer
+
+  line_cap :butt
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, match(highway,
+      :motorway, 4,
+      'trunk', 3.5,
+      'primary', 3.5,
+      'secondary', 2,
+      'tertiary', 2,
+      'unclassified', 1.5,
+      'residential', 1.5,
+      'living_street', 1.5,
+      'service', 1, # TODO: 0.5 for minor service
+      'footway', 0.2,
+      'cycleway', 0.2,
+      1.5),
+    20, match(highway,
+      :motorway, 40,
+      'trunk', 30,
+      'primary', 30,
+      'secondary', 25,
+      'tertiary', 25,
+      'unclassified', 20,
+      'residential', 20,
+      'living_street', 20,
+      'service', 14, # TODO: 10 for minor service
+      'footway', 4,
+      'cycleway', 4,
+      20))
+  line_color :black
+}
+
+layer(:road_bridge_fill, source: :spirit, source_layer: :roads) {
+  filter (highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+    'unclassified', 'residential', 'living_street') |
+          ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15)))) & (bridge == true)
+
+  line_sort_key z_order + 1000 * layer
+
+  line_cap :butt
+
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, match(highway,
+      :motorway, 2,
+      'trunk', 1.5,
+      'primary', 1.5,
+      'secondary', 1,
+      'tertiary', 1,
+      'unclassified', 1,
+      'residential', 1,
+      'living_street', 1,
+      'service', 0.5, # TODO: 0.5 for minor service
+      1),
+    20, match(highway,
+      :motorway, 25,
+      'trunk', 20,
+      'primary', 20,
+      'secondary', 15,
+      'tertiary', 15,
+      'unclassified', 10,
+      'residential', 10,
+      'living_street', 10,
+      'service', 6, # TODO: 3 for minor service
+      'footway', 4,
+      'cycleway', 4,
+      20))
+  line_color match(highway,
+    :motorway, '#e52838', # lch(50,80,30)
+    'trunk', '#ec822c', # lch(65,70,60)
+    'primary', '#ec822c', # lch(65,70,60)
+    'secondary', '#f7bd55', # lch(80,60,80)
+    'tertiary', '#f7bd55', # lch(80,60,80)
+    'unclassified', '#e0e3de', # lch(90,3,130)
+    'residential', '#e0e3de', # lch(90,3,130)
+    'living_street', '#e0e3de', # lch(90,3,130)
+    'service', '#e0e3de', # lch(90,3,130)
+    :orange)
+}
+
+layer(:rail_bridge_outer_casing, source: :spirit, source_layer: :railways) {
+  filter (railway == 'rail') & (bridge == true)
+
+  line_sort_key case_when(minor, 0, 10) + 1000 * layer
+
+  line_color :black
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, 5,
+    20, 20)
+  line_cap :butt
+}
+
+layer(:rail_bridge_casing, source: :spirit, source_layer: :railways) {
+  filter (railway == 'rail') & (bridge == true)
+
+  line_sort_key case_when(minor, 0, 10) + 1000 * layer
+
+  line_color case_when(minor, '#aaa', '#5e5e5e')
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, 3,
+    20, 14)
+  line_cap :butt
+}
+
+layer(:rail_bridge_fill, source: :spirit, source_layer: :railways) {
+  filter (railway == 'rail') & (bridge == true)
+
+  line_sort_key case_when(minor, 0, 10) + 1000 * layer
+
+  line_dasharray [3, 3]
+  line_color :white
+  line_width interpolate([:exponential, 1.35], zoom,
+    12, 1,
+    20, 8)
+  line_cap :butt
+}
