@@ -1,0 +1,18 @@
+layer(:building_names, source: :spirit, source_layer: :"building-names") {
+  filter way_area >= (750 * 6_126_430_366.1 * 0.25**zoom)
+
+  symbol_placement :point
+
+  text_field '{name}'
+  text_font literal(:noto_sans_regular)
+  text_size 12
+  text_color '#3e3c2c' # lch(25,10,100)
+  text_max_width interpolate([:linear],
+    name.length,
+    20, 7,
+    40, 10,
+    60, 15)
+
+  text_halo_width 1
+  text_halo_color '#d9d5c2' # lch(85,10,100)
+}

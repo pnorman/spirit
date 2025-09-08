@@ -27,6 +27,26 @@ This enables a wider range of colour and saturation than typical general-purpose
 
 We target Maplibre GL JS usage as part of a web-page that is either focused on the map, or has the map as part of a larger page. Usage across desktops, tablets, and phones is supported, with support for high-DPI displays. Smart watches and print are not targeted.
 
+## Code style
+
+Street Spirit is written in [glug](https://github.com/systemed/glug), a text-based markup lanuage for MapLibre. Rubocop is used to enforce style requirements. It can be run with `bundle exec rubocop`.
+
+The properties of a layer should be ordered
+- `filter`,
+- `*_sort_key`, and
+- other properties.
+
+### Fallbacks
+When writing `match` expressions consider what will happen if new attributes are used. For example, with if writing a match expression for vegetation which could be one of `wood`, `hearth`, `scrub`, or `wetland`, consider what happens if `grass` is added. For debugging purposes a fallback should be `:red` or another bright color to highlight errors.
+
+TODO: This will change to a special debugging color that can be switched between `:red` and a transparent color.
+
+### Naming
+
+Use underscores for names of layers, fields, and other names in the style. Don't use "-" as it requries special quoting sometimes.
+
+Layers for labeling should end with "_text". The value might not always be a name, so don't use "_names".
+
 ## Icons
 
 - All icons must be SVG, saved as standards compliant SVG without any proprietary tags. In Inkscape software, you will need to "Save As..." and choose the format Optimized SVG (preferable) or Plain SVG.

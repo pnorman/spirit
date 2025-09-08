@@ -1,0 +1,20 @@
+layer(:transit_points, source: :spirit, source_layer: :"transit-points") {
+  icon_image match(mode,
+    'bus', case_when(station, 'bus_station', 'bus_stop'),
+    'tram', 'bus_stop',
+    'subway', 'subway',
+    'train', 'train',
+    'airplane', 'airport',
+    :error)
+
+  icon_allow_overlap true
+  text_optional true
+  text_field '{name}'
+  text_font literal(:noto_sans_regular)
+  text_size 12
+  text_offset 0, 0.4
+  text_anchor :top
+  text_color '#003c77'
+  text_halo_width 1
+  text_halo_color :white
+}

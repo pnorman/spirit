@@ -1,0 +1,30 @@
+AllCops:
+  Include:
+    - '**/*.glug'
+
+Style/FrozenStringLiteralComment:
+    Enabled: false
+
+Layout/ArgumentAlignment:
+    Enabled: true
+    EnforcedStyle: with_fixed_indentation
+
+Style/NilComparison:
+    Enabled: true
+    EnforcedStyle: comparison
+
+Style/BlockDelimiters:
+    Enabled: true
+    EnforcedStyle: always_braces
+
+Metrics/BlockLength:
+    Enabled: true
+    AllowedMethods: ['layer', 'on']
+
+Layout/ArgumentAlignment:
+    Enabled: true
+    EnforcedStyle: with_fixed_indentation
+
+Naming/VariableNumber:
+    Enabled: true
+    EnforcedStyle: snake_case

@@ -1,5 +1,5 @@
 metadata:
-    id: v1
+    id: spirit_v1
     name: Street Spirit
     attribution: <a href="https://www.openstreetmap.org/copyright">© OpenStreetMap</a> contributors
     version: 0.0.1
@@ -127,7 +127,7 @@ vector_layers:
           - minzoom: 10
             maxzoom: 14
             extent: 1024
-            buffer: 8
+            buffer: 16
             file: spirit/aeroways.sql.jinja2
           - minzoom: 15
             maxzoom: 15

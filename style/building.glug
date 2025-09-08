@@ -1,0 +1,8 @@
+layer(:building_fill, source: :spirit, source_layer: :buildings) {
+  fill_color '#d9d5c2' # lch(85,10,100)
+}
+
+layer(:building_outline, source: :spirit, source_layer: :buildings) {
+  line_color '#c1b994' # lch(75,20,100)
+  line_width 1
+}
