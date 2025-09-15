@@ -3,7 +3,7 @@ layer(:admin_ERROR, source: :spirit, source_layer: :admin) {
   line_cap :square
 
   line_color rgba(194, 94, 184, 0.6) # lch(55,60,330)
-  line_width interpolate([:exponential, 1.35], zoom,\
+  line_width interpolate([:exponential, 1.35], zoom,
     4, match(admin_level,
       2, 5,
       4, 3,

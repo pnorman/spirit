@@ -1,4 +1,4 @@
-layer(:transit_points, source: :spirit, source_layer: :"transit-points") {
+layer(:transit_points, source: :spirit, source_layer: :'transit-points') {
   icon_image match(mode,
     'bus', case_when(station, 'bus_station', 'bus_stop'),
     'tram', 'bus_stop',

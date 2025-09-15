@@ -1,4 +1,4 @@
-layer(:landuse_names, source: :spirit, source_layer: :"landuse-names") {
+layer(:landuse_names, source: :spirit, source_layer: :'landuse-names') {
   filter way_area >= (1500 * 6_126_430_366.1 * 0.25**zoom)
 
   symbol_placement :point

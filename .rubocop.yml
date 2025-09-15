@@ -1,5 +1,6 @@
 ---
 AllCops:
+    NewCops: enable
     Include:
         - '**/*.glug'
 
@@ -25,3 +26,6 @@ Metrics/BlockLength:
 Naming/VariableNumber:
     Enabled: true
     EnforcedStyle: snake_case
+
+Lint/AmbiguousOperatorPrecedence:
+    Enabled: false

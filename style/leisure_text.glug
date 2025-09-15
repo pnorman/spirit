@@ -1,4 +1,4 @@
-layer(:leisure_names, source: :spirit, source_layer: :"leisure-names") {
+layer(:leisure_names, source: :spirit, source_layer: :'leisure-names') {
   filter way_area >= (1500 * 6_126_430_366.1 * 0.25**zoom)
 
   symbol_placement :point

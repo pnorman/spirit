@@ -2,7 +2,7 @@ layer(:water, source: :spirit, source_layer: :water) {
   fill_color '#4cb7e1' # lch(70,35,240)
 }
 
-layer(:water_lines, source: :spirit, source_layer: :"water-lines") {
+layer(:water_lines, source: :spirit, source_layer: :'water-lines') {
   line_color '#4cb7e1' # lch(70,35,240)
   line_width interpolate([:exponential, 1.35], zoom,
     8, match(waterway,

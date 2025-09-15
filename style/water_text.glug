@@ -1,4 +1,4 @@
-layer(:water_line_text, zoom: 12..20, source: :spirit, source_layer: :"water-lines") {
+layer(:water_line_text, zoom: 12..20, source: :spirit, source_layer: :'water-lines') {
   # TODO: Move filter expression from water-line-text to data source
   symbol_placement :line
   symbol_spacing 400
@@ -29,7 +29,7 @@ layer(:water_line_text, zoom: 12..20, source: :spirit, source_layer: :"water-lin
   text_halo_color '#e7f2f9' # lch(95,5,240)
 }
 
-layer(:water_names, source: :spirit, source_layer: :"water-names") {
+layer(:water_names, source: :spirit, source_layer: :'water-names') {
   filter way_area >= (750 * 6_126_430_366.1 * 0.25**zoom)
 
   symbol_placement :point
