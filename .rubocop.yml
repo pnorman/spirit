@@ -1,6 +1,7 @@
+---
 AllCops:
-  Include:
-    - '**/*.glug'
+    Include:
+        - '**/*.glug'
 
 Style/FrozenStringLiteralComment:
     Enabled: false
@@ -20,10 +21,6 @@ Style/BlockDelimiters:
 Metrics/BlockLength:
     Enabled: true
     AllowedMethods: ['layer', 'on']
-
-Layout/ArgumentAlignment:
-    Enabled: true
-    EnforcedStyle: with_fixed_indentation
 
 Naming/VariableNumber:
     Enabled: true

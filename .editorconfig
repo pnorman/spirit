@@ -14,5 +14,5 @@ indent_size = 4
 [*.glug]
 indent_size = 2
 
-[*.{sql.jinja2,yaml}]
+[*.sql.jinja2]
 indent_size = 2
