@@ -1,7 +1,7 @@
 GIT
-  remote: https://github.com/pnorman/glug.git
-  revision: 075255cc81b66ea23d1d4727a026d8ddd8921e5d
-  branch: no_refs
+  remote: https://github.com/systemed/glug.git
+  revision: ec0c046a319b0070b008edebe25282b2d32b9bae
+  branch: master
   specs:
     glug (0.0.8)
       chroma
@@ -22,11 +22,11 @@ GEM
     parser (3.3.9.0)
       ast (~> 2.4.1)
       racc
-    prism (1.4.0)
+    prism (1.5.1)
     racc (1.8.1)
     rainbow (3.1.1)
-    regexp_parser (2.10.0)
-    rubocop (1.79.1)
+    regexp_parser (2.11.2)
+    rubocop (1.80.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -41,9 +41,9 @@ GEM
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     ruby-progressbar (1.13.0)
-    unicode-display_width (3.1.4)
-      unicode-emoji (~> 4.0, >= 4.0.4)
-    unicode-emoji (4.0.4)
+    unicode-display_width (3.2.0)
+      unicode-emoji (~> 4.1)
+    unicode-emoji (4.1.0)
 
 PLATFORMS
   ruby
