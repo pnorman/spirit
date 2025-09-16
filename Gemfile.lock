@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/systemed/glug.git
-  revision: ec0c046a319b0070b008edebe25282b2d32b9bae
+  revision: f878b34ad99bcf31009259efddcfff0afe9d0dd3
   branch: master
   specs:
     glug (0.0.8)
@@ -25,7 +25,7 @@ GEM
     prism (1.5.1)
     racc (1.8.1)
     rainbow (3.1.1)
-    regexp_parser (2.11.2)
+    regexp_parser (2.11.3)
     rubocop (1.80.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
