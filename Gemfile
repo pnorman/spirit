@@ -2,5 +2,5 @@
 
 source "https://rubygems.org"
 
-gem 'glug', '>= 0.0.9'
+gem 'glug', git: 'https://github.com/systemed/glug.git', branch: 'master'
 gem 'rubocop', require: false
