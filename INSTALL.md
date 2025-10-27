@@ -1,5 +1,6 @@
 # Install
-* These install instructions are for Street Spirit, not the [Shortbread Tile generation](INSTALL.shortbread.md). *
+> [!IMPORTANT]
+> These install instructions are for Street Spirit, not the [Shortbread Tile generation](INSTALL.shortbread.md).
 
 ## Requirements
 
@@ -16,8 +17,8 @@
 Install tilekiln into a Python virtualenv with
 
 ```sh
-python3 -m venv venv
-venv/bin/pip install tilekiln
+python3 -m venv tilekiln
+tilekiln/bin/pip install tilekiln
 ```
 
 ### Themepark
@@ -73,7 +74,7 @@ The script downloads shapefiles, loads them into the database and sets up the ta
 Once tilekiln is installed, run it in development mode with
 
 ```sh
-venv/bin/tilekiln serve dev --config shortbread.yaml --source-dbname spirit
+tilekiln/bin/tilekiln serve dev --config spirit.yaml --source-dbname spirit
 ```
 
 To create shortbread tiles, instead use ``--config spirit.yaml``. If only creating shortbread tiles you do not need to serve sprites or view the style.
