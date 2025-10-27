@@ -18,7 +18,7 @@
 # odd when zooming in and out.
 
 layer(:road_base_casing, source: :spirit, source_layer: :roads) {
-  filter highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+  filter highway.in('motorway', 'trunk', 'primary', 'secondary', 'tertiary',
     'unclassified', 'residential', 'living_street') |
          # Service highways need to be filtered client-side since they're all from overzoomed 14 tiles
          ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15))) |
@@ -29,7 +29,7 @@ layer(:road_base_casing, source: :spirit, source_layer: :roads) {
   line_cap :round
 
   line_color match(highway,
-    :motorway, '#b40017', # lch(35,80,30)
+    'motorway', '#b40017', # lch(35,80,30)
     'trunk', '#bd5c00', # lch(50,70,60)
     'primary', '#bd5c00', # lch(50,70,60)
     'secondary', '#c9952c', # lch(65,60,80)
@@ -43,7 +43,7 @@ layer(:road_base_casing, source: :spirit, source_layer: :roads) {
     :red)
   line_width interpolate([:exponential, 1.35], zoom,
     12, match(highway,
-      :motorway, 4,
+      'motorway', 4,
       'trunk', 3.5,
       'primary', 3.5,
       'secondary', 2,
@@ -56,7 +56,7 @@ layer(:road_base_casing, source: :spirit, source_layer: :roads) {
       'cycleway', 0.2,
       1.5),
     20, match(highway,
-      :motorway, 40,
+      'motorway', 40,
       'trunk', 30,
       'primary', 30,
       'secondary', 25,
@@ -75,7 +75,7 @@ layer(:road_base_casing, source: :spirit, source_layer: :roads) {
   }
 }
 layer(:road_base_fill, source: :spirit, source_layer: :roads) {
-  filter highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+  filter highway.in('motorway', 'trunk', 'primary', 'secondary', 'tertiary',
     'unclassified', 'residential', 'living_street') |
          ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15)))
 
@@ -85,7 +85,7 @@ layer(:road_base_fill, source: :spirit, source_layer: :roads) {
 
   line_width interpolate([:exponential, 1.35], zoom,
     12, match(highway,
-      :motorway, 2,
+      'motorway', 2,
       'trunk', 1.5,
       'primary', 1.5,
       'secondary', 1,
@@ -96,7 +96,7 @@ layer(:road_base_fill, source: :spirit, source_layer: :roads) {
       'service', 0.5, # TODO: 0.5 for minor service
       1),
     20, match(highway,
-      :motorway, 25,
+      'motorway', 25,
       'trunk', 20,
       'primary', 20,
       'secondary', 15,
@@ -122,7 +122,7 @@ layer(:road_base_fill, source: :spirit, source_layer: :roads) {
 }
 
 layer(:road_casing, source: :spirit, source_layer: :roads) {
-  filter (highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+  filter (highway.in('motorway', 'trunk', 'primary', 'secondary', 'tertiary',
     'unclassified', 'residential', 'living_street') |
           ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15))) |
           (highway.in('footway', 'cycleway') & (zoom >= 15))) &
@@ -134,7 +134,7 @@ layer(:road_casing, source: :spirit, source_layer: :roads) {
 
   line_width interpolate([:exponential, 1.35], zoom,
     12, match(highway,
-      :motorway, 2,
+      'motorway', 2,
       'trunk', 1.5,
       'primary', 1.5,
       'secondary', 1,
@@ -147,7 +147,7 @@ layer(:road_casing, source: :spirit, source_layer: :roads) {
       'cycleway', 0.2,
       1.5),
     20, match(highway,
-      :motorway, 25,
+      'motorway', 25,
       'trunk', 20,
       'primary', 20,
       'secondary', 15,
@@ -175,7 +175,7 @@ layer(:road_casing, source: :spirit, source_layer: :roads) {
 }
 
 layer(:road_fill, source: :spirit, source_layer: :roads) {
-  filter (highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+  filter (highway.in('motorway', 'trunk', 'primary', 'secondary', 'tertiary',
     'unclassified', 'residential', 'living_street') |
           ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15)))) &
          (_!(tunnel == true) & _!(bridge == true))
@@ -185,7 +185,7 @@ layer(:road_fill, source: :spirit, source_layer: :roads) {
   line_cap :butt
   line_width interpolate([:exponential, 1.35], zoom,
     12, match(highway,
-      :motorway, 2,
+      'motorway', 2,
       'trunk', 1.5,
       'primary', 1.5,
       'secondary', 1,
@@ -196,7 +196,7 @@ layer(:road_fill, source: :spirit, source_layer: :roads) {
       'service', 0.5, # TODO: 0.5 for minor service
       1),
     20, match(highway,
-      :motorway, 25,
+      'motorway', 25,
       'trunk', 20,
       'primary', 20,
       'secondary', 15,
@@ -247,7 +247,7 @@ layer(:rail_fill, source: :spirit, source_layer: :railways) {
 }
 
 layer(:road_bridge_casing, source: :spirit, source_layer: :roads) {
-  filter (highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+  filter (highway.in('motorway', 'trunk', 'primary', 'secondary', 'tertiary',
     'unclassified', 'residential', 'living_street') |
           ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15))) |
           (highway.in('footway', 'cycleway') & (zoom >= 15))) & (bridge == true)
@@ -257,7 +257,7 @@ layer(:road_bridge_casing, source: :spirit, source_layer: :roads) {
   line_cap :butt
   line_width interpolate([:exponential, 1.35], zoom,
     12, match(highway,
-      :motorway, 4,
+      'motorway', 4,
       'trunk', 3.5,
       'primary', 3.5,
       'secondary', 2,
@@ -270,7 +270,7 @@ layer(:road_bridge_casing, source: :spirit, source_layer: :roads) {
       'cycleway', 0.2,
       1.5),
     20, match(highway,
-      :motorway, 40,
+      'motorway', 40,
       'trunk', 30,
       'primary', 30,
       'secondary', 25,
@@ -286,7 +286,7 @@ layer(:road_bridge_casing, source: :spirit, source_layer: :roads) {
 }
 
 layer(:road_bridge_fill, source: :spirit, source_layer: :roads) {
-  filter (highway.in(:motorway, 'trunk', 'primary', 'secondary', 'tertiary',
+  filter (highway.in('motorway', 'trunk', 'primary', 'secondary', 'tertiary',
     'unclassified', 'residential', 'living_street') |
           ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15)))) & (bridge == true)
 
@@ -296,7 +296,7 @@ layer(:road_bridge_fill, source: :spirit, source_layer: :roads) {
 
   line_width interpolate([:exponential, 1.35], zoom,
     12, match(highway,
-      :motorway, 2,
+      'motorway', 2,
       'trunk', 1.5,
       'primary', 1.5,
       'secondary', 1,
@@ -307,7 +307,7 @@ layer(:road_bridge_fill, source: :spirit, source_layer: :roads) {
       'service', 0.5, # TODO: 0.5 for minor service
       1),
     20, match(highway,
-      :motorway, 25,
+      'motorway', 25,
       'trunk', 20,
       'primary', 20,
       'secondary', 15,

@@ -45,7 +45,10 @@ TODO: This will change to a special debugging color that can be switched between
 
 Use underscores for names of layers, fields, and other names in the style. Don't use "-" as it requries special quoting sometimes.
 
-Layers for labeling should end with "_text". The value might not always be a name, so don't use "_names".
+Layers for labeling should end with the geometry type, i.e. `_line` or `_point`. The value might not always be a name, so don't use "_names". TODO: Not fully implemented
+
+### Constants
+For values coming from OSM tagging, wrap them in single quotations, e.g. `'motorway'` not `:motorway` or `"motorway"`. Constants coming from the MapLibre Style Language or Glug should use Ruby's `:` notation, e.g. `:exponential` instead of `'exponential'`.
 
 ## Icons
 
@@ -56,7 +59,7 @@ Layers for labeling should end with "_text". The value might not always be a nam
 
 ## Colours
 
-Work out colours in the LCH colour space, because RGB and other non-perceptual colourspaces are hard to reason about.
+Work out colours in the LCH colour space, because RGB and other non-perceptual colourspaces are hard to reason about. TODO: Add colour functionality to Glug to do this easily.
 
 The [chroma.js documentation](https://gka.github.io/chroma.js/) can function as a colour calculator.
 
