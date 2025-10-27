@@ -24,7 +24,7 @@ layer(:road_base_casing, source: :spirit, source_layer: :roads) {
          ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15))) |
          (highway.in('footway', 'cycleway') & (zoom >= 15))
 
-  line_sort_key z_order + 1000 * layer
+  line_sort_key z_order + 1000 * coalesce(layer, 0)
 
   line_cap :round
 
@@ -79,7 +79,7 @@ layer(:road_base_fill, source: :spirit, source_layer: :roads) {
     'unclassified', 'residential', 'living_street') |
          ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15)))
 
-  line_sort_key z_order + 1000 * layer
+  line_sort_key z_order + 1000 * coalesce(layer, 0)
 
   line_cap :butt
 
@@ -128,7 +128,7 @@ layer(:road_casing, source: :spirit, source_layer: :roads) {
           (highway.in('footway', 'cycleway') & (zoom >= 15))) &
          (_!(tunnel == true) & _!(bridge == true))
 
-  line_sort_key z_order + 1000 * layer
+  line_sort_key z_order + 1000 * coalesce(layer, 0)
 
   line_cap :butt
 
@@ -180,7 +180,7 @@ layer(:road_fill, source: :spirit, source_layer: :roads) {
           ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15)))) &
          (_!(tunnel == true) & _!(bridge == true))
 
-  line_sort_key z_order + 1000 * layer
+  line_sort_key z_order + 1000 * coalesce(layer, 0)
 
   line_cap :butt
   line_width interpolate([:exponential, 1.35], zoom,
@@ -224,7 +224,7 @@ layer(:road_fill, source: :spirit, source_layer: :roads) {
 layer(:rail_casing, source: :spirit, source_layer: :railways) {
   filter (railway == 'rail') & (_!(tunnel == true) & _!(bridge == true))
 
-  line_sort_key case_when(minor, 0, 10) + 1000 * layer
+  line_sort_key case_when(minor, 0, 10) + 1000 * coalesce(layer, 0)
 
   line_color case_when(minor, '#aaa', '#5e5e5e')
   line_width interpolate([:exponential, 1.35], zoom,
@@ -236,7 +236,7 @@ layer(:rail_casing, source: :spirit, source_layer: :railways) {
 layer(:rail_fill, source: :spirit, source_layer: :railways) {
   filter (railway == 'rail') & (_!(tunnel == true) & _!(bridge == true))
 
-  line_sort_key z_order + 1000 * layer
+  line_sort_key z_order + 1000 * coalesce(layer, 0)
 
   line_dasharray 3, 3
   line_color :white
@@ -252,7 +252,7 @@ layer(:road_bridge_casing, source: :spirit, source_layer: :roads) {
           ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15))) |
           (highway.in('footway', 'cycleway') & (zoom >= 15))) & (bridge == true)
 
-  line_sort_key z_order + 1000 * layer
+  line_sort_key z_order + 1000 * coalesce(layer, 0)
 
   line_cap :butt
   line_width interpolate([:exponential, 1.35], zoom,
@@ -290,7 +290,7 @@ layer(:road_bridge_fill, source: :spirit, source_layer: :roads) {
     'unclassified', 'residential', 'living_street') |
           ((highway == 'service') & (((minor == nil) & (zoom >= 14)) | (zoom >= 15)))) & (bridge == true)
 
-  line_sort_key z_order + 1000 * layer
+  line_sort_key z_order + 1000 * coalesce(layer, 0)
 
   line_cap :butt
 
@@ -335,7 +335,7 @@ layer(:road_bridge_fill, source: :spirit, source_layer: :roads) {
 layer(:rail_bridge_outer_casing, source: :spirit, source_layer: :railways) {
   filter (railway == 'rail') & (bridge == true)
 
-  line_sort_key case_when(minor, 0, 10) + 1000 * layer
+  line_sort_key case_when(minor, 0, 10) + 1000 * coalesce(layer, 0)
 
   line_color :black
   line_width interpolate([:exponential, 1.35], zoom,
@@ -347,7 +347,7 @@ layer(:rail_bridge_outer_casing, source: :spirit, source_layer: :railways) {
 layer(:rail_bridge_casing, source: :spirit, source_layer: :railways) {
   filter (railway == 'rail') & (bridge == true)
 
-  line_sort_key case_when(minor, 0, 10) + 1000 * layer
+  line_sort_key case_when(minor, 0, 10) + 1000 * coalesce(layer, 0)
 
   line_color case_when(minor, '#aaa', '#5e5e5e')
   line_width interpolate([:exponential, 1.35], zoom,
@@ -359,7 +359,7 @@ layer(:rail_bridge_casing, source: :spirit, source_layer: :railways) {
 layer(:rail_bridge_fill, source: :spirit, source_layer: :railways) {
   filter (railway == 'rail') & (bridge == true)
 
-  line_sort_key case_when(minor, 0, 10) + 1000 * layer
+  line_sort_key case_when(minor, 0, 10) + 1000 * coalesce(layer, 0)
 
   line_dasharray [3, 3]
   line_color :white
