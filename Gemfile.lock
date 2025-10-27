@@ -1,32 +1,26 @@
-GIT
-  remote: https://github.com/systemed/glug.git
-  revision: f878b34ad99bcf31009259efddcfff0afe9d0dd3
-  branch: master
-  specs:
-    glug (0.0.8)
-      chroma
-      hsluv
-      neatjson
-
 GEM
   remote: https://rubygems.org/
   specs:
     ast (2.4.3)
     chroma (0.2.0)
+    glug (0.0.9)
+      chroma
+      hsluv
+      neatjson
     hsluv (1.0.2)
-    json (2.13.2)
+    json (2.15.2)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     neatjson (0.10.5)
     parallel (1.27.0)
-    parser (3.3.9.0)
+    parser (3.3.10.0)
       ast (~> 2.4.1)
       racc
-    prism (1.5.1)
+    prism (1.6.0)
     racc (1.8.1)
     rainbow (3.1.1)
     regexp_parser (2.11.3)
-    rubocop (1.80.2)
+    rubocop (1.81.6)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -34,10 +28,10 @@ GEM
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.46.0, < 2.0)
+      rubocop-ast (>= 1.47.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.46.0)
+    rubocop-ast (1.47.1)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     ruby-progressbar (1.13.0)
@@ -50,7 +44,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  glug!
+  glug (>= 0.0.9)
   rubocop
 
 BUNDLED WITH
