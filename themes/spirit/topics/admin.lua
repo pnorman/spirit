@@ -6,6 +6,7 @@
 -- ---------------------------------------------------------------------------
 
 local themepark, theme, cfg = ...
+local common = require('themes.spirit.common')
 
 --- Normalizes admin_level tags
 -- @param v The admin_level tag value
@@ -25,7 +26,7 @@ themepark:add_table{
     ids_type = 'relation',
     geom = 'point', -- the primary geom used is the label, but areas are needed for admin line processing
     columns = themepark:columns({
-        { column = 'name', type = 'text' },
+        { column = 'names', type = 'jsonb' },
         { column = 'admin_level', type = 'smallint'},
         { column = 'way_area', type = 'real' },
         { column = 'area', type = 'geometry'}
@@ -53,7 +54,7 @@ themepark:add_proc('area', function(object, data)
                 area = g,
                 way_area = g:area(),
                 admin_level = admin,
-                name = object.tags.name
+                names = common.get_names(object.tags)
             }
             themepark:add_debug_info(a, object.tags)
             themepark:insert('admin', a)

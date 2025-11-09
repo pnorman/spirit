@@ -15,4 +15,17 @@ local function layer (v)
     return nil
 end
 
-return { contains=contains, layer=layer}
+local DEFAULT_LANGUAGES = { "en", "de" }
+
+--- Returns a function to build a list of names
+local function name_selector (languages)
+    return function (tags)
+        names_found = {name=tags.name}
+        for _, lang in ipairs(languages) do
+            names_found["name_"..lang] = tags["name:"..lang]
+        end
+        return names_found
+    end
+end
+
+return { contains=contains, layer=layer, get_names=name_selector(DEFAULT_LANGUAGES)}

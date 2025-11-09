@@ -7,12 +7,14 @@
 
 local themepark, theme, cfg = ...
 local expire = require('expire')
+local common = require('themes.spirit.common')
 
 themepark:add_table{
     name = 'boundary_labels',
     ids_type = 'relation',
     geom = 'point',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'admin_level', type = 'int' },
         { column = 'way_area', type = 'real' },
         { column = 'minzoom', type = 'int', tiles = 'minzoom' },
@@ -37,9 +39,8 @@ themepark:add_proc('relation', function(object, data)
         local mgeom = object:as_multipolygon()
 
         if mgeom then
-            local a = { admin_level = admin_level }
-
-            themepark.themes.core.add_name(a, object)
+            local a = { admin_level = admin_level,
+                        names = common.get_names(object.tags) }
 
             local best_geom
             local best_area = 0

@@ -7,12 +7,14 @@
 
 local themepark, theme, cfg = ...
 local expire = require('expire')
+local common = require('themes.spirit.common')
 
 themepark:add_table{
     name = 'public_transport',
     ids_type = 'any',
     geom = 'point',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'kind', type = 'text', not_null = true },
         { column = 'minzoom', type = 'int', tiles = 'minzoom' }
     }),
@@ -33,7 +35,7 @@ themepark:add_table{
 
 local get_attributes = function(object)
     local t = object.tags
-    local a = {}
+    local a = { names = common.get_names(t) }
 
     if t.aeroway then
         if t.aeroway == 'aerodrome' then
@@ -77,8 +79,6 @@ local get_attributes = function(object)
     else
         return nil
     end
-
-    themepark.themes.core.add_name(a, object)
 
     return a
 end

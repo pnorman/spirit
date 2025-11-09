@@ -7,6 +7,7 @@
 
 local themepark, theme, cfg = ...
 local expire = require('expire')
+local common = require('themes.spirit.common')
 
 -- ---------------------------------------------------------------------------
 
@@ -19,7 +20,8 @@ themepark:add_table{
     name = 'sites',
     ids_type = 'area',
     geom = 'multipolygon',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'kind', type = 'text', not_null = true },
     }),
     tags = {
@@ -43,6 +45,7 @@ local get_amenity_value = osm2pgsql.make_check_values_func(amenity_values)
 themepark:add_proc('area', function(object, data)
     local t = object.tags
     local a = {
+        names = common.get_names(t),
         kind = get_amenity_value(t.amenity)
     }
 
@@ -59,7 +62,6 @@ themepark:add_proc('area', function(object, data)
     end
 
     a.geom = object:as_area()
-    themepark.themes.core.add_name(a, object)
     themepark:insert('sites', a, t)
 end)
 

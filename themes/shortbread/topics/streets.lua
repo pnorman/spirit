@@ -7,6 +7,7 @@
 
 local themepark, theme, cfg = ...
 local expire = require('expire')
+local common = require('themes.spirit.common')
 
 themepark:add_table{
     name = 'street_polygons',
@@ -32,7 +33,8 @@ themepark:add_table{
     name = 'streets_polygons_labels',
     ids_type = 'area',
     geom = 'point',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'kind', type = 'text', not_null = true },
     }),
     tiles = {
@@ -45,7 +47,8 @@ themepark:add_table{
     name = 'street_labels_points',
     ids_type = 'node',
     geom = 'point',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'kind', type = 'text' },
         { column = 'ref', type = 'text' },
     }),
@@ -141,11 +144,11 @@ themepark:add_proc('node', function(object, data)
 
     if t.highway and t.highway == 'motorway_junction' then
         local a = {
+            names = common.get_names(t),
             kind = t.highway,
             ref = t.ref,
             geom = object:as_point()
         }
-        themepark.themes.core.add_name(a, object)
         themepark:insert('street_labels_points', a, t)
     end
 end)
@@ -156,7 +159,9 @@ local process_as_area = function(object, data)
     end
 
     local t = object.tags
+    local names = common.get_names(t)
     local a = {
+        names = names,
         layer = data.core.layer,
     }
     a.z_order = Z_STEP_PER_LAYER * a.layer
@@ -175,10 +180,9 @@ local process_as_area = function(object, data)
     a.bridge = as_bool(t.bridge)
 
     a.geom = object:as_polygon():transform(3857)
-    local has_name = themepark.themes.core.add_name(a, object)
     themepark:insert('street_polygons', a, t)
 
-    if has_name then
+    if next(names) ~= nil then
         a.geom = a.geom:pole_of_inaccessibility()
         themepark:insert('streets_polygons_labels', a, t)
     end

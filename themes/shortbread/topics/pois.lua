@@ -7,12 +7,14 @@
 
 local themepark, theme, cfg = ...
 local expire = require('expire')
+local common = require('themes.spirit.common')
 
 themepark:add_table{
     name = 'pois',
     ids_type = 'any',
     geom = 'point',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'amenity', type = 'text' },
         { column = 'leisure', type = 'text' },
         { column = 'tourism', type = 'text' },
@@ -145,7 +147,7 @@ end
 
 local get_attributes = function(object)
     local t = object.tags
-    local a = {}
+    local a = { names = common.get_names(t) }
 
     local is_poi = false
     for _, k in ipairs({'amenity', 'leisure', 'tourism', 'shop', 'man_made',
@@ -167,7 +169,6 @@ local get_attributes = function(object)
     a.housename = t['addr:housename']
     a.housenumber = t['addr:housenumber']
 
-    themepark.themes.core.add_name(a, object)
     themepark:add_debug_info(a, t)
 
     return a

@@ -1,6 +1,6 @@
 SELECT
     ST_AsMVTGeom(point, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    name,
+    names,
     landuse,
     way_area
   FROM landuse
