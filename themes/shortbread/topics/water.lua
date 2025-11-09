@@ -7,6 +7,7 @@
 
 local themepark, theme, cfg = ...
 local expire = require('expire')
+local common = require('themes.spirit.common')
 
 -- ---------------------------------------------------------------------------
 
@@ -44,7 +45,8 @@ themepark:add_table{
     name = 'water_area_labels',
     ids_type = 'area',
     geom = 'point',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'kind', type = 'text', not_null = true },
         { column = 'way_area', type = 'real' },
     }),
@@ -85,7 +87,8 @@ themepark:add_table{
     name = 'water_lines_labels',
     ids_type = 'way',
     geom = 'linestring',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'kind', type = 'text', not_null = true },
         { column = 'minzoom', type = 'int', not_null = true },
     }),
@@ -111,7 +114,9 @@ themepark:add_proc('way', function(object, data)
     local t = object.tags
     local waterway = t.waterway
     if check_waterway(waterway) then
+        local names = common.get_names(t)
         local a = {
+            names = names,
             kind = waterway,
             geom = object:as_linestring(),
             layer = data.core.layer,
@@ -132,7 +137,7 @@ themepark:add_proc('way', function(object, data)
         themepark:add_debug_info(a, t)
         themepark:insert('water_lines', a)
 
-        if themepark.themes.core.add_name(a, object) then
+        if next(names) ~= nil then
             themepark:insert('water_lines_labels', a)
         end
     end
@@ -140,6 +145,7 @@ end)
 
 themepark:add_proc('area', function(object, data)
     local t = object.tags
+    local names = common.get_names(t)
     local kind
 
     if t.natural == 'glacier' then
@@ -164,13 +170,14 @@ themepark:add_proc('area', function(object, data)
 
     local g = object:as_area():transform(3857)
     local a = {
+        names = names,
         kind = kind,
         way_area = round(g:area()),
         geom = g
     }
     themepark:insert('water_areas', a)
 
-    if themepark.themes.core.add_name(a, object) then
+    if next(names) ~= nil then
         a.geom = g:pole_of_inaccessibility()
         themepark:insert('water_area_labels', a)
     end

@@ -15,7 +15,7 @@ themepark:add_table{
     geom = 'linestring',
     columns = themepark:columns({
         { column = 'railway', type = 'text' },
-        { column = 'name', type = 'text' },
+        { column = 'names', type = 'json' },
         { column = 'ref', type = 'text' },
         { column = 'minor', type = 'boolean' },
         { column = 'bridge', type = 'boolean' },
@@ -41,7 +41,7 @@ local ssy = {'spur', 'siding', 'yard'}
 themepark:add_proc('way', function(object, data)
     local z = z_order[object.tags.railway]
     if z then
-        local a = { name = object.tags.name,
+        local a = { names = common.get_names(object.tags),
                     ref = object.tags.ref,
                     railway = object.tags.railway,
                     service = object.tags.service,

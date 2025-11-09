@@ -1,7 +1,7 @@
 WITH transit_normalized AS (
   SELECT
     geom,
-    name,
+    names,
     station,
     mode
   FROM transit
@@ -19,7 +19,7 @@ WITH transit_normalized AS (
 )
 SELECT
     ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    name,
+    names,
     station,
     mode
   FROM transit_normalized

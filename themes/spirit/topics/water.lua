@@ -14,7 +14,7 @@ themepark:add_table{
     ids_type = 'area',
     geom = 'multipolygon',
     columns = themepark:columns({
-        { column = 'name', type = 'text' },
+        { column = 'names', type = 'jsonb' },
         { column = 'way_area', type = 'real' },
         { column = 'point', type = 'point' },
     }),
@@ -28,7 +28,7 @@ themepark:add_table{
     ids_type = 'way',
     geom = 'linestring',
     columns = themepark:columns({
-        { column = 'name', type = 'text' },
+        { column = 'names', type = 'jsonb' },
         { column = 'waterway', type = 'text' },
     }),
 }
@@ -37,10 +37,10 @@ themepark:add_proc('area', function(object, data)
     if (object.tags.natural == 'water' or object.tags.waterway == 'dock' or object.tags.waterway == 'basin' or object.tags.waterway == 'reservoir')
         then
         local g_transform = object:as_area():transform(3857)
-        local name = object.tags.name
-        local a = { name = name, way_area = g_transform:area(), geom = g_transform }
+        local names = common.get_names(object.tags)
+        local a = { names = names, way_area = g_transform:area(), geom = g_transform }
         -- Only add points for water areas that need labels
-        if name then
+        if next(names) ~= nil then
             a.point = g_transform:pole_of_inaccessibility()
         end
         themepark:add_debug_info(a, object.tags)
@@ -55,7 +55,8 @@ themepark:add_proc('way', function(object, data)
         or object.tags.waterway == 'drain'
         or object.tags.waterway == 'ditch'
     ) then
-        local a = { name = object.tags.name, waterway = object.tags.waterway,
+        local a = { names = common.get_names(object.tags),
+                    waterway = object.tags.waterway,
                     geom = object:as_linestring() }
         themepark:add_debug_info(a, object.tags)
         themepark:insert('waterways', a)

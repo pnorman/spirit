@@ -1,8 +1,9 @@
 SELECT
     ST_AsMVTGeom(point, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    name,
+    names,
     way_area
   FROM water
   WHERE point && {{bbox}}
     AND way_area > 16 * {{coordinate_area}}
+    AND names IS NOT NULL
   ORDER BY way_area DESC

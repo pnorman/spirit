@@ -14,7 +14,7 @@ themepark:add_table{
     ids_type = 'any',
     geom = 'multipolygon',
     columns = themepark:columns({
-        { column = 'name', type = 'text' },
+        { column = 'names', type = 'jsonb' },
         { column = 'food', type = 'text' },
         { column = 'way_area', type = 'real' },
         { column = 'point', type = 'point' },
@@ -30,7 +30,7 @@ themepark:add_proc('node', function(object, data)
     if object.tags.amenity and common.contains(amenities, object.tags.amenity) then
         local a = {
             point = object:as_point(),
-            name = object.tags.name,
+            names = common.get_names(object.tags),
             food = object.tags.amenity }
         themepark:add_debug_info(a, object.tags)
         themepark:insert('food', a)
@@ -44,7 +44,7 @@ themepark:add_proc('area', function(object, data)
             geom = g_transform,
             point = g_transform:pole_of_inaccessibility(),
             way_area = g_transform:area(),
-            name = object.tags.name,
+            names = common.get_names(object.tags),
             food = object.tags.amenity }
         themepark:add_debug_info(a, object.tags)
         themepark:insert('food', a)

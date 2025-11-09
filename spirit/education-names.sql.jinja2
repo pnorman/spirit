@@ -1,7 +1,7 @@
 SELECT
     ST_AsMVTGeom(point, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    name,
+    names,
     education,
     way_area
   FROM education
-  WHERE point && {{bbox}} AND name IS NOT NULL
+  WHERE point && {{bbox}} AND names IS NOT NULL

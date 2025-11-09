@@ -1,7 +1,7 @@
 WITH all_roads AS (
 SELECT
     CASE WHEN oneway = '-1' THEN ST_Reverse(geom) ELSE geom END AS geom,
-    name,
+    names,
     ref,
     CASE -- normalize highway values
       WHEN highway IN ('motorway', 'motorway_link') THEN 'motorway'
@@ -44,13 +44,13 @@ SELECT
     geom,
 {# Omitting name and ref from small roads allows for better merging and smaller tiles #}
 {% if zoom <= 11 %}
-    CASE WHEN highway IN ('motorway', 'trunk', 'primary', 'secondary') THEN name END AS name,
+    CASE WHEN highway IN ('motorway', 'trunk', 'primary', 'secondary') THEN names END AS names,
     CASE WHEN highway IN ('motorway', 'trunk', 'primary', 'secondary') THEN COALESCE(route_ref, ref) END AS ref,
 {% elif zoom <= 12 %}
-    CASE WHEN highway IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary') THEN name END AS name,
+    CASE WHEN highway IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary') THEN names END AS names,
     CASE WHEN highway IN ('motorway', 'trunk', 'primary', 'secondary', 'tertiary') THEN COALESCE(route_ref, ref) END AS ref,
 {% else %}
-    name,
+    names,
     COALESCE(route_ref, ref) AS ref,
 {% endif %}
     highway,
@@ -65,7 +65,7 @@ SELECT
 ), oneway_roads AS (
 SELECT
     geom, -- linemerge with geos 3.11+ when we require it
-    name,
+    names,
     highway,
     link,
     minor,
@@ -80,7 +80,7 @@ SELECT
 ), other_roads AS (
 SELECT
     ST_LineMerge(ST_Collect(geom)) AS geom,
-    name,
+    names,
     highway,
     link,
     minor,
@@ -92,18 +92,18 @@ SELECT
     z_order
   FROM reffed_roads
   WHERE oneway IS DISTINCT FROM 'yes'
-  GROUP BY name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
+  GROUP BY names, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
 ), grouped_roads AS (
 SELECT
-    geom, name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
+    geom, names, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
   FROM oneway_roads
 UNION ALL
 SELECT
-    (ST_Dump(geom)).geom AS way, name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
+    (ST_Dump(geom)).geom AS way, names, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
   FROM other_roads
 )
 SELECT
     ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
+    names, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
 FROM grouped_roads
 ORDER BY z_order

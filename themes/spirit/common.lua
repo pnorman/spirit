@@ -65,5 +65,75 @@ local function access (tags)
     end
 end
 
+local DEFAULT_LANGUAGES = {
+    ["ar"] = true,
+    ["be"] = true,
+    ["be-tarask"] = true,
+    ["br"] = true,
+    ["ca"] = true,
+    ["cs"] = true,
+    ["de"] = true,
+    ["el"] = true,
+    ["en"] = true,
+    ["es"] = true,
+    ["eu"] = true,
+    ["fa"] = true,
+    ["fi"] = true,
+    ["fr"] = true,
+    ["ga"] = true,
+    ["he"] = true,
+    ["hi"] = true,
+    ["hu"] = true,
+    ["hy"] = true,
+    ["id"] = true,
+    ["it"] = true,
+    ["ja"] = true,
+    ["ja-Hira"] = true,
+    ["ja-Latn"] = true,
+    ["ka"] = true,
+    ["kk"] = true,
+    ["kn"] = true,
+    ["ko"] = true,
+    ["ko-Hani"] = true,
+    ["ko-Latn"] = true,
+    ["lt"] = true,
+    ["mi"] = true,
+    ["ml"] = true,
+    ["ms"] = true,
+    ["my"] = true,
+    ["nan"] = true,
+    ["nl"] = true,
+    ["oc"] = true,
+    ["pl"] = true,
+    ["pt"] = true,
+    ["ro"] = true,
+    ["ru"] = true,
+    ["sr"] = true,
+    ["sr-Latn"] = true,
+    ["sv"] = true,
+    ["th"] = true,
+    ["uk"] = true,
+    ["ur"] = true,
+    ["zh"] = true,
+    ["zh-Hans"] = true,
+    ["zh-Hant"] = true,
+    ["zh-Latn-pinyin"] = true,
+}
 
-return { contains=contains, layer=layer, mergeList=mergeList, access=access}
+--- Returns a function to build a list of names
+local function name_selector (languages)
+    return function (tags)
+        local names_found = {name=tags.name}
+        for k, v in pairs(tags) do
+            if string.sub(k, 1, 5) == "name:" then
+                local lang = string.sub(k, 6)
+                if languages[lang] then
+                    names_found["name_"..lang] = v
+                end
+            end
+        end
+        return names_found
+    end
+end
+
+return { contains=contains, layer=layer, mergeList=mergeList, access=access, get_names=name_selector(DEFAULT_LANGUAGES)}

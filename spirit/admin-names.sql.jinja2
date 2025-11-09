@@ -1,10 +1,10 @@
 SELECT
     ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    name,
+    names,
     way_area
   FROM admin
   WHERE geom && {{bbox}}
-    AND name IS NOT NULL
+    AND names IS NOT NULL
     AND way_area > 0.25 * {{tile_area}}
 {% if zoom <= 5 %}
   AND admin_level IN (2)

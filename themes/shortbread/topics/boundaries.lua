@@ -7,12 +7,14 @@
 
 local themepark, theme, cfg = ...
 local expire = require('expire')
+local common = require('themes.spirit.common')
 
 themepark:add_table{
     name = 'boundaries',
     ids_type = 'way',
     geom = 'linestring',
     columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'admin_level', type = 'int', not_null = true },
         { column = 'maritime', type = 'bool' },
         { column = 'disputed', type = 'bool' },
@@ -78,12 +80,12 @@ themepark:add_proc('way', function(object, data)
         return
     end
     local a = {
+        names = common.get_names(t),
         admin_level = info.admin_level,
         maritime = (t.maritime and (t.maritime == 'yes' or t.natural == 'coastline')),
         disputed = info.disputed or (t.disputed and t.disputed == 'yes'),
         geom = object:as_linestring()
     }
-    themepark.themes.core.add_name(a, object)
     themepark:insert('boundaries', a, t)
 end)
 

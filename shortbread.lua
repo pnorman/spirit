@@ -19,14 +19,6 @@ end
 -- Tell themepark where the themes are
 themepark:add_theme_dir('themes')
 
-themepark:add_topic('core/name-with-fallback', {
-    keys = {
-        name = { 'name', 'name:en', 'name:de' },
-        name_de = { 'name:de', 'name', 'name:en' },
-        name_en = { 'name:en', 'name', 'name:de' },
-    }
-})
-
 -- --------------------------------------------------------------------------
 
 themepark:add_topic('spirit/buildings')

@@ -14,7 +14,7 @@ themepark:add_table{
     ids_type = 'area',
     geom = 'multipolygon',
     columns = themepark:columns({
-        { column = 'name', type = 'text' },
+        { column = 'names', type = 'jsonb' },
         { column = 'vegetation', type = 'text' },
         { column = 'wetland', type = 'text' },
         { column = 'way_area', type = 'real' },
@@ -46,14 +46,15 @@ themepark:add_proc('area', function(object, data)
 
     if vegetation ~= nil then
         local g_transform = object:as_area():transform(3857)
+        local names = common.get_names(object.tags)
         local a = {
-            name = object.tags.name,
+            names = names,
             vegetation = vegetation,
             wetland = wetland,
             way_area = g_transform:area(),
             geom = g_transform }
 
-        if object.tags.name then
+        if next(names) ~= nil then
             a.point = g_transform:pole_of_inaccessibility()
         end
         themepark:add_debug_info(a, object.tags)
