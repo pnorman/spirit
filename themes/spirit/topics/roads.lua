@@ -15,7 +15,7 @@ themepark:add_table{
     geom = 'linestring',
     columns = themepark:columns({
         { column = 'highway', type = 'text' },
-        { column = 'name', type = 'text' },
+        { column = 'names', type = 'jsonb' },
         { column = 'ref', type = 'text' },
         { column = 'oneway', type = 'text' },
         { column = 'minor', type = 'boolean' },
@@ -90,7 +90,7 @@ themepark:add_proc('way', function(object, data)
                 z = z_order['road']/10
             end
         end
-        local a = { name = object.tags.name,
+        local a = { names = common.get_names(object.tags),
                     highway = object.tags.highway,
                     ref = object.tags.ref,
                     oneway = object.tags.oneway,

@@ -15,7 +15,7 @@ themepark:add_table{
     way_area, 'real',
     geom = 'point',
     columns = themepark:columns({
-        { column = 'name', type = 'text' },
+        { column = 'names', type = 'jsonb' },
         { column = 'station', type = 'boolean' },
         { column = 'mode', type = 'text' },
         { column = 'way_area', type = 'real' },
@@ -50,7 +50,7 @@ themepark:add_proc('node', function(object, data)
             geom = object:as_point(),
             mode = mode,
             station = station,
-            name = object.tags.name }
+            names = common.get_names(object.tags) }
         themepark:add_debug_info(a, object.tags)
         themepark:insert('transit', a)
     end
@@ -83,7 +83,7 @@ themepark:add_proc('area', function(object, data)
             way_area = g:area(),
             mode = mode,
             station = station,
-            name = object.tags.name }
+            names = common.get_names(object.tags) }
         themepark:add_debug_info(a, object.tags)
         themepark:insert('transit', a)
     end

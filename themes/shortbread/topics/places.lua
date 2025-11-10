@@ -7,6 +7,7 @@
 
 local themepark, theme, cfg = ...
 local expire = require('expire')
+local common = require('themes.spirit.common')
 
 -- ---------------------------------------------------------------------------
 
@@ -36,7 +37,8 @@ themepark:add_table{
     name = 'place_labels',
     ids_type = 'any',
     geom = 'point',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'kind', type = 'text', not_null = true },
         { column = 'population', type = 'int', not_null = true },
         { column = 'minzoom', type = 'int', not_null = true, tiles = 'minzoom' },
@@ -92,9 +94,9 @@ themepark:add_proc('node', function(object, data)
         return
     end
 
+    a.names = common.get_names(object.tags)
     a.geom = object:as_point()
 
-    themepark.themes.core.add_name(a, object)
     themepark:insert('place_labels', a, tags)
 end)
 
@@ -104,9 +106,9 @@ themepark:add_proc('area', function(object, data)
         return
     end
 
+    a.names = common.get_names(object.tags)
     a.geom = object:as_area():transform(3857):pole_of_inaccessibility()
 
-    themepark.themes.core.add_name(a, object)
     themepark:insert('place_labels', a, tags)
 end)
 -- ---------------------------------------------------------------------------

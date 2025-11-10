@@ -15,7 +15,7 @@ themepark:add_table{
     way_area, 'real',
     geom = 'point',
     columns = themepark:columns({
-        { column = 'name', type = 'text' },
+        { column = 'names', type = 'jsonb' },
         { column = 'place', type = 'text' },
         { column = 'way_area', type = 'real' },
     }),
@@ -39,7 +39,7 @@ themepark:add_proc('node', function(object, data)
         local a = {
             geom = object:as_point(),
             place = place,
-            name = object.tags.name }
+            names = common.get_names(object.tags) }
         themepark:add_debug_info(a, object.tags)
         themepark:insert('settlements', a)
     end
@@ -65,7 +65,7 @@ themepark:add_proc('area', function(object, data)
             geom = g:pole_of_inaccessibility(),
             way_area = g:area(),
             place = place,
-            name = object.tags.name }
+            names = common.get_names(object.tags) }
         themepark:add_debug_info(a, object.tags)
         themepark:insert('settlements', a)
     end

@@ -2,12 +2,12 @@ WITH road AS (
     SELECT
         geom,
         highway AS kind,
-        name,
+        names,
         ref,
         z_order
     FROM roads
     WHERE geom && {{bbox}}
-        AND (ref IS NOT NULL OR name IS NOT NULL)
+        AND (ref IS NOT NULL OR names IS NOT NULL)
         AND highway IN
 (
 {#
@@ -25,12 +25,12 @@ rail AS (
     SELECT
         geom,
         railway AS kind,
-        NULL AS name, -- TODO: add railway names
+        NULL::jsonb AS names, -- TODO: add railway names
         ref,
         z_order
     FROM railways
     WHERE geom && {{bbox}}
-        AND (ref IS NOT NULL OR name IS NOT NULL)
+        AND (ref IS NOT NULL OR names IS NOT NULL)
         AND railway IN ('rail', 'narrow_gauge', 'tram', 'light_rail', 'funicular', 'subway', 'monorail')
 ),
 {% if zoom >=11 %}
@@ -38,7 +38,7 @@ aeroway AS (
     SELECT
         geom,
         aeroway AS kind,
-        NULL AS name,
+        NULL::jsonb AS names,
         ref,
         CASE WHEN aeroway = 'runway' THEN 510 ELSE 500 END AS z_order
     FROM aeroways
@@ -47,7 +47,7 @@ aeroway AS (
         AND aeroway IN ('runway'{% if zoom >=13 %}, 'taxiway'{% endif %})
 ),
 {% endif %}
-{% set columns = 'kind, name, ref' %}
+{% set columns = 'kind, names, ref' %}
 all_geoms AS (
 SELECT
     geom, {{columns}}, z_order
@@ -67,7 +67,7 @@ merged AS (
     SELECT
         ST_LineMerge(ST_Collect(geom)) AS geom,
         kind,
-        name,
+        names,
         string_to_array(ref, ';') AS refs,
         z_order
     FROM all_geoms
@@ -76,7 +76,7 @@ merged AS (
 SELECT
     ST_AsMVTGeom(ST_Simplify((ST_Dump(geom)).geom, {{ coordinate_length }}), {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
     kind,
-    name,
+    names,
     array_to_string(refs, E'\n') AS ref,
     array_length(refs,1) AS ref_rows,
     (SELECT MAX(char_length(ref)) FROM unnest(refs) AS u(ref)) AS ref_cols

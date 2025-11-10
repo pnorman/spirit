@@ -1,10 +1,9 @@
 SELECT
     ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    name,
+    names,
     place
   FROM settlements
   WHERE geom && {{bbox}}
-    AND name IS NOT NULL
 {% if zoom <= 9 %}
     AND place IN ('city')
 {% elif zoom <= 10 %}

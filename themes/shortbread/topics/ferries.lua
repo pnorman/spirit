@@ -7,12 +7,14 @@
 
 local themepark, theme, cfg = ...
 local expire = require('expire')
+local common = require('themes.spirit.common')
 
 themepark:add_table{
     name = 'ferries',
     ids_type = 'way',
     geom = 'linestring',
-    columns = themepark:columns('core/name', {
+    columns = themepark:columns({
+        { column = 'names', type = 'jsonb' },
         { column = 'kind', type = 'text', not_null = true },
         { column = 'minzoom', type = 'int', tiles = 'minzoom' },
     }),
@@ -34,6 +36,7 @@ themepark:add_proc('way', function(object, data)
     if t.route == 'ferry' then
         local a = {
             kind = 'ferry',
+            names = common.get_names(object.tags),
             geom = object:as_linestring()
         }
 
@@ -43,7 +46,6 @@ themepark:add_proc('way', function(object, data)
             a.minzoom = 12
         end
 
-        themepark.themes.core.add_name(a, object)
         themepark:insert('ferries', a, t)
     end
 end)
