@@ -7,11 +7,14 @@ local function shortbread(minzoom, maxzoom, layer, mode)
     end
     expire[layer] = {}
     for zoom=minzoom, maxzoom do
-        table.insert(expire[layer], {output=osm2pgsql.define_expire_output({
-            maxzoom = zoom,
-            filename = "z"..zoom.."-"..layer..".txt",
-            mode = mode
-        })})
+        table.insert(expire[layer],
+            {
+                output=osm2pgsql.define_expire_output({
+                    maxzoom = zoom,
+                    filename = "z"..zoom.."-"..layer..".txt"
+                }),
+                mode = mode
+            })
     end
     return expire[layer]
 end

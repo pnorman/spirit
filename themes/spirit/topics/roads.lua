@@ -36,7 +36,9 @@ themepark:add_table{
             where = "highway IN ('motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link')"
         }
     },
-    expire = expire.shortbread(5, 14, 'streets', 'boundary-only')
+    expire = common.mergeList(
+        expire.shortbread(5, 14, 'streets', 'boundary-only'),
+        expire.shortbread(10, 14, 'street_labels', 'boundary-only'))
 }
 
 themepark:add_table{
