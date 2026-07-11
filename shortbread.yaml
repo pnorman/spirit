@@ -148,9 +148,11 @@ vector_layers:
             - minzoom: 7
               maxzoom: 13
               extent: 2048
+              buffer: 8
               file: shortbread/land.sql.jinja2
             - minzoom: 14
               maxzoom: 14
+              buffer: 16
               file: shortbread/land.sql.jinja2
     sites:
         description: This layer is for types of land use that will usually be above the basic land layer, but below buildings.
@@ -216,6 +218,7 @@ vector_layers:
         sql:
             - minzoom: 11
               maxzoom: 14
+              buffer: 16
               file: shortbread/street_polygons.sql.jinja2
     street_labels:
         description: This layer holds street geometries for labelling. It contains their names and reference numbers
@@ -261,6 +264,7 @@ vector_layers:
         sql:
             - minzoom: 12
               maxzoom: 14
+              buffer: 16
               file: shortbread_original/bridges.12-14.sql.jinja2
     aerialways:
         description: Holds aerialways as lines.
@@ -269,6 +273,7 @@ vector_layers:
         sql:
             - minzoom: 12
               maxzoom: 14
+              buffer: 16
               file: shortbread_original/aerialways.12-14.sql.jinja2
     ferries:
         description: Holds line geometries of ferries.
@@ -280,6 +285,7 @@ vector_layers:
         sql:
             - minzoom: 10
               maxzoom: 14
+              buffer: 8
               file: shortbread_original/ferries.10-14.sql.jinja2
 
     # Points of interest
