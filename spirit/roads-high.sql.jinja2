@@ -20,6 +20,9 @@ SELECT
     tunnel,
     bridge,
     layer,
+    CASE WHEN surface IN ('unpaved', 'compacted', 'fine_gravel', 'gravel', 'rock', 'pebblestone',
+                          'ground', 'dirt', 'earth', 'grass', 'mud', 'sand', 'woodchips', 'snow',
+                          'ice', 'salt', 'laterite') THEN true END AS unpaved,
     (SELECT ref FROM road_routes
       WHERE roads.way_id = road_routes.member_id
       ORDER BY cardinality(string_to_array(network, ':')) ASC, char_length(network) ASC, network, road_routes.relation_id
@@ -60,6 +63,7 @@ SELECT
     tunnel,
     bridge,
     layer,
+    unpaved,
     z_order
   FROM all_roads
 ), oneway_roads AS (
@@ -74,6 +78,7 @@ SELECT
     tunnel,
     bridge,
     layer,
+    unpaved,
     z_order
   FROM reffed_roads
   WHERE oneway = 'yes'
@@ -89,21 +94,22 @@ SELECT
     tunnel,
     bridge,
     layer,
+    unpaved,
     z_order
   FROM reffed_roads
   WHERE oneway IS DISTINCT FROM 'yes'
-  GROUP BY name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
+  GROUP BY name, highway, link, minor, ref, oneway, tunnel, bridge, layer, unpaved, z_order
 ), grouped_roads AS (
 SELECT
-    geom, name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
+    geom, name, highway, link, minor, ref, oneway, tunnel, bridge, layer, unpaved, z_order
   FROM oneway_roads
 UNION ALL
 SELECT
-    (ST_Dump(geom)).geom AS way, name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
+    (ST_Dump(geom)).geom AS way, name, highway, link, minor, ref, oneway, tunnel, bridge, layer, unpaved, z_order
   FROM other_roads
 )
 SELECT
     ST_AsMVTGeom(geom, {{unbuffered_bbox}}, {{extent}}, {{buffer}}) AS way,
-    name, highway, link, minor, ref, oneway, tunnel, bridge, layer, z_order
+    name, highway, link, minor, ref, oneway, tunnel, bridge, layer, unpaved, z_order
 FROM grouped_roads
 ORDER BY z_order
