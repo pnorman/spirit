@@ -172,6 +172,10 @@ layer(:road_casing, source: :spirit, source_layer: :roads) {
     'footway', '#696b67', # lch(75,3,130)
     'cycleway', '#696b67', # lch(75,3,130)
     :blue)
+
+  on(unpaved == true) {
+    line_dasharray 2, 2
+  }
 }
 
 layer(:road_fill, source: :spirit, source_layer: :roads) {
