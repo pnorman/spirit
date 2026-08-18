@@ -60,12 +60,12 @@ get_value.amenity = osm2pgsql.make_check_values_func({
     'food_court', 'biergarten', 'shelter', 'car_rental', 'car_wash',
     'car_sharing', 'bicycle_rental', 'vending_machine', 'bank', 'atm',
     'toilets', 'bench', 'drinking_water', 'fountain', 'hunting_stand',
-    'waste_basket', 'place_of_worship', 'playground', 'dog_park'
+    'waste_basket', 'place_of_worship', 'fuel',
 })
 
 get_value.leisure = osm2pgsql.make_check_values_func({
     'sports_centre', 'pitch', 'swimming_pool', 'water_park', 'golf_course',
-    'stadium', 'ice_rink',
+    'stadium', 'ice_rink', 'playground', 'dog_park', 'park',
 })
 
 get_value.tourism = osm2pgsql.make_check_values_func({
