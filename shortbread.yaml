@@ -195,8 +195,10 @@ vector_layers:
             tracktype: value of tracktype=*
             surface: value of surface=*
             service: value of service=*
-            bicycle: value of bicycle=*
-            horse: value of horse=*
+            motorcar: access for motorcars (yes/no/limited)
+            bicycle: access for bicycles (yes/no/limited)
+            foot: access on foot (yes/no/limited)
+            horse: access for horses (yes/no/limited)
         sql:
             - minzoom: 5
               maxzoom: 13

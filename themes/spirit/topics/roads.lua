@@ -26,8 +26,7 @@ themepark:add_table{
         { column = 'tracktype', type = 'text' },
         { column = 'surface', type = 'text' },
         { column = 'service', type = 'text' },
-        { column = 'bicycle', type = 'text' },
-        { column = 'horse', type = 'text' }
+        { column = 'access', type = 'jsonb' }
     }),
     indexes = {
         {
@@ -99,8 +98,7 @@ themepark:add_proc('way', function(object, data)
                     tracktype = object.tags.oneway,
                     surface = object.tags.surface,
                     service = object.tags.service,
-                    bicycle = object.tags.bicycle,
-                    horse = object.tags.horse,
+                    access = common.access(object.tags),
                     layer = common.layer(object.tags.layer),
                     z_order = z,
                     geom = object:as_linestring() }

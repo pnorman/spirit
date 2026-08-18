@@ -18,8 +18,7 @@ WITH road AS (
         tracktype,
         surface,
         service,
-        bicycle,
-        horse,
+        access,
         z_order
     FROM roads
     WHERE geom && {{bbox}}
@@ -51,8 +50,7 @@ rail AS (
         false AS oneway_reverse,
         NULL as tracktype,
         service,
-        NULL AS bicycle,
-        NULL AS horse,
+        NULL::jsonb AS access,
         z_order
     FROM railways
     WHERE geom && {{bbox}}
@@ -76,8 +74,7 @@ aeroway AS (
         false AS oneway_reverse,
         NULL as tracktype,
         NULL AS service,
-        NULL AS bicycle,
-        NULL AS horse,
+        NULL::jsonb AS access,
         CASE WHEN aeroway = 'runway' THEN 510 ELSE 500 END AS z_order
     FROM aeroways
     WHERE geom && {{bbox}}
@@ -85,9 +82,11 @@ aeroway AS (
 ),
 {% endif %}
 {% if zoom >= 14 %}
-{% set columns = 'kind, link, rail, tunnel, bridge, oneway, oneway_reverse, tracktype, service'  %}
+{% set columns = 'kind, link, rail, tunnel, bridge, oneway, oneway_reverse, tracktype, service, access'  %}
+{% elif zoom >= 13 %}
+{% set columns = 'kind, link, rail, tunnel, bridge, tracktype, service, access'  %}
 {% elif zoom >= 11 %}
-{% set columns = 'kind, link, rail, tunnel, bridge, tracktype, service, bicycle, horse' %}
+{% set columns = 'kind, link, rail, tunnel, bridge, tracktype, service' %}
 {% else %} {# zoom >= 5 #}
 {% set columns = 'kind, rail' %}
 {% endif %}

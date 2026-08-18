@@ -32,4 +32,38 @@ local function layer (v)
     return nil
 end
 
-return { contains=contains, layer=layer, mergeList=mergeList }
+local access_mapping = {
+    yes = 'yes',
+    designated = 'yes',
+    permissive = 'yes',
+    customers = 'limited',
+    destination = 'limited',
+    agricultural = 'limited',
+    forestry = 'limited',
+    delivery = 'limited',
+    discouraged = 'limited',
+    permit = 'limited',
+    dismount = 'no',
+    military = 'no',
+    private = 'no',
+    no = 'no'
+}
+
+local function access (tags)
+    local a = {
+        motorcar = access_mapping[tags.motorcar] or access_mapping[tags.motor_vehicle]
+            or access_mapping[tags.vehicle] or access_mapping[tags.access] or nil,
+        bicycle = access_mapping[tags.bicycle] or access_mapping[tags.vehicle] or access_mapping[tags.access] or nil,
+        foot = access_mapping[tags.foot] or access_mapping[tags.access] or nil,
+        horse = access_mapping[tags.horse] or access_mapping[tags.access] or nil
+    }
+
+    if next(a) == nil then
+        return nil
+    else
+        return a
+    end
+end
+
+
+return { contains=contains, layer=layer, mergeList=mergeList, access=access}
